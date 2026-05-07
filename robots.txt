@@ -1,0 +1,5 @@
+# Discourage search engine indexing of this private learning log.
+# This site contains personal release notes and strategic context — not intended for public discovery.
+# Note: this is a request, not enforcement. Well-behaved crawlers (Google, Bing, DuckDuckGo) honor this.
+User-agent: *
+Disallow: /
