@@ -2,7 +2,7 @@
 
 **Purpose:** Running summary of Gee-Code + The Terminal releases, with workflow-specific guidance on what matters most for Edenic, GTEK, and mg mode.
 **Source:** Gee-Code Test iMessage chat (Neil)
-**Updated:** 2026-05-07
+**Updated:** 2026-05-10
 
 ---
 
@@ -10,6 +10,7 @@
 
 | Version | Date | Impact | Theme |
 |---|---|---|---|
+| [Gee-Code v0.61.0 + Terminal v1.33.1 + iOS Pretext](#v0610) | May 9-10, 2026 | 🔴 High | Managed-model entitlements, Discord first-class, CLI marketplace, Bricks 0.5/0.6, outbound voice GA, delegation lifecycle reliability |
 | [Gee-Code v0.60.2 + Terminal v1.32.1](#v0602) | May 7, 2026 | 🟡 Medium | Reliability follow-up: ticket delivery hardening, per-gee bot tokens, CLI registry, iOS share fix |
 | [Gee-Code v0.60.0 + Terminal v1.32.0 + iOS 27](#v0600) | May 5, 2026 | 🔴 High | Ticket-aware execution end-to-end, Slack per-gee identities, outbound phone work ticketable, mobile final-reply push, OpenAI Responses recovery |
 | [Gee-Code v0.59.0 + Terminal v1.31.0 + iOS 0.26](#v0590) | May 3, 2026 | 🔴 High | Durable Events System, Tickets/Intake, Mobile Pretext Alpha, xAI voice, semantic cloud search |
@@ -22,6 +23,81 @@
 | [Gee-Code v0.54.2 + Terminal v1.26.2](#v0542) | Apr 23, 2026 | 🟢 Passive | GPT-5.5 aliases, Pretext polish |
 | [Gee-Code v0.54.1](#v0541) | Apr 23, 2026 | 🟢 Passive | Bug fixes, Telegram fix |
 | [Gee-Code v0.54.0](#v0540) | Apr 22, 2026 | 🟡 Medium | Delegation, Skills system, House voice |
+
+---
+
+<a name="v0610"></a>
+## 🚀 v0.61.0 + Terminal v1.33.1 + iOS Pretext — Entitlements, Discord, CLI Marketplace, Bricks (May 9-10, 2026)
+
+**Requires:** New Gee/T install (1.33.1, **not** 1.33.0 — that build was pulled). Daemon restart. iOS TestFlight Pretext update.
+**Impact level:** 🔴 High
+**Heads-up from Neil (May 9 ~4:30 PM PT):** v1.33.0 was published then immediately flagged 🚨 *"DON'T INSTALL THIS VERSION"* — panels loaded blank on boot (restore-on-boot bug, sessions were fine). All-clear came May 9 ~10:07 PM PT with **v1.33.1**: *"Issue addressed — new version is good to install."*
+
+### Summary
+Big functional release. Managed-model entitlements are enforced at runtime — clamping is no longer a manual user concern; the system grants/enforces per-lane entitlements and refuses to boot lanes on un-entitled models. Discord ships as a first-class user channel (DMs and @-mentions create tickets, dedicated activation lane, wizard connector). The CLI marketplace lands — gees can discover, audit, install, and trust CLIs from the Printing Press Library (~50 tools across travel, commerce, SEO, dev, finance, research). Bricks 0.5/0.6 introduce reusable "Your Software, Your Service" building blocks with intake flow, evolution handoff from Pretext, and live operator surfaces. Outbound phone calls reach GA — Grok Voice 1.5 + GPT Realtime 2 power both inbound and outbound, integrated into the ticket system. Delegation lifecycle is reliable end-to-end. Plus daemon hardening (memory maintenance in subprocess, no more SIGSEGV cascades), per-gee Telegram token scoping, runtime doctor, terminal-state leak fixed.
+
+Neil's framing: *"You no longer need to clamp. Gee can acquire specialized CLIs as a task demands them. The shift is from using someone else's Software-as-a-Service to building Your Software, Your Service."*
+
+### 🎯 Most Impactful For You
+
+1. **No more clamping** — Entitlements enforce model/provider correctness automatically. One less thing to remember; one less way to accidentally burn budget on the wrong model.
+2. **Bricks (0.5 + 0.6)** — Reusable building blocks that turn workflows/data/know-how into Gee-runnable software. NLYM Pay Voucher operator surfaces, Edenic deal trackers, GTEK client dashboards are now natural Bricks candidates. Worth a learning session before standing up the next custom workflow.
+3. **CLI marketplace** — Gees can pull in specialized CLIs (finance, research, productivity, archives) on demand. Audit/install/trust flow stays explicit. Useful as the Edenic and GTEK workflows mature.
+4. **Discord as first-class channel** — DMs and @-mentions create tickets, replies thread correctly. NLYM Discord-first chapters (if any go that route) and Edenic deal rooms can now have a dedicated gee identity.
+5. **Outbound calling GA** — A gee can place a call, talk to a human, and relay the answer back into the ticket. NLYM treasurer outreach, GTEK client check-ins, Edenic LP coordination all become delegated voice work.
+6. **Delegation lifecycle reliability** — `delegation_resolved` emits on timeouts and pre-activation paths; canvas surfaces stop holding stuck input locks. Big quality-of-life for long-running mg workflows.
+7. **Daemon won't die from memory maintenance** — Maintenance runs in a subprocess; SIGSEGV no longer takes down the daemon and websocket. Less mystery downtime.
+
+### What's New
+
+| Feature | What it does | Why it matters |
+|---|---|---|
+| **Managed-model entitlements** | Runtime checks fail closed; lanes refuse to boot on un-entitled models; denials surface as incidents | Clamping is obsolete — system enforces correctness |
+| **Discord first-class channel** | DMs + @-mentions create tickets, dedicated Discord activation lane, wizard connector | Same shape as Slack/Telegram — per-gee or prime-gee patterns supported |
+| **CLI marketplace** | Curated 31-CLI manifest + Printing Press Library (~50 tools), install/audit/trust flow, MCP sidecar registration, native-tool precedence | Active toolbelt is no longer limited to what shipped in the wheel |
+| **Bricks 0.5 + 0.6** | Net-new brick creation with intake flow, "New Brick" file menu entry, authoring handoff, Pretext evolution-handoff gesture | First-class "Your Software, Your Service" primitive |
+| **Outbound phone GA** | Grok Voice 1.5 + GPT Realtime 2 for inbound and outbound; gee-initiated calls are ticket-backed; delegated voice tasks | Calls become tracked work units within long-running objectives |
+| **Memory maintenance subprocess** | SIGSEGV in maintenance no longer takes down daemon + companion WebSocket | Daemon stability up materially |
+| **Autonomous delivery hardening** | Route context preserved, late WIP suppressed after final delivery, delegation lifecycle progress reaches canvas | Final-reply correctness end-to-end |
+| **Per-gee Telegram token scoping** | Generic triggers can't borrow another gee's legacy token; routed cross-gee replies land via the polling owner | Cleaner cross-gee identity boundaries |
+| **Delegation lifecycle reliability** | `delegation_resolved` emits on timeouts and pre-activation paths | Canvas surfaces stop holding stuck input locks |
+| **Credentials guidance pinned** | GetCredential/ListCredentials self-identify as the first stop | Gees stop trying to read encrypted credentials.json directly |
+| **Runtime doctor** | First-run diagnosis is friendlier; pipe-startup handling for non-interactive launches | Lower setup friction |
+| **Terminal-state leak fixed** | Final replies no longer contain internal "current state matches the done-state…" verification text | Cleaner user-facing replies |
+| **Per-lane model selectors autosave** | Clamp/Fallback and per-activation-lane dropdowns persist on change | No more "I thought I saved that" |
+| **Ticket list pagination** | 50-row IntersectionObserver-driven infinite scroll | Busy queues stay responsive |
+| **Pretext link actions** | Link context menu, hit-testable code-block paths/URLs, header display-name toggles, split-open routing | More natural link/file interactions |
+| **Pretext scrollbar draggable + tickets toggle** | Two persistent UI papercuts gone | Smoother day-to-day Pretext use |
+| **Auth status polling faster** | Quieter background work in long-running sessions | Less ambient overhead |
+| **iOS inline media + tappable links** | Generated media renders inline; mobile media + shared Pretext URLs are tappable | No out-of-app round trip on mobile |
+| **iOS streaming steadier** | Improved mobile Pretext streaming behavior | Mobile becomes a reliable secondary surface |
+| **iOS processing pin masking** | Pin's surface fill covers pin band, composer reserve, and bottom chrome reserve | Cleaner mobile transcript |
+| **iOS WIP off reply channel** | Progress no longer leaks into user-visible reply stream on mobile | Mobile final replies stay clean |
+| **Misc papercuts** | Deep memory search restored, PUT API requests preserved, PEP 668 installer fix, secret archives ignored | Quality-of-life |
+
+### New Commands / Capabilities
+
+- **Bricks:** `New Brick` from the Pretext file menu; "evolve this" handoff gesture from any direction in Pretext.
+- **CLI marketplace:** `cli` skill auto-discovered by gees with native-tool precedence; install/audit/trust flow available before execution.
+- **Discord activation lane:** Same shape as Slack/Telegram/SMS in Agents panel; duplicate AutonomyPanel removed.
+- **Outbound voice:** Gee places call → ticket created → ticket tracks call lifecycle → result threaded back.
+
+### ⚠️ Caution
+
+- **DO NOT install Gee/T 1.33.0** — that build was pulled (blank-panel restore-on-boot bug). **Use 1.33.1 or later.** If you somehow installed 1.33.0, panels will load blank but sessions are intact; updating to 1.33.1 fixes it.
+- **Outbound voice still being tuned** — Neil flagged ongoing refinement of barge-in, speaker-turn detection, and background-noise normalization. Use for low-stakes calls first.
+- **Bricks are 0.5/0.6** — first cut. Expect API/UX evolution. Treat early Bricks as throwaway prototypes until 1.0.
+- **CLI marketplace trust is explicit** — discover everything, execute nothing until installed/audited/enabled. Don't approve CLIs reflexively.
+
+### ✅ To Explore
+
+- [ ] Update Gee/T to **1.33.1** (verify with `/version`); restart daemon
+- [ ] Stop manually clamping; verify entitlements enforce on a mode that should reject a non-entitled model
+- [ ] Test Discord connector if relevant (Edenic deal rooms? NLYM chapter coordination?)
+- [ ] Try one Brick — small operator surface for an existing recurring workflow (e.g. NLYM Pay Voucher pilot status panel, Edenic monthly portfolio refresh)
+- [ ] Browse the Printing Press CLI catalog — pick 1-2 tools that map to current work (research, finance, productivity)
+- [ ] Place a low-stakes outbound call to validate voice quality + ticket lifecycle
+- [ ] Confirm canvas surfaces no longer hang waiting for delegation resolution on a timed-out delegate
 
 ---
 
