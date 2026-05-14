@@ -2,7 +2,7 @@
 
 **Purpose:** Running summary of Gee-Code + The Terminal releases, with workflow-specific guidance on what matters most for Edenic, GTEK, and mg mode.
 **Source:** Gee-Code Test iMessage chat (Neil)
-**Updated:** 2026-05-10
+**Updated:** 2026-05-13
 
 ---
 
@@ -10,6 +10,8 @@
 
 | Version | Date | Impact | Theme |
 |---|---|---|---|
+| [GeeCode 1.33.3 + Gee/T 1.62.0](#v1333) | May 12, 2026 (night) | 🔴 High | Long-running tickets adjudicated through completion, **BYOK in Credentials Vault**, new Gee Wizard, OpenClaw robustification, stable panel restoration |
+| [GeeCode + Gee/T patch](#v0610-patch) | May 11, 2026 (night) | 🟡 Medium | Ticketing regression fix; Gee/T spaces disconnect/reconnect fix |
 | [Gee-Code v0.61.0 + Terminal v1.33.1 + iOS Pretext](#v0610) | May 9-10, 2026 | 🔴 High | Managed-model entitlements, Discord first-class, CLI marketplace, Bricks 0.5/0.6, outbound voice GA, delegation lifecycle reliability |
 | [Gee-Code v0.60.2 + Terminal v1.32.1](#v0602) | May 7, 2026 | 🟡 Medium | Reliability follow-up: ticket delivery hardening, per-gee bot tokens, CLI registry, iOS share fix |
 | [Gee-Code v0.60.0 + Terminal v1.32.0 + iOS 27](#v0600) | May 5, 2026 | 🔴 High | Ticket-aware execution end-to-end, Slack per-gee identities, outbound phone work ticketable, mobile final-reply push, OpenAI Responses recovery |
@@ -23,6 +25,75 @@
 | [Gee-Code v0.54.2 + Terminal v1.26.2](#v0542) | Apr 23, 2026 | 🟢 Passive | GPT-5.5 aliases, Pretext polish |
 | [Gee-Code v0.54.1](#v0541) | Apr 23, 2026 | 🟢 Passive | Bug fixes, Telegram fix |
 | [Gee-Code v0.54.0](#v0540) | Apr 22, 2026 | 🟡 Medium | Delegation, Skills system, House voice |
+
+---
+
+<a name="v1333"></a>
+## 🚀 GeeCode 1.33.3 + Gee/T 1.62.0 — Long-Running Tickets, BYOK Vault, Gee Wizard, OpenClaw (May 12, 2026)
+
+**Requires:** New Gee/T install (1.62.0). The Gee/T install should restart the daemon, fetch the new GeeCode, and update. If not: force-restart the daemon and/or fully exit Gee/T and relaunch after the downloader updates it.
+**Impact level:** 🔴 High
+**Posted:** Neil, Gee Test (Core), May 12 ~11:17 PM PT.
+
+> ⚠️ **Version-number sanity check:** Neil's message labels these as "GeeCode (1.33.3) & Gee/T (1.62.0)" — but the prior tracker entry had GeeCode at 0.61.0 and Gee/T at 1.33.1. The "1.33.3" number almost certainly belongs to Gee/T (post-1.33.1), and the GeeCode number is likely a new 0.6x. **Verify with `/version` after install** and correct this entry.
+
+### Summary
+Long-running tickets become first-class lifecycle objects — they can now be handed between Gees and humans and tracked through full adjudication to completion. BYOK (Bring-Your-Own-Key) support lands in the Credentials Vault, with the entitlements system respecting user-supplied keys. A new Gee Wizard ships, hooked into Gees with either a base scaffold or AI-supported creation that detects the system configuration. OpenClaw is robustified — Claws are back and re-mated with Gees. Gee/T finally restores panels stably on reboot and runs more memory-efficiently.
+
+### 🎯 Most Impactful For You
+
+1. **BYOK in Credentials Vault** ⭐ — Mariciel's commercial-terms posture aligns perfectly here. Add the Edenic-account Anthropic API key to the vault and entitlements should respect it for client-sensitive work, rather than routing through managed-model defaults. **This is the feature to test first.**
+2. **Long-running tickets adjudicated through completion** — Gee↔Human/Gee handoff with lifecycle tracking. Directly relevant to NLYM Pay Voucher pilot support workflows, GTEK client deliverables, and any multi-day delegation that previously fell off the canvas.
+3. **New Gee Wizard** — Lower friction for spinning up additional gees as the workload grows (e.g., a dedicated NLYM treasurer gee post-July 1). AI-supported creation that reads system config means less hand-rolled mode.json wiring.
+4. **OpenClaw robustification** — If OpenClaw was on the unstable list, it's worth re-checking integrations.
+5. **Stable panel restoration** — Direct fix for the v1.33.0 blank-panel-on-boot class of bug. Memory efficiency improvements mean longer Gee/T sessions without restart.
+
+### What's New
+
+| Feature | What it does | Why it matters |
+|---|---|---|
+| **Long-running tickets adjudicated through completion** | Tickets can be handed between Gee ↔ Human/Gee; full lifecycle tracking through resolution | Multi-day delegations stop falling off the canvas |
+| **BYOK in Credentials Vault** | Add your own keys to the vault; entitlements system respects them | Commercial-terms work uses *your* API key, not the managed default |
+| **New Gee Wizard** | Hooked into Gees; base scaffold OR AI-supported creation that detects system config | Friction down for adding new gees |
+| **OpenClaw robustification** | Claws "back and happily mated with Gees" | OpenClaw integrations reliable again |
+| **Stable panel restoration on reboot** | Gee/T restores panels correctly; memory-efficient | Direct fix for v1.33.0-class regressions |
+
+### ⚠️ Caution
+
+- **Verify the actual version numbers** with `/version` after install. Neil's labeling appears swapped.
+- **BYOK behavior** — Confirm which lanes/entitlements respect the BYOK and which still go through managed defaults. Test with a non-sensitive call first before routing client work.
+- "Lingering bugs in Gee/T" were mentioned in the May 11 patch note; some may still be present in 1.62.0.
+
+### ✅ To Explore
+
+- [ ] **Test BYOK first** — Add Edenic Anthropic API key to Credentials Vault, run a lane that should pick it up, confirm entitlements route through BYOK (not managed default)
+- [ ] Verify version numbers with `/version`; correct this tracker entry
+- [ ] Place a long-running delegation and confirm it tracks through completion across a Gee↔Human handoff
+- [ ] Try the new Gee Wizard for a small scaffold gee (low-stakes test before NLYM treasurer gee)
+- [ ] Reboot Gee/T and confirm panels restore cleanly
+- [ ] Re-check OpenClaw if previously flaky
+
+---
+
+<a name="v0610-patch"></a>
+## 🩹 GeeCode + Gee/T Patch — Ticketing Regression Fix (May 11, 2026)
+
+**Impact level:** 🟡 Medium (bug fix)
+**Posted:** Neil, Gee Test (Core), May 11 ~11:23 PM PT.
+
+### Summary
+Quick double-fix release. GeeCode patch addresses a regression in the ticketing system. Gee/T patch fixes the issue where spaces were disconnecting/reconnecting or failing to connect. Neil flagged "still some lingering bugs in Gee/T" to be cleaned up the following day — which became the May 12 1.62.0 release.
+
+### What Was Fixed
+
+| Issue | Fix |
+|---|---|
+| Ticketing regression in GeeCode | Resolved in patch |
+| Gee/T spaces disconnect/reconnect or fail to connect | Resolved in patch |
+
+### ⚠️ Caution
+
+- Neil explicitly said lingering Gee/T bugs would land the next day — this patch was a stabilizer, not a stopping point. Move forward to **1.62.0** (May 12 release above).
 
 ---
 
