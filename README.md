@@ -2,7 +2,7 @@
 
 **Purpose:** Running summary of Gee-Code + The Terminal releases, with workflow-specific guidance on what matters most for Edenic, GTEK, and mg mode.
 **Source:** Gee-Code Test iMessage chat (Neil)
-**Updated:** 2026-05-13
+**Updated:** 2026-05-17
 
 ---
 
@@ -10,6 +10,7 @@
 
 | Version | Date | Impact | Theme |
 |---|---|---|---|
+| [GeeCode 0.63.0 + Gee/T 1.34.0](#v0630) | May 17, 2026 (AM) | 🔴 High | **Bricks-owned Bug/Feature intake via GTX**, **Realtime Voice preview** in Pretext, inbound phone improvements (car/transfer), long-running ticket lifecycle fixes (no phantom activations / phantom attachments) — 114 commits |
 | [GeeCode 1.33.3 + Gee/T 1.62.0](#v1333) | May 12, 2026 (night) | 🔴 High | Long-running tickets adjudicated through completion, **BYOK in Credentials Vault**, new Gee Wizard, OpenClaw robustification, stable panel restoration |
 | [GeeCode + Gee/T patch](#v0610-patch) | May 11, 2026 (night) | 🟡 Medium | Ticketing regression fix; Gee/T spaces disconnect/reconnect fix |
 | [Gee-Code v0.61.0 + Terminal v1.33.1 + iOS Pretext](#v0610) | May 9-10, 2026 | 🔴 High | Managed-model entitlements, Discord first-class, CLI marketplace, Bricks 0.5/0.6, outbound voice GA, delegation lifecycle reliability |
@@ -25,6 +26,55 @@
 | [Gee-Code v0.54.2 + Terminal v1.26.2](#v0542) | Apr 23, 2026 | 🟢 Passive | GPT-5.5 aliases, Pretext polish |
 | [Gee-Code v0.54.1](#v0541) | Apr 23, 2026 | 🟢 Passive | Bug fixes, Telegram fix |
 | [Gee-Code v0.54.0](#v0540) | Apr 22, 2026 | 🟡 Medium | Delegation, Skills system, House voice |
+
+---
+
+<a name="v0630"></a>
+## 🚀 GeeCode 0.63.0 + Gee/T 1.34.0 — Bricks-Owned Bug/Feature Intake, Realtime Voice, Phone Improvements, Ticket Lifecycle (May 17, 2026)
+
+**Requires:** New Gee/T install (1.34.0). Standard upgrade flow: Gee/T install restarts daemon, fetches new GeeCode, and updates. Force-restart if needed.
+**Impact level:** 🔴 High (114 commits)
+**Posted:** Neil, Gee Test (Core), May 17 ~9:43 AM PT.
+
+> ⚠️ **Version-number sanity check:** Neil's headline labels these as "GeeCode (1.34.0) & Gee/T (1.63.0)" but the body says "Gee 0.63.0 / Terminal 1.34.0." The body is canonical — SelfStatus on this machine confirms `gee-code v0.63.0`. Same Neil-transposition pattern as the May 12 release. **Trust the body, not the headline.**
+
+### Summary
+The Bug Report and Feature Request system was refactored to use the Bricks framework as an end-to-end test of how a user could build a functioning system from the components. The Brick system now owns Bug & Feature intake: `/br` and `/fr` flow through GTX (Gee Ticket Exchange — a mechanism for tickets to be handed off across IP boundaries) → user's Brick → back to sender. Experimental Realtime Voice preview lands in the Pretext panel (mic button left of `>`); Gee's voice + identity can control the surface. Big improvements in inbound phone calling — works much better on speaker phone in car, can transfer between Gees, voice parameters editable in Activation matrix. Long-running ticket polish: implicit-final closure ends "phantom activations," per-thread artifact ledger ends "phantom attachments." Plus many QoL and bug fixes.
+
+### 🎯 Most Impactful For You
+
+1. **Inbound phone improvements (car / speaker phone / Gee-to-Gee transfer)** ⭐ — Direct fit for Mariciel's actual life: driving Luke, juggling NLYM/Edenic/GTek between school pickup and meetings. Speaker-phone reliability + the ability to transfer between Gees (mg → gtek for a client question, e.g.) turns the phone into a real working surface, not just a dictation channel.
+2. **Realtime Voice preview in Pretext** — Click the mic left of `>` in the Pretext panel. Gee's voice + identity can control the surface. Worth a low-stakes test in mg mode before relying on it for anything billable.
+3. **Long-running ticket lifecycle fixes** — Implicit-final closure removes "phantom activations" (tickets that kept re-firing); per-thread artifact ledger removes "phantom attachments." If you've noticed delegations seemingly re-running or attachments showing up in weird threads, this is the fix.
+4. **Bricks-owned Bug/Feature intake (`/br` / `/fr`)** — Mostly system-internal, but conceptually it's a worked example: a real production system built end-to-end on the Bricks framework. If/when you build your own Brick (e.g., NLYM Pay Voucher surface or a GTek client dashboard), the `/br` `/fr` flow is the canonical reference.
+5. **Activation matrix voice parameters** — Edit voice + style guidance for Phone & Realtime Voice per-Gee. Means mg can sound different from gtek on a phone call without you reconfiguring at runtime.
+
+### What's New
+
+| Feature | What it does | Why it matters |
+|---|---|---|
+| **Bricks-owned Bug/Feature intake** | `/br` and `/fr` flow through GTX (Gee Ticket Exchange) → your Brick → back to sender. End-to-end test of user-buildable systems on the Bricks framework. | Reference implementation for building your own Bricks. Bugs/features now cross IP boundaries cleanly. |
+| **Experimental Realtime Voice preview** | Click the mic in the Pretext panel (left of `>`). Gee's voice + identity can control the surface. | Voice-driven control of Pretext surfaces — early preview, worth testing. |
+| **Inbound phone improvements** | Call the number you text. Much better on speaker phone in car. Can transfer between Gees. | Phone becomes a real working channel for driving / mom-mode. mg ↔ gtek handoffs over a single call. |
+| **Activation-matrix voice parameters** | Edit voice parameters for Phone & Realtime Voice per-Gee (style guidance). | Per-Gee voice + tone tuning. |
+| **Long-running tickets: implicit-final closure** | No more phantom activations after a ticket should have ended. | Delegations stop silently re-firing. |
+| **Per-thread artifact ledger** | Ends "phantom attachments" — attachments stay scoped to the thread they belong to. | Cleaner artifact accounting on multi-Gee work. |
+| **Many QoL + bug fixes** | 114 commits worth. | General reliability lift. |
+
+### ⚠️ Caution
+
+- **Realtime Voice is experimental ("preview")** — Don't put it on a client-facing path until you've tested it on personal/Gee-dev work. Same boundary discipline as the ChatGPT Plus / Codex decision.
+- **Phone transfer between Gees** — Confirm that mg → gtek transfer respects entitlement boundaries. Client-sensitive callers should land on gtek directly, not bounce through mg first.
+- **Headline vs body version numbers** — Use `/version` after upgrade. Trust `0.63.0 / 1.34.0` (body), ignore `1.34.0 / 1.63.0` (headline).
+
+### ✅ To Explore
+
+- [ ] Test inbound phone on speaker phone in car — try a mg ↔ gtek transfer mid-call
+- [ ] Try Realtime Voice preview in Pretext (mic button) on a low-stakes task in mg mode
+- [ ] Edit voice parameters for mg in Activation matrix — confirm mg sounds different from gtek
+- [ ] Trigger a `/br` to see the new GTX flow end-to-end
+- [ ] Verify long-running delegations no longer phantom-activate (rerun a Pay Voucher pilot ticket and watch the activation log)
+- [ ] Confirm `gee-code --version` and Gee/T `/version` both report the canonical numbers
 
 ---
 
