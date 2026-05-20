@@ -10,6 +10,7 @@
 
 | Version | Date | Impact | Theme |
 |---|---|---|---|
+| [Gee-Code 0.64.2](#v0642) | May 20, 2026 (~3:24 PM PT) | 🟡 Medium | Slack semantic outbound route resolution, `SendMessage` gee-identity enforcement fix, **Cursor cloud default → composer-2.5** (surfaces in Gee/T pickers; Neil notes "very cheap" and encouraging in personal tests). |
 | [Gee-Code 0.64.0 + Gee/T 1.35.0](#v0640) | May 19, 2026 (night) | 🔴 High | **Remote Deployments** — Gee-Code can run as a standalone cloud instance (EC2, etc.) and Gee/T connects over SSH as if local. One-click deploy, SSH tunnel management, Pretext Panel remote connect, cloud credential preservation, OAuth on remote. Slack scopes fix, dup credential fix, ticket dispatch fallback-to-API fix for entitled users. |
 | [Gee-Code 0.63.2](#v0632) | May 19, 2026 (mid-day) | 🟡 Medium | **Task* MCP tools** for cross-REPL planning parity (1st-class Task Planning across all REPLs/providers). WIP remote Gee-Code (EC2) prep, better vision for Codex (native `-i`), new XAI aliases (xai-zero, tai, tai-max + reasoning tiers for grok-4.3), ai_pacing tone hardened against doom/gloom, GPT image timeout bump. Deployment-prep release. |
 | [Gee-Code 0.63.1 + Gee/T 1.34.1](#v0631) | May 18, 2026 (night) | 🔴 High | **Ticket assignment control plane** (Pending filter, provenance, caps, scope/trusted-assigners), **short↔long ops unified on tickets**, **messaging tokens in Credentials Vault**, **Realtime Voice as own entitlement** + Live Voice Strip, **Brick supervisor on boot** |
@@ -29,6 +30,43 @@
 | [Gee-Code v0.54.2 + Terminal v1.26.2](#v0542) | Apr 23, 2026 | 🟢 Passive | GPT-5.5 aliases, Pretext polish |
 | [Gee-Code v0.54.1](#v0541) | Apr 23, 2026 | 🟢 Passive | Bug fixes, Telegram fix |
 | [Gee-Code v0.54.0](#v0540) | Apr 22, 2026 | 🟡 Medium | Delegation, Skills system, House voice |
+
+---
+
+<a name="v0642"></a>
+## 🩹 Gee-Code 0.64.2 — Slack Semantic Routes, SendMessage Identity Fix, Cursor Composer-2.5 Default (May 20, 2026 ~3:24 PM PT)
+
+**Requires:** Gee-Code patch only (no Gee/T release noted). Standard upgrade flow.
+**Impact level:** 🟡 Medium
+**Posted:** Neil, Gee Test (Core), May 20 ~3:24 PM PT.
+
+### Summary
+Three things land: (1) **Slack outbound routes now resolve semantically** — message routing in Slack respects intent rather than literal target lookups. (2) **`SendMessage` gee-identity enforcement fix** — the sender identity tied to a gee is now enforced correctly on outbound messages (relevant for the per-gee bot tokens / messaging-tokens-in-vault rework from v0.63.1). (3) **Cursor cloud default model bumped to composer-2.5** and surfaced in Gee/T model pickers. Neil's note: "Composer 2.5 is very cheap and personal tests are pretty encouraging." Farshid replied that 2.0 was "really bad" — so there's a delta worth noticing.
+
+### 🎯 Most Impactful For You
+
+1. **`SendMessage` identity enforcement** ⭐ — Direct relevance to mg's Telegram routing. The mandatory `channel="telegram"` standing order in heartbeat depends on identity being enforced cleanly across the bot token → gee mapping (v0.63.1 vault work). This patch closes a gap there.
+2. **Cursor composer-2.5 default** — If you ever fall back to Cursor for code work, the default model just got cheaper and better. Worth noting for any cost comparison vs. Claude/Opus on routine code tasks.
+3. **Slack semantic routing** — Lower priority for mg today (no live Slack workspace), but matters when GTek or Edenic eventually onboard Slack.
+
+### What's New
+
+| Feature | What it does | Why it matters |
+|---|---|---|
+| **Slack semantic outbound routes** | Routing resolves by intent, not literal name match. | Reduces "wrong channel" misroutes on outbound Slack messages. |
+| **`SendMessage` gee-identity enforcement** | Outbound messages now strictly carry the gee's identity. | Closes a per-gee bot-token enforcement gap from v0.63.1. |
+| **Cursor cloud → composer-2.5** | New default model for Cursor cloud path; appears in Gee/T pickers. | Cheaper + better than composer-2.0 (per Neil + Farshid feedback). |
+
+### ⚠️ Caution
+
+- **No standing-order changes** — The mandatory `channel="telegram"` template in heartbeat rules.md still applies. This patch fixes plumbing; it does NOT change the contract.
+- **Composer-2.5 is new** — Neil's personal tests are "encouraging" but it's not yet battle-tested at scale. Don't switch any production-y workflow off Claude based on this alone.
+
+### ✅ To Explore
+
+- [ ] No action required for mg flow — this lands transparently.
+- [ ] If you ever poke Cursor for a side experiment, composer-2.5 is now the default.
+- [ ] Note for future: SendMessage identity enforcement may surface a previously-silent bug if any mode was sending under a stale identity — watch for any `identity mismatch` errors in delegation/outbound logs.
 
 ---
 
