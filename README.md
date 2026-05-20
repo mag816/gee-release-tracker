@@ -2,7 +2,7 @@
 
 **Purpose:** Running summary of Gee-Code + The Terminal releases, with workflow-specific guidance on what matters most for Edenic, GTEK, and mg mode.
 **Source:** Gee-Code Test iMessage chat (Neil)
-**Updated:** 2026-05-17
+**Updated:** 2026-05-19 (night)
 
 ---
 
@@ -10,6 +10,9 @@
 
 | Version | Date | Impact | Theme |
 |---|---|---|---|
+| [Gee-Code 0.64.0 + Gee/T 1.35.0](#v0640) | May 19, 2026 (night) | 🔴 High | **Remote Deployments** — Gee-Code can run as a standalone cloud instance (EC2, etc.) and Gee/T connects over SSH as if local. One-click deploy, SSH tunnel management, Pretext Panel remote connect, cloud credential preservation, OAuth on remote. Slack scopes fix, dup credential fix, ticket dispatch fallback-to-API fix for entitled users. |
+| [Gee-Code 0.63.2](#v0632) | May 19, 2026 (mid-day) | 🟡 Medium | **Task* MCP tools** for cross-REPL planning parity (1st-class Task Planning across all REPLs/providers). WIP remote Gee-Code (EC2) prep, better vision for Codex (native `-i`), new XAI aliases (xai-zero, tai, tai-max + reasoning tiers for grok-4.3), ai_pacing tone hardened against doom/gloom, GPT image timeout bump. Deployment-prep release. |
+| [Gee-Code 0.63.1 + Gee/T 1.34.1](#v0631) | May 18, 2026 (night) | 🔴 High | **Ticket assignment control plane** (Pending filter, provenance, caps, scope/trusted-assigners), **short↔long ops unified on tickets**, **messaging tokens in Credentials Vault**, **Realtime Voice as own entitlement** + Live Voice Strip, **Brick supervisor on boot** |
 | [GeeCode 0.63.0 + Gee/T 1.34.0](#v0630) | May 17, 2026 (AM) | 🔴 High | **Bricks-owned Bug/Feature intake via GTX**, **Realtime Voice preview** in Pretext, inbound phone improvements (car/transfer), long-running ticket lifecycle fixes (no phantom activations / phantom attachments) — 114 commits |
 | [GeeCode 1.33.3 + Gee/T 1.62.0](#v1333) | May 12, 2026 (night) | 🔴 High | Long-running tickets adjudicated through completion, **BYOK in Credentials Vault**, new Gee Wizard, OpenClaw robustification, stable panel restoration |
 | [GeeCode + Gee/T patch](#v0610-patch) | May 11, 2026 (night) | 🟡 Medium | Ticketing regression fix; Gee/T spaces disconnect/reconnect fix |
@@ -26,6 +29,144 @@
 | [Gee-Code v0.54.2 + Terminal v1.26.2](#v0542) | Apr 23, 2026 | 🟢 Passive | GPT-5.5 aliases, Pretext polish |
 | [Gee-Code v0.54.1](#v0541) | Apr 23, 2026 | 🟢 Passive | Bug fixes, Telegram fix |
 | [Gee-Code v0.54.0](#v0540) | Apr 22, 2026 | 🟡 Medium | Delegation, Skills system, House voice |
+
+---
+
+<a name="v0640"></a>
+## 🚀 Gee-Code 0.64.0 + Gee/T 1.35.0 — Remote Deployments: Gee-Code on EC2, Gee/T SSH-Connect (May 19, 2026 ~10:42 PM PT)
+
+**Requires:** New Gee/T install (1.35.0). Standard upgrade flow: Gee/T install restarts daemon, fetches new Gee-Code, updates. Force-restart if needed.
+**Impact level:** 🔴 High
+**Posted:** Neil, Gee Test (Core), May 19 ~10:42 PM PT.
+
+### Summary
+Gee-Code can now run as a **standalone cloud instance** (EC2 etc.) and Gee/T connects to it over SSH as if local. Five new capabilities: (1) **One-click deploy to new instances**, (2) **SSH tunnel management**, (3) **Pretext Panel connect to remote instances over SSH** (also supports local "remote" instances via the Remote Pretext dropdown), (4) **Cloud credential preservation** — credentials/connectors are now segmented by deployment (local vs. remote), (5) **OAuth support** on remote instances. Bug fixes: Slack scopes update issue resolved, duplicate credential issues fixed, ticket-system dispatch bug fixed (was falling back to API for entitled users — addressed underlying issues too).
+
+### 🎯 Most Impactful For You
+
+1. **Cloud-resident Gee-Code** ⭐ — Run mg or any mode as a cloud instance instead of tied to the MacBook. For mg specifically, this means heartbeat / scheduled activations could continue while the laptop sleeps (the Gee Release Tracker missed-cron problem becomes obsolete). It also means client-sensitive modes like gtek could live in their own isolated cloud sandbox.
+2. **Credentials segmented by deployment** — Local vs. remote credential pools are separate. Practical: you can keep client-confidential GTek API keys in a cloud instance the laptop never touches, while mg's personal credentials stay local. Aligned with commercial-terms posture.
+3. **Ticket dispatch fallback fix** — The bug where entitled users were getting dispatched to API instead of their entitlement is fixed. If you've been seeing any "this should have used Max" routing surprises, this likely resolves them.
+
+### What's New
+
+| Feature | What it does | Why it matters |
+|---|---|---|
+| **One-click deploy to new instances** | Spin up a new cloud Gee-Code instance from the Terminal. | Lowers operational friction for cloud Gee-Code. |
+| **SSH tunnel management** | Terminal manages the SSH tunnels to remote Gee-Code instances. | Hands-off connection lifecycle. |
+| **Pretext Panel connect to remote** | Pretext panels can target remote Gee-Code over SSH; Remote Pretext dropdown also supports local "remote" instances for testing. | UI parity local vs. remote. |
+| **Cloud credential preservation** | Credentials/connectors segmented by deployment. | Local and remote credential pools stay isolated. |
+| **OAuth on remote** | OAuth flows work on remote instances. | Full connector parity in cloud. |
+| **Slack scopes update fix** | Slack permission/scope updates now apply cleanly. | Resolves a known intermittent connector issue. |
+| **Duplicate credential fix** | Resolves the issue where credentials could appear duplicated. | Cleaner Credentials Panel. |
+| **Ticket dispatch fallback fix** | Entitled users no longer get dispatched to API by mistake. | Routing matches entitlement. |
+
+### ⚠️ Caution
+
+- **Don't migrate mg to cloud yet** — Mariciel's whole laptop-first workflow (MacBook 16-inch, Sequoia, Half Moon Bay) is tuned around local Gee-Code. Cloud Gee-Code is great for *new* modes (a hypothetical 24/7 NLYM Pay Voucher support gee, an isolated GTek client sandbox), not for moving existing modes.
+- **Cloud cost surface is new** — EC2 hours, storage, and egress now exist as a potential cost line. No "free tier" assumed. Don't deploy speculatively.
+- **OAuth on remote needs a separate auth pass** — Credentials are segmented by deployment, so OAuth-backed connectors will need to re-auth on the cloud instance.
+
+### ✅ To Explore
+
+- [ ] Read the deploy flow before doing anything (no immediate need; this is "interesting capability, hold for now")
+- [ ] Consider whether the GTek confidential-client surface is a fit for a cloud-isolated deployment later in 2026
+- [ ] Note the missed-cron solution: if mg ever moves to cloud, the 6 AM Gee Release Tracker catch-up scan stops being a thing
+
+---
+
+<a name="v0632"></a>
+## 🚀 Gee-Code 0.63.2 — Task* MCP Tools, Remote-Deploy Prep, XAI Aliases, Tone Hardening (May 19, 2026 ~2:46 PM PT)
+
+**Requires:** Gee-Code patch only (no Gee/T release). Standard upgrade flow.
+**Impact level:** 🟡 Medium — patch in service of v0.64.0.
+**Posted:** Neil, Gee Test (Core), May 19 ~2:46 PM PT. Neil's framing: *"This is mostly a release to help with some stuff I'm doing around deployments."*
+
+### Summary
+Patch release that lays groundwork for v0.64.0 remote deployments. **Task Planning becomes 1st-class across all REPLs/providers** — adds `Task*` MCP tools so any provider can hit them with parity, plus native `Task*` handlers and allowlist/prompt/noise-filter surfacing. WIP plumbing for running Gee-Code remotely (EC2) — add remote-domain update controls + stabilize remote-domain connections. **Better vision for Codex** — inject Codex images via native `-i` flag. **New XAI aliases**: `xai-zero`, `tai`, `tai-max`, plus reasoning-effort tiers added to the grok-4.3 alias class. **ai_pacing tone hardened against doom/gloom framing** — forecasts and progress updates stay positive/momentum-focused. GPT image generation gets a timeout bump for slow generations.
+
+### 🎯 Most Impactful For You
+
+1. **Task* MCP tools for cross-REPL planning** — If you ever invoke Gee-Code through a non-default REPL (Codex, etc.), task planning now has parity. Matters less for your daily Pretext+REPL flow.
+2. **ai_pacing tone hardening** — Forecasts and AI Pacing language tuned to avoid doom/gloom. Should make MG's mode-instructions feel more steady; the existing tone.md guidance ("don't sugarcoat, don't doom spiral") gets reinforced at the model layer.
+3. **XAI aliases** — `tai` and `tai-max` are new shortcuts. Not relevant today (you're on Max + Console), but worth knowing for the gee-release-tracker.
+
+### What's New
+
+| Feature | What it does | Why it matters |
+|---|---|---|
+| **Task* MCP tools** | Task planning surfaced as MCP tools — cross-REPL/cross-provider parity. | Plan-once, execute-anywhere. |
+| **Native Task* handlers + allowlist/prompt/noise-filter** | Built-in handlers with operator controls. | Better default plan-mode UX. |
+| **WIP remote Gee-Code (EC2)** | Foundation for v0.64.0. Remote-domain update controls. | Preps the cloud-deploy story. |
+| **Codex vision (`-i` flag)** | Codex provider supports image input natively. | Image input parity across providers. |
+| **XAI: `xai-zero`, `tai`, `tai-max`** | New model aliases. | Shorthand for XAI routing. |
+| **grok-4.3 reasoning tiers** | Adjustable reasoning effort. | Cost/quality trade. |
+| **ai_pacing tone hardened** | Forecasts no longer drift toward doom/gloom. | Steadier model voice. |
+| **GPT image timeout bump** | Slow image generations no longer time out. | Reliability for image-gen flows. |
+
+### ⚠️ Caution
+
+- **None for mg's daily flow** — This patch is mostly infrastructure for v0.64.0. The tone hardening is a behavior change but in the right direction.
+
+### ✅ To Explore
+
+- [ ] No action needed — this patch ships transparently. v0.64.0 is the real story.
+
+---
+
+<a name="v0631"></a>
+## 🚀 Gee-Code 0.63.1 + Gee/T 1.34.1 — Ticket Assignment Control Plane, Brick Supervisor, Vault for Messaging Tokens (May 18-19, 2026)
+
+**Requires:** New Gee/T install (1.34.1). Standard upgrade flow: Gee/T install restarts daemon, fetches new Gee-Code, and updates. Force-restart if needed.
+**Impact level:** 🔴 High
+**Posted:** Neil, Gee Test (Core), May 18 ~10:19 PM PT.
+
+### Summary
+Tickets get a serious lifecycle + authority upgrade. New **Pending lane filter**, **provenance line** on every ticket, **cap-breach trapping**, and explicit **start-now / add-as-objective / approve-and-assign** actions. **Assignment Scope dropdown**, **Trusted Peer Assigners**, and **per-hour/per-day caps** land in mode guardrails — Gees can now assign tickets to themselves or others, scoped from "no self-motivation" all the way to "motivate the entire system." Net: a complete end-to-end system for Gees to autonomously (or with human intervention) drive work. Short and long-running operations now use tickets consistently — Gees keep continuity, communication, and coherence across both. **Messaging tokens move into the Credentials Vault** (Telegram / Slack / Discord secrets no longer in plain config). **Realtime Voice becomes its own entitlement** (admin grant/revoke independent of credits; falls back to credits if no explicit flag). **Live Voice Strip** ships — sticky band above the prompt with state dot, partial transcript, and a 14-bar mic-driven waveform; routes `realtime_not_entitled` inline. **Brick supervisor on boot** — each Brick's declared `runtime.services` autostarts once per cold start. Polish: Brick review panel closes on Accept (no more stuck overlay), ConnectorsPanel surfaces legacy inline messaging tokens with a badge + option to migrate to Vault.
+
+### 🎯 Most Impactful For You
+
+1. **Ticket assignment control plane** ⭐ — The big one. **Trusted Peer Assigners** + **per-hour/per-day caps** in mode guardrails means you can let mg autonomously kick off NLYM Pay Voucher support work, or let gtek pull tickets from you, without spinning up unbounded delegations. This is the missing safety rail for autonomous Gee-to-Gee work.
+2. **Short ↔ Long running ops unified on tickets** — Gees now use tickets consistently for both. Translation: Pay Voucher pilot biweekly support cycles, GTek client deliverables, and personal multi-day learning loops all get the same continuity, communication, and coherence guarantees. No more "wait, what state was that delegation in?" moments.
+3. **Messaging tokens in Credentials Vault** — Same posture as BYOK API keys. Telegram/Slack/Discord secrets out of plain config files. Aligned with the commercial-terms / post-credential-leak hardening posture. **Migrate the Telegram token used by heartbeat/scheduled SendMessage.**
+4. **Brick supervisor on boot** — When you build a Brick (Pay Voucher operator surface, GTek dashboard), its declared services autostart on cold boot. Hands-off Brick runtime, no "did I start that?" overhead.
+5. **Realtime Voice as its own entitlement** — Admins can grant or revoke independent of credits. Cleaner separation of concerns: turn it off for client-sensitive modes without touching the credit pool.
+
+### What's New
+
+| Feature | What it does | Why it matters |
+|---|---|---|
+| **Pending lane filter + provenance line** | Filter tickets to the pending lane; every ticket shows where it came from. | Cleaner triage of inbound work. |
+| **Cap-breach trapping** | Tickets that exceed configured caps get trapped before they fire. | Hard safety rail for autonomous delegation. |
+| **Start now / Add as objective / Approve & assign** | Explicit one-click actions from the pending lane. | One-click conversion of intake → work. |
+| **Assignment Scope dropdown** | Pick who a ticket can be assigned to. | Authority scoping for Gee-to-Gee handoff. |
+| **Trusted Peer Assigners** | Per-mode whitelist of peers that can assign tickets to you. | Controls who can wake which Gee. |
+| **Per-hour / per-day caps in guardrails** | Mode-level limits on how often a Gee can be activated. | Stops runaway loops; budgets autonomous work. |
+| **Gee-to-Gee ticket assignment (permissive levels)** | From "no self-motivation" → "motivate entire system." | End-to-end autonomous driving of work with explicit authority limits. |
+| **Short ↔ Long running ops on tickets** | Both operation classes use tickets consistently. | Continuity across operation lengths. |
+| **Messaging tokens in Credentials Vault** | Telegram / Slack / Discord secrets move to vault. | Out of plain config; commercial-terms aligned. |
+| **Realtime Voice entitlement** | Independent flag; falls back to credits if unset. | Admin-controlled voice access. |
+| **Live Voice Strip** | Sticky band above prompt: state dot, partial transcript, 14-bar mic-driven waveform. Reflects real RMS while listening, breathing while speaking. Routes `realtime_not_entitled` inline. | Visible feedback for realtime voice state; no generic error. |
+| **Brick supervisor on boot** | Each Brick's `runtime.services` autostarts once per cold start. | Hands-off Brick runtime. |
+| **Brick review panel closes on Accept** | No more stuck overlay. | Polish. |
+| **ConnectorsPanel legacy token badge** | Inline messaging tokens flagged with a badge + "move to Vault" option. | Migration path for old installs. |
+| **Stable conversational context across short/long ops** | Continuity guarantee across operation lengths. | Less context loss on long delegations. |
+
+### ⚠️ Caution
+
+- **Assignment caps need calibration** — Set conservative per-hour/per-day caps in `mg` guardrails *before* enabling autonomous assignment. Start low; raise after observing real volume.
+- **Trusted Peer Assigners is an authority surface** — Only whitelist peers you actually want waking this Gee. Don't reflexively add all siblings; gtek is the only one that makes sense for mg right now.
+- **Migrate inline messaging tokens to Vault** — Use the new ConnectorsPanel badge to move the Telegram token (used by heartbeat/scheduled `SendMessage`) out of plain config. Don't leave it inline.
+
+### ✅ To Explore
+
+- [ ] Set per-hour/per-day caps in `mg` mode guardrails — start conservative
+- [ ] Configure Trusted Peer Assigners for mg (likely just `gtek` for now)
+- [ ] Try the Pending lane filter + provenance line on the next inbound ticket
+- [ ] Migrate the Telegram token from inline config to Credentials Vault
+- [ ] Confirm Realtime Voice entitlement state on the Edenic-account Anthropic key
+- [ ] Watch for the Live Voice Strip next time you click the mic in Pretext
+- [ ] (When you build a Brick) declare `runtime.services` in `brick.yaml` and verify supervisor autostart on cold boot
 
 ---
 
