@@ -2,7 +2,7 @@
 
 **Purpose:** Running summary of Gee-Code + The Terminal releases, with workflow-specific guidance on what matters most for Edenic, GTEK, and mg mode.
 **Source:** Gee-Code Test iMessage chat (Neil)
-**Updated:** 2026-05-19 (night)
+**Updated:** 2026-05-20 (night)
 
 ---
 
@@ -10,6 +10,7 @@
 
 | Version | Date | Impact | Theme |
 |---|---|---|---|
+| [Gee-Code 0.64.3 + Gee/T 1.35.1](#v0643) | May 20, 2026 (~11:30 PM PT) | 🔴 High | **Email sending on behalf of user re-enabled** (with hard guardrails + account exclusions), **LLM-driven delegation**, Slack User Scopes (Gee sees Slack like you), new reference implementations for creating a Gee / building a Brick / setting up Events, Farshid's Cost Analyzer inclusions, remote deployment polish + RunBook in Essential Docs, WIP Twitter OAuth connector. |
 | [Gee-Code 0.64.2](#v0642) | May 20, 2026 (~3:24 PM PT) | 🟡 Medium | Slack semantic outbound route resolution, `SendMessage` gee-identity enforcement fix, **Cursor cloud default → composer-2.5** (surfaces in Gee/T pickers; Neil notes "very cheap" and encouraging in personal tests). |
 | [Gee-Code 0.64.0 + Gee/T 1.35.0](#v0640) | May 19, 2026 (night) | 🔴 High | **Remote Deployments** — Gee-Code can run as a standalone cloud instance (EC2, etc.) and Gee/T connects over SSH as if local. One-click deploy, SSH tunnel management, Pretext Panel remote connect, cloud credential preservation, OAuth on remote. Slack scopes fix, dup credential fix, ticket dispatch fallback-to-API fix for entitled users. |
 | [Gee-Code 0.63.2](#v0632) | May 19, 2026 (mid-day) | 🟡 Medium | **Task* MCP tools** for cross-REPL planning parity (1st-class Task Planning across all REPLs/providers). WIP remote Gee-Code (EC2) prep, better vision for Codex (native `-i`), new XAI aliases (xai-zero, tai, tai-max + reasoning tiers for grok-4.3), ai_pacing tone hardened against doom/gloom, GPT image timeout bump. Deployment-prep release. |
@@ -30,6 +31,55 @@
 | [Gee-Code v0.54.2 + Terminal v1.26.2](#v0542) | Apr 23, 2026 | 🟢 Passive | GPT-5.5 aliases, Pretext polish |
 | [Gee-Code v0.54.1](#v0541) | Apr 23, 2026 | 🟢 Passive | Bug fixes, Telegram fix |
 | [Gee-Code v0.54.0](#v0540) | Apr 22, 2026 | 🟡 Medium | Delegation, Skills system, House voice |
+
+---
+
+<a name="v0643"></a>
+## ✉️ Gee-Code 0.64.3 + Gee/T 1.35.1 — Email-on-Behalf Re-enabled, LLM-Driven Delegation, Slack User Scopes (May 20, 2026 ~11:30 PM PT)
+
+**Requires:** New Gee/T install (1.35.1). Standard upgrade flow: Gee/T install restarts daemon, fetches new Gee-Code, updates. Force-restart if needed.
+**Impact level:** 🔴 High
+**Posted:** Neil, Gee Test (Core), May 20 ~11:30 PM PT.
+
+### Summary
+Eight changes land in this release: (1) **Slack User Scopes** — Gee can now see Slack the way you do (your channels, your DMs), not just bot-scope content. (2) **New reference implementations + tools** for the three foundational extension paths: creating a Gee, building a Brick, setting up Events. (3) **Farshid's Cost Analyzer** inclusions. (4) **Deployment improvements** for Remote (the v0.64.0 EC2 path) + a RunBook added to Essential Docs. (5) **LLM-driven delegation** — delegation routing now uses model-driven selection rather than purely rule-based. (6) **Email sending on behalf of user re-enabled** — but with hard guardrails and account exclusions to prevent the kind of unintended sends that motivated the earlier disable. (7) **WIP Twitter OAuth connector**. (8) Fixes and polish.
+
+### 🎯 Most Impactful For You
+
+1. **Email-on-behalf re-enabled with guardrails** ⭐⭐ — Direct relevance to mg's outbound rules. Your current rules.md says "Email is for final consolidated reports only" and standing orders forbid sending without explicit user direction. The new guardrails are upstream system defense, not a relaxation of your contract. **Action: confirm `outbound_permissions` and `allowed_accounts` are set conservatively for mg before any email send-on-behalf path activates.** If you have `mg@edenic.co` listed anywhere as a send-from identity, audit it.
+2. **LLM-driven delegation** ⭐ — Changes how `delegate_async` chooses targets. If you've noticed delegations going to unexpected workers, this is now model-driven and should improve, but also warrants a watch for the first few delegations to confirm routing matches intent. Worth a sanity check on your next NLYM/Edenic delegation.
+3. **Reference implementations for Gee/Brick/Events** ⭐ — This is the unblocker for the open robustification sweep items: MCP wizard (Granola), GCP wizard, and one event watch (flight/stock). If you wanted to build a Brick or wire an event watcher and couldn't find a clean starting point, Neil just shipped one.
+4. **Slack User Scopes** — Lower priority today (mg has no live Slack workspace), but if Edenic onboards Slack or you're invited to a partner workspace, this matters.
+5. **Cost Analyzer (Farshid's contributions)** — Aligned with your commercial-terms posture. More visibility into per-task / per-mode cost.
+
+### What's New
+
+| Feature | What it does | Why it matters |
+|---|---|---|
+| **Slack User Scopes** | Gee can authenticate with user-level Slack scopes (not just bot scopes). | Gee sees the same Slack you see, including DMs and private channels you're in. |
+| **Reference: Create a Gee** | Worked example of building a new mode from scratch. | Lowers learning curve for spawning a new specialized gee (e.g., a dedicated NLYM gee post-7/1). |
+| **Reference: Build a Brick** | Worked example of constructing a Brick end-to-end. | Direct unblocker for the robustification sweep items. |
+| **Reference: Setup Events** | Worked example of wiring an Events watcher. | Direct unblocker for the flight/stock event-watch backlog item. |
+| **Cost Analyzer (Farshid contributions)** | Cost surfacing/analysis improvements. | Better cost visibility for the Console API / Commercial Terms workflow. |
+| **Remote deployment polish + RunBook** | Stability improvements on the v0.64.0 EC2 path + documented deployment runbook in Essential Docs. | Smoother cloud Gee-Code experience. |
+| **LLM-driven delegation** | Delegation routing uses model-driven target selection. | More intelligent routing; better intent matching for delegated tasks. |
+| **Email-on-behalf re-enabled** | Outbound email from Gee identity is allowed again, with hard guardrails and account exclusions. | Important capability returns, but the guardrails are the headline — system defense, not a permission relaxation. |
+| **WIP Twitter OAuth connector** | Work-in-progress OAuth path for Twitter. | Future capability for social monitoring or posting; not production yet. |
+| **Fixes & Polish** | Misc bug fixes. | Standard maintenance. |
+
+### ⚠️ Caution
+
+- **Email-on-behalf needs audit before relying on it.** Confirm guardrails + account exclusions match Mariciel's outbound rules (rules.md: "Email is for final consolidated reports only"). Do NOT assume the upstream guardrails replace mg's standing orders — they are additive, not a substitute.
+- **LLM-driven delegation is a behavior change.** First few delegations after upgrade should be watched to confirm routing matches intent — particularly for any delegation involving Gtek or sensitive-client modes.
+- **Twitter OAuth is WIP** — do not wire any production workflow to it yet.
+
+### ✅ To Explore
+
+- [ ] **Audit email-on-behalf config**: check that account exclusions cover `mg@edenic.co`, `mariciel@gtekpartners.com`, and any other identity that should never auto-send. Confirm guardrails before relying on the capability.
+- [ ] **Try a reference implementation**: pick one of the three (Create a Gee / Build a Brick / Setup Events) to land one of the 3 remaining robustification sweep items. Easiest win: the Events reference unblocks the flight/stock event-watch.
+- [ ] **Read the RunBook** in Essential Docs when you next consider moving any workflow to a remote Gee-Code instance (cost-saving or laptop-asleep mitigation for the Gee Release Tracker cron-miss issue).
+- [ ] **Watch the next delegation** for routing-match check (LLM-driven selection).
+- [ ] Cost Analyzer: check whether new per-mode/per-task cost views are exposed in Gee/T.
 
 ---
 
