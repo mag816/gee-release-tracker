@@ -2,7 +2,7 @@
 
 **Purpose:** Running summary of Gee-Code + The Terminal releases, with workflow-specific guidance on what matters most for Edenic, GTEK, and mg mode.
 **Source:** Gee-Code Test iMessage chat (Neil)
-**Updated:** 2026-05-20 (night)
+**Updated:** 2026-05-28 (catch-up: v0.64.4 → v0.66.5)
 
 ---
 
@@ -10,6 +10,10 @@
 
 | Version | Date | Impact | Theme |
 |---|---|---|---|
+| [Gee-Code 0.66.3+0.66.5 + Gee/T 1.36.3/1.36.4](#v0663) | May 27, 2026 (~6:30 PM PT) | 🔴 High | **Message Adjudication Gate** (pre-send, source-of-truth contract), Synthesis/Delivery hardening (8 interlocking fixes), **Unified Attachment Substrate** (one AttachmentRef across REPL/web/Pretext/daemon/clipboard/pipe), **Ticket Email + Voice activations**, multi-provider compat (OpenRouter, Cursor agent), MCP identity isolation, Windows PATH fix. Gee/T 1.36.3/1.36.4: Inline Mermaid, Remote Pretext MCP bridge, X OAuth wizard, **Self-Healing Updater** (auto-repairs stale MCP entries). v0.66.5 = two PC quick fixes pushed same night. |
+| [Gee-Code 0.66.0 + Gee/T 1.36.1](#v0660) | May 26, 2026 (~9:17 PM PT) | 🔴 High | **Outbound integrity (trigger lane)** — pre-send adjudication using ticket adjudicator, narration-detector, drop-proof synthesis fallback. **Scheduled-lane delivery proof** — scheduled sends ship model's real body (not narration), require outbox proof. **heartbeat_gather_state wired into routing**. New **lossless capture substrate** + activity-review policy. **Activity-wake watcher**. Cost tagging Phase B1+B2 (voice + embeddings). Watchdog no longer kills healthy long triggers. Gee/T 1.36.1: inline mermaid + SVG persistence + connector auto-repair. |
+| [Gee-Code 0.65.0 + Gee/T 1.36.0](#v0650) | May 23, 2026 (~2:09 PM PT) | 🔴 High | **X (Twitter) OAuth lands** (accounts, pagination, bookmarks, lists), Slack user-token outbound + SlackRead tools, **model-backed triage default-on**, daemon forced mode-drop reload, Telegram rewrites markdown tables (can't render), **scheduled activations actually deliver final response**, MCP creates GEE_OUTPUT_DIR. Gee/T 1.36.0: **Remote Pretext MCP bridge** (terminals mount remote Pretext sessions; remote session drives local PIPs). Follow-up patch May 24: Telegram delivery interim-text heuristic removed, delegation callback backstops. |
+| [Gee-Code 0.64.4 + Gee/T 1.35.3](#v0644) | May 22, 2026 (~12:37 PM PT) | 🔴 High | **user-email attachments as GeeConnect action** (stage bytes to disk, LLM never sees base64), **scheduled delivery channels honored end-to-end** (delivery_channel threads daemon→runner→send_notification with identity-policy + monologue gate), preempt gate trusts inbound origin not delivery targets, Telegram stream resets per SendMessage (no glued-in history), triage parses "delegate this to X", `respond_to_request` joins PURE_AUTONOMOUS_TOOLS, Codex image argv under cap (stage to disk), platform-ops routing narrowed to creation only. |
 | [Gee-Code 0.64.3 + Gee/T 1.35.1](#v0643) | May 20, 2026 (~11:30 PM PT) | 🔴 High | **Email sending on behalf of user re-enabled** (with hard guardrails + account exclusions), **LLM-driven delegation**, Slack User Scopes (Gee sees Slack like you), new reference implementations for creating a Gee / building a Brick / setting up Events, Farshid's Cost Analyzer inclusions, remote deployment polish + RunBook in Essential Docs, WIP Twitter OAuth connector. |
 | [Gee-Code 0.64.2](#v0642) | May 20, 2026 (~3:24 PM PT) | 🟡 Medium | Slack semantic outbound route resolution, `SendMessage` gee-identity enforcement fix, **Cursor cloud default → composer-2.5** (surfaces in Gee/T pickers; Neil notes "very cheap" and encouraging in personal tests). |
 | [Gee-Code 0.64.0 + Gee/T 1.35.0](#v0640) | May 19, 2026 (night) | 🔴 High | **Remote Deployments** — Gee-Code can run as a standalone cloud instance (EC2, etc.) and Gee/T connects over SSH as if local. One-click deploy, SSH tunnel management, Pretext Panel remote connect, cloud credential preservation, OAuth on remote. Slack scopes fix, dup credential fix, ticket dispatch fallback-to-API fix for entitled users. |
@@ -31,6 +35,208 @@
 | [Gee-Code v0.54.2 + Terminal v1.26.2](#v0542) | Apr 23, 2026 | 🟢 Passive | GPT-5.5 aliases, Pretext polish |
 | [Gee-Code v0.54.1](#v0541) | Apr 23, 2026 | 🟢 Passive | Bug fixes, Telegram fix |
 | [Gee-Code v0.54.0](#v0540) | Apr 22, 2026 | 🟡 Medium | Delegation, Skills system, House voice |
+
+---
+
+<a name="v0663"></a>
+## 🛡️ Gee-Code 0.66.3 + Gee/T 1.36.3/1.36.4 — Message Adjudication Gate, Unified Attachments, Ticket Email/Voice (May 27, 2026 ~6:30 PM PT)
+
+**Requires:** Standard upgrade. v0.66.5 = two PC quick fixes pushed same night (no separate notes from Neil).
+**Impact level:** 🔴 High
+**Posted:** Neil, Gee Test (Core), May 27 ~6:30 PM PT (Gee-Code 0.66.3 + Terminal 1.36.3 Mac / 1.36.4 PC).
+
+### Summary
+Five thematic clusters: (1) **Pre-send Message Adjudication Gate** — the ticket adjudicator now runs *before* SendMessage dispatches, blocking responses that don't satisfy the ticket's success contract; it was post-hoc before. (2) **Synthesis & Delivery hardening (8 interlocking fixes)** — narration-only fallbacks rejected, scheduled sends ship the model's actual body (not internal narration), outbox-proof enforced before claiming delivery, drop-proof synthesis fallback, watchdog stops killing healthy long-running triggers. (3) **Unified Attachment Substrate** — REPL/web/Pretext/daemon/clipboard/pipe all converge into one AttachmentRef system with session-scoped staging; attachments referenced (not inlined), preventing ARG_MAX blowups. (4) **Tickets activated via email and voice** — same lifecycle as text triggers. (5) Multi-provider compat (OpenRouter, Cursor agent tool events), MCP identity isolation, system_utility entitlement class, Windows PATH fix. Gee/T 1.36.3/1.36.4: inline mermaid SVG, Remote Pretext MCP bridge, X OAuth wizard, **self-healing updater** (auto-repairs stale MCP entries).
+
+### 🎯 Most Impactful For You
+
+1. **Pre-send Message Adjudication Gate** ⭐⭐⭐ — Direct system-level backstop for MG's standing rule "send final deliverables only, no narration." Adjudicator now blocks "Let me check…" style sends before they ship, with a reason. This is the long-tail bug fix you've been wanting at the substrate layer.
+2. **Scheduled-lane delivery proof + watchdog fix** ⭐⭐ — Combined with the v0.66.0 changes, scheduled jobs (like *this* tracker scan) now ship the real model body and the watchdog won't kill healthy long-running triggers. The Gee Release Tracker cron-miss scenario gets harder to trigger.
+3. **Unified Attachment Substrate** ⭐⭐ — When Edenic/NLYM clients send attachments via email or paste large files, no more ARG_MAX blowups; one model across all ingress.
+4. **Ticket Email + Voice activations** ⭐ — Inbound email and voice calls can now create tickets the same way text does. Useful when Neil emails GTEK questions or NLYM members reach out by phone.
+5. **Self-healing updater + auto-repair connector hooks** ⭐ — Reduces the manual "rectify" step Alex Carloss hit on the v0.65.0 upgrade. Stale MCP entries clean themselves up.
+
+### What's New
+
+| Feature | What it does | Why it matters |
+|---|---|---|
+| **Pre-send Adjudication Gate** | SendMessage runs through ticket adjudicator *before* dispatch, blocked with reason if contract not met. | Substrate-level enforcement of "final deliverables only." Was post-hoc, now a real gate. |
+| **Synthesis & Delivery Hardening (8 fixes)** | Narration rejected, scheduled sends ship real body, outbox-proof required, drop-proof synthesis fallback, watchdog respects healthy long triggers. | Eliminates the "scheduled job ran but nothing arrived" and "internal narration shipped as final reply" classes. |
+| **Unified Attachment Substrate** | All ingress paths (REPL, web, Pretext, daemon, clipboard, pipe) converge to AttachmentRef with session-scoped staging. | One model, no ARG_MAX blowups, same behavior for every ingress path. |
+| **Ticket Email + Voice Activations** | Companion server routes inbound email and voice into ticket lifecycle. | Email/voice now first-class triggers like SMS/chat. |
+| **Cost Tagging: Voice + Embeddings** | Sentinel-table dedupe + 4 voice + 7 embedding sites instrumented. | Per-mode/per-day rollups across text, voice, and embeddings — no silent blind spots. |
+| **Lossless Capture + Activity Review** | Append-safe JSONL substrate + ignore/digest/promote/alert policy per heartbeat. | Foundation for "what did my Gee do today?" tooling. |
+| **Multi-Provider Compat** | OpenRouter vendor/model routing, tool_call ID dedupe, Cursor agent tool events, streaming-suffix recovery. | Provider portability hardened. |
+| **system_utility entitlement** | New entitlement class for predictive suggest + system credentials. | Tighter permission surface. |
+| **MCP Identity Isolation** | Mode identity injected into Codex MCP at launch; daemon gees can't inject into Pretext panels they don't own. | Cross-mode contamination closed. |
+| **Twitter/X Read Fixes** | Tweet + thread endpoints fixed (routing was wrong). | `GeeConnect(service="twitter")` reads now resolve correctly. |
+| **Windows PATH Resolution** | CLI detection + terminal rendering on Windows. | Fix for "couldn't find own binary" on PC. |
+| **Gee/T 1.36.3: Inline Mermaid** | Mermaid diagrams render inline as SVG; SVGs stay mounted across re-renders. | Diagrams from agent output show as images, not raw fences. |
+| **Gee/T: Remote Pretext MCP Bridge** | Terminal MCP server bridges remote Pretext tools — cloud/SSH gees can drive local Terminal surfaces. | Remote Gee-Code instances can now drive your local Terminal. |
+| **Gee/T: X OAuth Wizard** | Full OAuth: connect, paginate, reconnect, disconnect. | Personal Twitter linkage via connector wizard. |
+| **Gee/T: Self-Healing Updater** | Auto-detects + repairs stale MCP entries and broken update state. | Fewer manual "rectify" sessions on upgrade. |
+| **Gee/T: Shared Gee Domain Controls** | Mode settings/model picker/deployment config extracted to reusable component. | UI cleanup; single source of truth. |
+
+### ⚠️ Caution
+- **Adjudication gate may block previously-silent sends.** If a scheduled job or heartbeat starts reporting blocked finals with a reason, that's the new gate doing its job — read the reason, don't bypass. The fix is to make the message satisfy the ticket contract.
+- **Mode identity injection is stricter.** If you see "identity mismatch" errors on a delegation or Pretext panel, check the mode is consistent across daemon/Pretext/Codex.
+- **v0.66.5 has no published notes** — Neil said "Just pushed 2 quick versions for PC fixes." Treat as Windows/CLI polish.
+
+### ✅ To Explore
+- [ ] **Test a scheduled lane** — fire one of MG's scheduled jobs and confirm: (a) outbox proof is logged, (b) the final body that ships matches the model's actual SendMessage call, (c) no narration leaks through.
+- [ ] **Try an email-triggered ticket** — send mg@edenic.co a structured inbound and confirm a ticket is created the same way SMS/chat does.
+- [ ] **Attempt an inline mermaid diagram** in a Pretext reply (e.g., NLYM rollout flow). Confirm SVG renders and persists through panel re-renders.
+- [ ] **Audit Cost Analyzer rollup** for voice + embeddings — voice usage should now appear in per-mode tallies for the first time.
+
+---
+
+<a name="v0660"></a>
+## 📮 Gee-Code 0.66.0 + Gee/T 1.36.1 — Outbound Integrity, Scheduled-Lane Delivery Proof, Heartbeat Routing (May 26, 2026 ~9:17 PM PT)
+
+**Requires:** Standard upgrade.
+**Impact level:** 🔴 High
+**Posted:** Neil, Gee Test (Core), May 26 ~9:17 PM PT (Gee-Code 0.66.0 = 27 commits since v0.65.1; gee/t 1.36.1 = 2 commits).
+
+### Summary
+Foundational substrate work for outbound trust and scheduled execution. (1) **Outbound integrity for the trigger lane** — pre-send adjudication using the ticket adjudicator as source of truth, universal synthesis turn for adjudicator-rejected finals, drop-proof synthesis fallback, narration detector extended to mid-sentence pivots, hard reject on narration-only synthetic fallbacks. (2) **Scheduled-lane delivery proof** — scheduled fallback ships the model's *real* SendMessage body (not narration text), requires outbox proof before claiming delivery, merges scheduled route file when activation context is gee-hq, instruments SendNotification dispatch. (3) **heartbeat_gather_state wired into routing layer** — the model sees the same standing-tasks/objectives snapshot the heartbeat read produces, without re-calling it every turn. (4) New **lossless capture substrate** (events/lossless_capture.py) + **activity_review** policy + **activity-wake watcher**. (5) Cost tagging Phase B1+B2 — sentinel dedupe + 4 voice-emit sites + 7 embed sites. (6) Watchdog stops killing healthy long-running triggers; SendMessage dedupe time-window backstop. (7) Gee/T 1.36.1: inline mermaid + SVG persistence fix + connector auto-repair hooks.
+
+### 🎯 Most Impactful For You
+
+1. **Scheduled-lane delivery proof** ⭐⭐⭐ — This very tracker scan is a scheduled job. Outbox-proof requirement + real-body shipping fixes the long-tail "scheduled job ran but didn't deliver" class. The May 20 catch-up commit (where a 4 PM PT scan missed Neil's late posts) is exactly the kind of bug this layer addresses upstream.
+2. **Outbound integrity (trigger lane)** ⭐⭐⭐ — Pairs with the v0.66.3 pre-send adjudication gate to make "Let me check…" leaks structurally impossible. Aligns with MG's standing rule.
+3. **Heartbeat state in routing** ⭐⭐ — The model now sees standing tasks + objectives without an extra tool call per activation. Should reduce token spend on heartbeat reads.
+4. **Activity-wake watcher** ⭐⭐ — New event driver surfaces recent activity bursts as wake triggers. Means a Gee won't sit idle after a flurry of external signals (e.g., a string of NLYM treasurer emails) without ever being activated.
+5. **Cost tagging Phase B1+B2** ⭐ — All AI spend (text/voice/embeddings) flows through a single audit log. Per-mode/per-day rollups stop having silent blind spots.
+
+### What's New
+
+| Feature | What it does | Why it matters |
+|---|---|---|
+| **Pre-send Adjudication (trigger lane)** | Ticket adjudicator runs before SendMessage; rejected finals get a universal synthesis turn; narration-only fallbacks hard-rejected. | Substrate-level enforcement of "no narration as final." |
+| **Scheduled-Lane Delivery Proof** | Scheduled sends ship model's actual body, require outbox proof, merge scheduled route file when context is gee-hq, SendNotification instrumented. | Scheduled jobs (like this tracker) stop being silently lost. |
+| **heartbeat_gather_state in routing** | Routing layer pre-loads standing tasks/objectives snapshot. | Less re-fetching per activation. |
+| **events/lossless_capture.py** | Append-safe JSONL of every activation event. | Foundation for "what did my Gee do today?" + activity-wake. |
+| **activity_review policy** | Decides what's wake-worthy per heartbeat (ignore/digest/promote/alert). | Backpressure visible, never silent. |
+| **Activity-Wake Watcher** | Event driver surfacing recent activity bursts as wake triggers. | Gee doesn't sit idle after relevant external signals. |
+| **Cost Tagging Phase B1 + B2 (#147)** | Sentinel dedupe + 4 voice-emit sites + record_embedding_event + 7 embed call-sites. | Voice + embedding spend now visible in rollups. |
+| **Watchdog fix** | No longer kills healthy long-running triggers (was treating "running for a while" as "stuck"). | Long jobs (deep research, scheduled scans) complete. |
+| **SendMessage dedupe time-window backstop** | Duplicate sends across worker forks caught even in subprocess path. | No double-deliveries. |
+| **Channel-thread context preservation** | Most-recent outbound preserved when building channel-thread context. | Follow-on replies see what Gee just said. |
+| **Socket GET param encoding** | make_api_request uses _encode_query_params (not raw string interpolation). | Fixes &, =, space edge cases. |
+| **Twitter read routing fixes** | Twitter read routing + tweet/thread endpoints (3d00c02, 9e815bb). | Reliable read-side access. |
+| **URL reads default to server fetch** | WebFetch-style by default, not browser PIP. | Less Terminal real-estate waste. |
+| **AI-pacing tests** | Compact + minimal verbosity profiles get explicit pacing tests. | Channel-etiquette regressions caught at unit-test time. |
+| **Gee/T 1.36.1: Inline Mermaid in PretextPanel** | Mermaid code-fences render as diagrams (new getInlineMermaidMetrics + 'mermaid' kind in InlineMediaLayout). | Diagrams stop showing as raw code blocks. |
+| **Gee/T: Mermaid SVG persistence fix** | useMermaidSvg hook owns SVG via React state (no DOM mutation). | "Diagram flashes then disappears" bug fixed. |
+| **Gee/T: Connector auto-repair hooks** | Terminal connector setup auto-repairs broken hook wiring. | Smoother first-run setup. |
+
+### ⚠️ Caution
+- **Watchdog change is a behavior shift.** Long-running jobs that previously got killed (sometimes acceptably) will now run to completion. Confirm no runaway loops exist in scheduled jobs.
+- **Activity-wake watcher can cause new activations.** If you start seeing unexpected heartbeats fire mid-day, check the activity policy — it may be classifying signal bursts as wake-worthy.
+- **Cost rollups will look different** with voice + embeddings now in the audit log. Don't be surprised if total spend in dashboards shifts after upgrade.
+
+### ✅ To Explore
+- [ ] **Confirm the tracker scan + Telegram heartbeats** still deliver post-upgrade. Outbox proof should be visible in scheduled runs.
+- [ ] **Review activity_review policy** in essential docs to understand what gets promoted to wake.
+- [ ] **Check cost rollup** for first per-mode voice/embedding line items.
+
+---
+
+<a name="v0650"></a>
+## 🐦 Gee-Code 0.65.0 + Gee/T 1.36.0 — X (Twitter) OAuth, Slack User-Token, Remote Pretext MCP Bridge (May 23, 2026 ~2:09 PM PT)
+
+**Requires:** Gee/T 1.36.0 install. Note: Alex Carloss hit a Python 3.14 PATH issue on upgrade ("ENOENT for gee-code binary") — self-rectified, but worth knowing the upgrade may need manual PATH fix on some machines.
+**Impact level:** 🔴 High
+**Posted:** Neil, Gee Test (Core), May 23 ~2:09 PM PT.
+
+### Summary
+Two flagship adds and a bundle of routing/credential fixes. (1) **X (Twitter) OAuth lands** — accounts, pagination, bookmark folders, list reads via GeeConnect. (2) **Slack user-token outbound + SlackRead/SlackReadTopology** — read Slack with user perspective. (3) **Model-backed triage now default-on**, broader self-delegate detection. (4) Daemon forced mode-drop reload + richer status/trace diagnostics. (5) Fixes: routing honors explicit out-of-band channels, Telegram mode-install match, credentials gee-scope normalization, full vault-key surfacing, **Telegram rewrites markdown tables** (Telegram can't render them), **scheduled activations actually deliver final response**, MCP creates GEE_OUTPUT_DIR before export. (6) Docs site rebranded to **Gee Operating Manual** with OS-level sections; user-email canonical service + attachment action documented. (7) Gee/T 1.36.0: **Remote Pretext MCP bridge** — terminals can mount remote Pretext sessions; the remote session can control the local Terminal (invoke PIPs, etc.) via MCP. X OAuth in ConnectorsPanel. Short Gee names fix.
+
+**Follow-up patch (May 24 ~7:09 PM PT):** Removed the interim-text heuristic that could create noisy or premature Telegram updates. Added stronger backstops for delegation callbacks and interim Telegram reply handling.
+
+### 🎯 Most Impactful For You
+
+1. **X (Twitter) OAuth lands** ⭐⭐ — Personal Twitter is now connectable via the wizard. Useful if you want Gee to read your timeline, bookmarks, or post drafts for review. Mirrors Gmail connector flow.
+2. **Telegram markdown table rewriting** ⭐⭐ — Direct fix to a recurring Telegram delivery problem: tables rendering as garbled text. Affects MG heartbeat digests if they ever include tabular data.
+3. **Scheduled activations actually deliver final response** ⭐⭐ — Companion to v0.66.0's scheduled-lane delivery proof. This v0.65.0 fix is the first half — scheduled jobs deliver instead of silently dropping. Direct relevance to this tracker.
+4. **Telegram delivery patch (May 24)** ⭐⭐ — Interim-text heuristic was creating noisy Telegram pings; removed. Stronger delegation callback backstops. Cleaner heartbeat behavior.
+5. **Remote Pretext MCP bridge** ⭐ — Cloud-hosted Gee can now drive your local Terminal via MCP. Pairs with v0.66.3's expansion. Future option for the cron-miss issue if you move the tracker to a cloud instance.
+
+### What's New
+
+| Feature | What it does | Why it matters |
+|---|---|---|
+| **X (Twitter) OAuth** | Connect personal X account; read timeline, bookmark folders, lists; paginate. | Personal Twitter connector parity with Gmail. |
+| **Slack user-token outbound + SlackRead** | Outbound + read with user-perspective scopes. | Gee sees Slack the way you do. |
+| **Model-backed triage default-on** | LLM-driven triage is now the default, not opt-in. | More intelligent routing; verify the first few activations match intent. |
+| **Daemon forced mode-drop reload** | Daemon can drop a mode and reload cleanly. | Cleaner restart cycles. |
+| **Richer status/trace diagnostics** | More info on activation state. | Faster debugging. |
+| **Routing honors out-of-band channels** | Telegram mode-install match. | Heartbeat → Telegram delivery is correct. |
+| **Credentials gee-scope normalization** | Full vault-key surfacing. | All vault entries discoverable. |
+| **Telegram rewrites markdown tables** | Tables converted to text Telegram can render. | No more garbled tables in Telegram digests. |
+| **Scheduled activations deliver final response** | First half of the scheduled-delivery fix series. | Scheduled jobs reach the user. |
+| **MCP creates GEE_OUTPUT_DIR** | Before export, ensures dir exists. | No first-run export failures. |
+| **Docs: Gee Operating Manual rebrand** | Docs site reorganized with OS-level sections; user-email canonical service + attachment action documented. | Easier reference for the new attachment substrate. |
+| **Gee/T 1.36.0: Remote Pretext MCP bridge** | Terminals mount remote Pretext sessions; remote sessions control local PIPs via MCP. | Cloud Gee drives local Terminal. |
+| **Gee/T: X OAuth in ConnectorsPanel** | Wizard for X account connect/reconnect/disconnect. | UI parity for Twitter. |
+| **Gee/T: Short Gee names fix** | UI bug fix. | Cleaner display. |
+| **Patch (May 24): Telegram heuristic removed** | Interim-text heuristic that fired noisy/premature Telegram updates removed. | Less Telegram spam from in-flight activations. |
+| **Patch: Delegation callback + interim Telegram backstops** | Stronger safety nets. | Cleaner async handoff. |
+
+### ⚠️ Caution
+- **Python 3.14 PATH issue on upgrade** — Alex hit `ENOENT for gee-code binary` and had to manually rectify. If you have a hand-rolled update fix, expect to redo it.
+- **Model-backed triage default-on is a behavior change.** Watch the first few activations to confirm routing matches intent.
+- **X OAuth is real now, not WIP.** Easy to connect by accident if you're poking around the connector wizard; only connect when you actually want to.
+
+### ✅ To Explore
+- [ ] **Connect personal X via wizard** — only if you want Gee read access to your timeline/bookmarks. Confirm scopes before authorizing.
+- [ ] **Send a Telegram message with a table** — confirm the new rewriter produces readable output.
+- [ ] **Test a scheduled lane** — confirm delivery lands (this is the first half of the fix; v0.66.0 added the outbox-proof second half).
+- [ ] **Skim the Gee Operating Manual** rebrand for the new OS-level sections, especially user-email + attachment docs.
+
+---
+
+<a name="v0644"></a>
+## 📎 Gee-Code 0.64.4 + Gee/T 1.35.3 — User-Email Attachments, Scheduled Delivery Channels Honored (May 22, 2026 ~12:37 PM PT)
+
+**Requires:** Standard upgrade.
+**Impact level:** 🔴 High
+**Posted:** Neil, Gee Test (Core), May 22 ~12:37 PM PT.
+
+### Summary
+Big substrate release on attachments and scheduled delivery. (1) **user-email/attachment as a GeeConnect action** — Read/thread responses include `attachments[]` metadata; a single follow-up call stages bytes to `~/.gee-code/modes/<mode>/ingress_attachments/` and returns a local_path. The LLM never sees raw base64; Read/Summarize take over from disk. (2) **user-email follow-up trio** — search formatter prepends `[id]` so read → thread → attachment chains without raw_result; attachment hints (filename, mime_type, part_id) thread through; stage path resolves the active daemon mode instead of only env. (3) **Preempt gate trusts inbound origin, not delivery targets** — heartbeat → delegate_async(delivery_channel=sms) is correctly preemptible; real user SMS → OG → worker stays immediate via carried inbound_route. (4) **Telegram stream resets per SendMessage** — two SendMessages in one activation are two independent messages, not the second containing the first's history glued in front. (5) **Triage parses "delegate this to X"** — was capturing as target; now correctly routes to named recipient. (6) **respond_to_request joins PURE_AUTONOMOUS_TOOLS** — workers that started a delegate_async can complete their own callback on the canonical path, with regression test pinning the pairing. (7) **Scheduled delivery channels honored** — delivery_channel threads through daemon → runner → send_notification with identity-policy enforcement and a new monologue gate; a 9 AM SMS digest actually arrives on SMS. (8) Codex image argv stays under cap (stage to disk, pass via path). (9) Terminal updater + stale-MCP self-heal. (10) Platform-ops routing narrowed to creation only — gees can edit schedule.md, seeds, follow-ups, and trigger daemon reloads directly again.
+
+### 🎯 Most Impactful For You
+
+1. **Scheduled delivery channels honored end-to-end** ⭐⭐⭐ — Direct, foundational fix for MG's scheduled lanes. The monologue gate + identity-policy enforcement is the layer that made later scheduled-delivery proofs (v0.65.0, v0.66.0) possible. This tracker scan benefits directly.
+2. **user-email attachments as GeeConnect action** ⭐⭐⭐ — Architecturally clean: the LLM never sees raw base64, files stage to disk and Read takes over. When NLYM members or Edenic partners email PDFs, Gee can now actually use them without prompt-context blowups.
+3. **Telegram stream resets per SendMessage** ⭐⭐ — Fixes a confusing UX bug where successive Telegram messages glued prior context in front. Cleaner heartbeat digests.
+4. **Preempt gate trusts inbound origin** ⭐⭐ — Real user SMS bypass remains immediate; heartbeat delegations correctly preemptible. Important for SMS-bound interactive sessions.
+5. **Platform-ops routing narrowed to creation only** ⭐ — Direct relevance to MG's heartbeat: editing schedule.md / seeds / follow-ups now stays direct again instead of being routed through gee-platform-ops. Faster maintenance loops.
+
+### What's New
+
+| Feature | What it does | Why it matters |
+|---|---|---|
+| **user-email attachment as GeeConnect action** | Read/thread responses include attachments[] metadata; follow-up call stages bytes to `~/.gee-code/modes/<mode>/ingress_attachments/`, returns local_path. | LLM never sees base64. Read/Summarize work from disk. |
+| **user-email follow-up trio** | search formatter prepends [id]; attachment hints thread through; stage path resolves active daemon mode. | Cleaner read → thread → attachment chains. |
+| **Preempt gate by inbound origin** | heartbeat-originated work is preemptible; real-user-originated stays immediate. | Correct priority handling across channels. |
+| **Telegram stream resets per SendMessage** | Each SendMessage is an independent message. | No more glued-in prior context. |
+| **Triage parses "delegate this to X"** | Regex routes correctly to named recipient. | Natural-language delegation works. |
+| **respond_to_request in PURE_AUTONOMOUS_TOOLS** | Workers complete own callbacks on canonical path. | No more bypassing through discover_tools/Bash. |
+| **Scheduled delivery_channel threaded** | daemon → runner → send_notification with identity-policy + monologue gate. | Scheduled job's specified channel actually used. |
+| **Codex image argv under cap** | Image inputs stage to disk, pass via file path. | No ARG_MAX overflow on Codex image calls. |
+| **Terminal updater + stale-MCP self-heal** | Auto-update recovers from prior partial states; ghost MCP entries from defunct sessions removed. | Smoother upgrades. |
+| **Platform-ops routing narrowed to creation only** | gees edit schedule.md, seeds, follow-ups, and reload daemon directly; gee-platform-ops router only handles creation. | Faster routine maintenance loops. |
+
+### ⚠️ Caution
+- **Attachment paths are mode-scoped.** `~/.gee-code/modes/<mode>/ingress_attachments/` — confirm cleanup policy and disk usage if you start receiving large PDFs frequently.
+- **Preempt gate change can shift activation ordering.** If a heartbeat task feels slower than before, it may be correctly yielding to real-user inbound.
+
+### ✅ To Explore
+- [ ] **Send yourself an email with a PDF attachment** to mg@edenic.co; verify the new flow stages the file and lets Read/Summarize work from disk.
+- [ ] **Run a scheduled job with explicit channel="telegram"** and confirm it lands on Telegram (not the daemon default).
+- [ ] **Try "delegate this to gtek"** in a triage message and confirm correct routing to the named target.
 
 ---
 
