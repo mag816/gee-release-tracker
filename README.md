@@ -2,7 +2,7 @@
 
 **Purpose:** Running summary of Gee-Code + The Terminal releases, with workflow-specific guidance on what matters most for Edenic, GTEK, and mg mode.
 **Source:** Gee-Code Test iMessage chat (Neil)
-**Updated:** 2026-05-28 (catch-up: v0.64.4 → v0.66.5)
+**Updated:** 2026-05-31 (v0.67.0 added)
 
 ---
 
@@ -10,6 +10,7 @@
 
 | Version | Date | Impact | Theme |
 |---|---|---|---|
+| [Gee-Code 0.67.0 + Gee/T 1.37.0 (Mac) / 1.38.0 (PC)](#v0670) | May 30, 2026 (~4:45 PM PT) | 🔴 High | **Multi-channel deployments** (Dev / Beta / Stable update channels — manual opt-in to Beta required), **Configuration Management** feature, **app renamed back to Gee/T** (the-terminal Dock icons go to '?', re-pin from Applications), dark-blue first-launch screen while intro precaches. Same-day PSAs: Opus 4.8 + Claude Code burns Max weekly limit in ~2.5 days; next release defaults `cc-gee-max` to Opus 4.8 — use `cc-gee-high`/`xhigh` to limit. Detailed HTML release notes pending from Neil. |
 | [Gee-Code 0.66.3+0.66.5 + Gee/T 1.36.3/1.36.4](#v0663) | May 27, 2026 (~6:30 PM PT) | 🔴 High | **Message Adjudication Gate** (pre-send, source-of-truth contract), Synthesis/Delivery hardening (8 interlocking fixes), **Unified Attachment Substrate** (one AttachmentRef across REPL/web/Pretext/daemon/clipboard/pipe), **Ticket Email + Voice activations**, multi-provider compat (OpenRouter, Cursor agent), MCP identity isolation, Windows PATH fix. Gee/T 1.36.3/1.36.4: Inline Mermaid, Remote Pretext MCP bridge, X OAuth wizard, **Self-Healing Updater** (auto-repairs stale MCP entries). v0.66.5 = two PC quick fixes pushed same night. |
 | [Gee-Code 0.66.0 + Gee/T 1.36.1](#v0660) | May 26, 2026 (~9:17 PM PT) | 🔴 High | **Outbound integrity (trigger lane)** — pre-send adjudication using ticket adjudicator, narration-detector, drop-proof synthesis fallback. **Scheduled-lane delivery proof** — scheduled sends ship model's real body (not narration), require outbox proof. **heartbeat_gather_state wired into routing**. New **lossless capture substrate** + activity-review policy. **Activity-wake watcher**. Cost tagging Phase B1+B2 (voice + embeddings). Watchdog no longer kills healthy long triggers. Gee/T 1.36.1: inline mermaid + SVG persistence + connector auto-repair. |
 | [Gee-Code 0.65.0 + Gee/T 1.36.0](#v0650) | May 23, 2026 (~2:09 PM PT) | 🔴 High | **X (Twitter) OAuth lands** (accounts, pagination, bookmarks, lists), Slack user-token outbound + SlackRead tools, **model-backed triage default-on**, daemon forced mode-drop reload, Telegram rewrites markdown tables (can't render), **scheduled activations actually deliver final response**, MCP creates GEE_OUTPUT_DIR. Gee/T 1.36.0: **Remote Pretext MCP bridge** (terminals mount remote Pretext sessions; remote session drives local PIPs). Follow-up patch May 24: Telegram delivery interim-text heuristic removed, delegation callback backstops. |
@@ -35,6 +36,51 @@
 | [Gee-Code v0.54.2 + Terminal v1.26.2](#v0542) | Apr 23, 2026 | 🟢 Passive | GPT-5.5 aliases, Pretext polish |
 | [Gee-Code v0.54.1](#v0541) | Apr 23, 2026 | 🟢 Passive | Bug fixes, Telegram fix |
 | [Gee-Code v0.54.0](#v0540) | Apr 22, 2026 | 🟡 Medium | Delegation, Skills system, House voice |
+
+---
+
+<a name="v0670"></a>
+## 🔀 Gee-Code 0.67.0 + Gee/T 1.37.0 (Mac) / 1.38.0 (PC) — Multi-Channel Deployments, Configuration Management, App Rename (May 30, 2026 ~4:45 PM PT)
+
+**Requires:** App update + **manual Settings change to keep getting Beta updates** (see below). Old "the-terminal" Dock icons will break ('?') — must delete and re-pin from Applications. Detailed HTML release notes pending from Neil.
+**Impact level:** 🔴 High
+**Posted:** Neil, Gee Test (Core), May 30 ~4:45 PM PT (Gee-Code 0.67.0 + Gee/T 1.37.0 Mac / 1.38.0 PC).
+
+### Summary
+Three structural shifts plus pending Configuration Management substrate. (1) **Multi-channel deployments** — Dev / Beta / Stable update channels now exposed in Settings. Default may not be Beta; explicit opt-in required to keep receiving the early builds the test group has been on. Dev = internal only; Stable = future public deployment. (2) **App renamed back to Gee/T** from the brief "the-terminal" rebrand. Old Dock pins go to '?' on update — must delete and re-pin from Applications. (3) **Configuration Management feature** introduced (details TBD in Neil's pending HTML notes). (4) Lots of other features/QoL/bug fixes — Neil flagged HTML release notes coming later. Same-day PSAs worth holding alongside this release: Opus 4.8 + latest Claude Code burns through Max weekly limit in ~2.5 days; next Gee-Code release will default `cc-gee-max` to Opus 4.8 — switch to `cc-gee-high` or `cc-gee-xhigh` to cap token usage. Neil also reiterated OpenAI Subscription (Codex + ChatGPT-Max via Gee's REPL with GPT-5.5 max reasoning) currently outperforms Claude Code in his testing. Next release also bringing a beads-derived **Workflow** system (plan-as-graph → parallel execution → synthesis) targeting Claude Code Workflow parity.
+
+### 🎯 Most Impactful For You
+
+1. **Set update channels to BETA in Settings** ⭐⭐⭐ — Without this, you fall off the beta train and stop receiving the cadence of builds the Core test group is on. Open Gee/T → Settings → set both **App Updates** and **Gee-Code Builds** to **BETA**. Do not select Dev. Stable is the future public channel, not where Core testing lives today.
+2. **Fix Dock icon** ⭐⭐ — Any pinned "the-terminal" icon goes to '?' after this update. Delete the broken Dock pin, open Applications → Gee/T, re-pin. One-time fix, but it'll bite if skipped (you'll think the app is broken — Alex hit this last week before the rename).
+3. **Model picker discipline for next release** ⭐⭐ — Once the next Gee-Code lands, `cc-gee-max` will default to Opus 4.8 with the heavy token burn. Pre-decide: routine work on `cc-gee-high`, save `cc-gee-max` (Opus 4.8) for hard problems only. Or shift more weight to the OpenAI Subscription path Neil is recommending.
+4. **Configuration Management** ⭐⭐ — Headlined as a feature but details pending. Likely relevant to mode/gee config surface (objectives, schedule, seeds, follow-ups). Wait for HTML notes before re-organizing any operating files.
+5. **Dark-blue first-launch screen is expected** ⭐ — Not a crash. Intro movie is precaching. Sit tight on first boot post-update.
+
+### What's New
+
+| Feature | What it does | Why it matters |
+|---|---|---|
+| **Multi-channel deployments** | Settings → App Updates + Gee-Code Builds each get Dev / Beta / Stable channel selectors. | Core test group must explicitly choose Beta to stay current; Stable lags Beta, Dev is internal. |
+| **App renamed back to Gee/T** | Mac app bundle and Dock identity flip from "the-terminal" → "Gee/T". | Pinned old icons break to '?' — re-pin from Applications. |
+| **Configuration Management** | New feature surface (details pending HTML notes from Neil). | Likely affects mode/gee config; hold structural changes until notes land. |
+| **Dark-blue precache splash** | First post-update launch may show a dark blue screen while intro movie precaches. | Expected, not a hang. |
+| **Lots of features/QoL/bug fixes** | Neil flagged "ton of new features, functionality, quality of life and bug fixes" in addition to Config Management. | HTML release notes pending; this row is a placeholder to expand later. |
+| **(Heads-up, next release) Opus 4.8 default for cc-gee-max** | The next Gee-Code build will set cc-gee-max → Opus 4.8. | Token burn is heavy — Neil ran out of Max weekly limit in 2.5 days. Use cc-gee-high / cc-gee-xhigh for routine work. |
+| **(Heads-up, next release) Workflow system** | Beads-REPL-derived tooling: plan-as-graph → parallel execution → synthesis, usable by any model. | Built to outperform Claude Code's Workflow feature. Will be one of the main reasons to upgrade. |
+
+### ⚠️ Caution
+- **Do not skip the Settings change.** If you don't set App Updates + Gee-Code Builds to Beta, you'll silently stop getting updates and assume Neil has paused releases. He hasn't; the channel just defaulted off you.
+- **Don't install if Neil pings a hold.** Earlier on May 28 + May 29, Neil twice posted "🚨 Please don't install the new version of gee/t — multi-channel work is fragile." Those holds resolved by ~4:45 PM PT May 30 ("All Good Now" + this release post). Watch for similar pauses around the next release.
+- **Next release will hit token budget hard** if you stay on cc-gee-max. Decide your model defaults now, before the upgrade.
+- **HTML release notes pending.** Treat the feature surface as partially documented until the HTML drops. Don't restructure operating files on assumptions about Configuration Management.
+
+### ✅ To Explore
+- [ ] **Update + set Beta channels in Settings.** Confirm App Updates = Beta and Gee-Code Builds = Beta. Restart Gee/T.
+- [ ] **Fix Dock pin.** Delete old "the-terminal" pin (broken '?'), re-pin Gee/T from Applications.
+- [ ] **Watch for Neil's HTML release notes.** Add a follow-up here once they land — especially Configuration Management details.
+- [ ] **Re-read this tracker scan's delivery** — first scheduled run on v0.67.0; confirm the notepad ping arrives and Git push succeeds end-to-end.
+- [ ] **Decide model defaults before the next release** drops the Opus 4.8 cc-gee-max default on you.
 
 ---
 
