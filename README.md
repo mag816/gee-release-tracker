@@ -2,7 +2,33 @@
 
 **Purpose:** Running summary of Gee-Code + The Terminal releases, with workflow-specific guidance on what matters most for Edenic, GTEK, and mg mode.
 **Source:** Gee-Code Test iMessage chat (Neil)
-**Updated:** 2026-05-31 (v0.67.0 added)
+**Updated:** 2026-06-01 (v0.68.x added)
+
+---
+
+## Mariciel Test Queue — Current Release
+
+**Current focus:** Gee-Code 0.68.x + Gee/T 1.39.x + Windows 1.39.x Beta
+**Purpose:** Pull only the release actions that matter to Mariciel into one working checklist.
+
+### Must test now
+- [ ] **Confirm Beta update picked up automatically.** Neil said users who followed Saturday's Beta-channel instructions should automatically receive Gee-Code 0.68.x + Gee/T 1.39.x. Verify Settings still show **App Updates = Beta** and **Gee-Code Builds = Beta**, then restart if needed.
+- [ ] **Check `gee.edenic.ai` agent-aware docs.** New docs surface + bundled `gee-docs` skill/CLI documentation hints may reduce future setup friction.
+- [ ] **Watch first SendMessage / background delivery after update.** Release hardens gateway proof, sender identity, and duplicate/holdoff acks. Confirm scheduled/heartbeat delivery stays quiet unless actionable.
+
+### Watch / verify
+- [ ] **Organization substrate.** `/init organization` now discovers → populates → follows organization surfaces/content. Relevant to Edenic/NLYM operating-system work, but don't migrate files yet.
+- [ ] **Action commitments.** Promises Gee makes now become durable follow-up tickets. Watch for duplicate vs. useful commitment capture in mg mode.
+- [ ] **Sandboxed execution + output routing.** Non-code outputs route to contained workspace. Confirm artifacts still land in `$GEE_OUTPUT_DIR` when requested.
+- [ ] **Telegram attachments.** Local-file attachments via `SendMessage` are clarified; useful for reports/screenshots, but quiet-hour gates still apply.
+
+### Decision needed
+- [ ] **Decide whether to test `/init organization` on a low-risk surface.** Recommendation: wait until daytime and use a small Edenic/NLYM docs surface, not the whole operating system.
+
+### Not relevant / skip for now
+- **Windows-only 1.39.1 fixes:** good for PC lane, not Mariciel's Mac workflow unless helping someone else.
+- **Grok/xAI aliases:** note only; no reason to change mg's default from `chatgpt` right now.
+- **Organizational deployment promotion above procedural memory:** important, but not a heartbeat migration task.
 
 ---
 
@@ -10,6 +36,7 @@
 
 | Version | Date | Impact | Theme |
 |---|---|---|---|
+| [Gee-Code 0.68.x + Gee/T 1.39.x + Windows 1.39.x](#v068x) | Jun 1, 2026 (~9:34 PM PT) | 🔴 High | **Organization substrate** (`/init organization`, governed source edges, evidence capture, workflow brains, approval-gated promotion), durable **Action commitments**, ticket/delivery integrity, gateway delivery proof, sandboxed execution, OpenClaw/Codex hardening, quieter autonomy, channel-aware release/update, Windows lane fixes, JSONL previews + Pretext polish, agent-aware docs (`gee.edenic.ai`, bundled `gee-docs` skill/CLI hints), Telegram local-file attachments, connector/pipe/org-route hardening. |
 | [Gee-Code 0.67.0 + Gee/T 1.37.0 (Mac) / 1.38.0 (PC)](#v0670) | May 30, 2026 (~4:45 PM PT) | 🔴 High | **Multi-channel deployments** (Dev / Beta / Stable update channels — manual opt-in to Beta required), **Configuration Management** feature, **app renamed back to Gee/T** (the-terminal Dock icons go to '?', re-pin from Applications), dark-blue first-launch screen while intro precaches. Same-day PSAs: Opus 4.8 + Claude Code burns Max weekly limit in ~2.5 days; next release defaults `cc-gee-max` to Opus 4.8 — use `cc-gee-high`/`xhigh` to limit. Detailed HTML release notes pending from Neil. |
 | [Gee-Code 0.66.3+0.66.5 + Gee/T 1.36.3/1.36.4](#v0663) | May 27, 2026 (~6:30 PM PT) | 🔴 High | **Message Adjudication Gate** (pre-send, source-of-truth contract), Synthesis/Delivery hardening (8 interlocking fixes), **Unified Attachment Substrate** (one AttachmentRef across REPL/web/Pretext/daemon/clipboard/pipe), **Ticket Email + Voice activations**, multi-provider compat (OpenRouter, Cursor agent), MCP identity isolation, Windows PATH fix. Gee/T 1.36.3/1.36.4: Inline Mermaid, Remote Pretext MCP bridge, X OAuth wizard, **Self-Healing Updater** (auto-repairs stale MCP entries). v0.66.5 = two PC quick fixes pushed same night. |
 | [Gee-Code 0.66.0 + Gee/T 1.36.1](#v0660) | May 26, 2026 (~9:17 PM PT) | 🔴 High | **Outbound integrity (trigger lane)** — pre-send adjudication using ticket adjudicator, narration-detector, drop-proof synthesis fallback. **Scheduled-lane delivery proof** — scheduled sends ship model's real body (not narration), require outbox proof. **heartbeat_gather_state wired into routing**. New **lossless capture substrate** + activity-review policy. **Activity-wake watcher**. Cost tagging Phase B1+B2 (voice + embeddings). Watchdog no longer kills healthy long triggers. Gee/T 1.36.1: inline mermaid + SVG persistence + connector auto-repair. |
@@ -36,6 +63,61 @@
 | [Gee-Code v0.54.2 + Terminal v1.26.2](#v0542) | Apr 23, 2026 | 🟢 Passive | GPT-5.5 aliases, Pretext polish |
 | [Gee-Code v0.54.1](#v0541) | Apr 23, 2026 | 🟢 Passive | Bug fixes, Telegram fix |
 | [Gee-Code v0.54.0](#v0540) | Apr 22, 2026 | 🟡 Medium | Delegation, Skills system, House voice |
+
+---
+
+<a name="v068x"></a>
+## 🏢 Gee-Code 0.68.x + Gee/T 1.39.x + Windows 1.39.x — Organization Substrate, Commitments, Delivery Integrity, Agent-Aware Docs (Jun 1, 2026 ~9:34 PM PT)
+
+**Requires:** Beta channel selected for both Gee/T app updates and Gee-Code builds. Neil said users who followed Saturday's instructions should automatically pick this up.
+**Impact level:** 🔴 High
+**Posted:** Neil, Gee Test (Core), Jun 1 ~9:34 PM PT (Gee-Code 0.68.x + Terminal/Gee/T 1.39.x + Windows 1.39.x).
+
+### Summary
+This is a hardening-heavy release with a new organizational deployment substrate. The headline: Gee can now reason about organization surfaces through `/init organization`, capture evidence, track governed source edges, and promote above procedural memory with approval gates. It also turns Gee's own promises into durable follow-up tickets, tightens ticket continuation/delivery proof, adds sandboxed execution policy, improves OpenClaw/Codex recovery, preserves release channels on reinstall, improves Windows support, and adds a new agent-aware documentation surface at `https://gee.edenic.ai` plus bundled `gee-docs` skill/CLI hints.
+
+### 🎯 Most Impactful For You
+
+1. **Organization substrate + `/init organization`** ⭐⭐⭐ — This is directly relevant to Edenic/NLYM operating-system work, but it should be tested on a bounded surface first. Do not point it at everything until behavior is understood.
+2. **Action commitments become durable tickets** ⭐⭐⭐ — Useful for MG's follow-through role. Watch for whether this reduces dropped promises without creating duplicate tracker noise.
+3. **Delivery proof + SendMessage identity hardening** ⭐⭐ — Important for scheduled/heartbeat reliability and the Telegram/SMS guardrails. First few outbound/background runs after update should be watched.
+4. **Sandboxed execution + output routing** ⭐⭐ — Good safety improvement. Confirm generated reports still land in `$GEE_OUTPUT_DIR` and not scattered working directories.
+5. **Agent-aware docs (`gee.edenic.ai`) + bundled `gee-docs`** ⭐⭐ — Likely reduces future setup/debugging friction. Worth one daytime review pass.
+
+### What's New
+
+| Feature | What it does | Why it matters |
+|---|---|---|
+| **Organization substrate** | Governed source edges, evidence capture, workflow brains, approval-gated promotion above procedural memory. | Foundation for treating Edenic/NLYM/GTEK as structured org surfaces instead of loose files. |
+| **`/init organization`** | Discover → populate → follow flow wired into CLI. | Potentially useful for onboarding Gee to an org's content/surfaces. Test carefully. |
+| **Action commitments** | Promises Gee makes become durable follow-up tickets that resume on retry. | Reduces dropped commitments; watch for duplicate/noisy follow-ups. |
+| **Ticket & delivery integrity** | Continuation contracts preserved; partial deliveries stay open; follow-ups resume rather than duplicate. | Should improve long-running tasks and background delivery reliability. |
+| **Delivery proof** | Gateway proof required before marking something delivered; SendMessage sender identity hardened. | Prevents false “sent” status and wrong-sender issues. |
+| **Sandboxed execution** | Sandboxed bash policy + non-code outputs routed to contained workspace. | Safer execution and cleaner artifact routing. |
+| **OpenClaw / Codex hardening** | Gee tools first-class in ACP, health-check + repair in Settings, poisoned-session recovery. | Better recovery when Codex/OpenClaw sessions get wedged. |
+| **Model aliases + pure default** | Grok/xAI build aliases; interactive auto-REPL defaults to pure mode. | Note only; no default model change recommended for mg. |
+| **BYOP & pipe hardening** | Baseline tools in BYOP; bounded persistent-pipe seed to avoid Codex 1MiB cap. | More reliable cross-tool operation. |
+| **Quieter autonomy** | Duplicate/confused/attachment/holdoff/refusal acks suppressed; iteration-limit notice added. | Should reduce noisy background pings. |
+| **Channel-aware release/update** | Channel preserved on reinstall; per-channel wheel feeds; release-console binary matrix. | Prevents falling off Beta after reinstall. |
+| **Windows lane** | 1.39.1 Windows-only release, comspec CLI spawn, git binary resolution for empty graph. | Useful for Windows testers, not Mariciel's Mac unless supporting others. |
+| **Faster first Gee tab** | Stale-tolerant snapshots, stale-first refresh, delayed first-mount polling. | Faster Terminal startup. |
+| **JSONL previews + Pretext polish** | Inline `.jsonl` previews, webview sizing, exact clipboard, recents dropdown. | Helpful for logs and Gee state inspection. |
+| **Docs & discovery surface** | Harness-first mental model, generated agent docs + `llms.txt`, bundled skills, `RecordCommitment`/`Promise`, absolute cross-links. | Better self-serve docs and tool hints. |
+| **Telegram attachments** | Real local-file attachments via SendMessage clarified in house voice + prompt docs. | Useful for sending reports/files; quiet-hour gates still apply. |
+| **Connector / pipe / org-route** | Account required for email handles, bounded persistent-pipe seed, `/init organization` route wired. | More reliable connector/org routing. |
+
+### ⚠️ Caution
+- **Do not run `/init organization` across a broad workspace yet.** Start with a bounded docs surface and confirm what it writes/records.
+- **Watch for SendMessage identity failures.** Hardening is good, but first post-update sends may reveal old config mismatches.
+- **Quiet autonomy should reduce noise, not hide real blockers.** If background runs go silent, check delivery proof/logs before assuming no work happened.
+- **Sandboxed output routing may change where artifacts land.** For user-facing artifacts, keep using `$GEE_OUTPUT_DIR` explicitly.
+
+### ✅ To Explore
+- [ ] Confirm Gee-Code 0.68.x + Gee/T 1.39.x installed after Beta-channel auto-update.
+- [ ] Open `https://gee.edenic.ai` and skim the new agent-aware docs.
+- [ ] Try bundled `gee-docs` skill/CLI hints during a low-risk setup/debug task.
+- [ ] Test `/init organization` on one small bounded Edenic/NLYM surface during a daytime interactive session.
+- [ ] Watch next scheduled/background SendMessage for delivery proof + identity behavior.
 
 ---
 
