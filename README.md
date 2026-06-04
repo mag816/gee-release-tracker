@@ -2,33 +2,37 @@
 
 **Purpose:** Running summary of Gee-Code + The Terminal releases, with workflow-specific guidance on what matters most for Edenic, GTEK, and mg mode.
 **Source:** Gee-Code Test iMessage chat (Neil)
-**Updated:** 2026-06-01 (v0.68.x added)
+**Updated:** 2026-06-04 (v0.69.0 current checklist refreshed)
 
 ---
 
 ## Mariciel Test Queue — Current Release
 
-**Current focus:** Gee-Code 0.68.x + Gee/T 1.39.x + Windows 1.39.x Beta
+**Current focus:** Gee-Code 0.69.0 + Gee/T 1.40.0 Beta
 **Purpose:** Pull only the release actions that matter to Mariciel into one working checklist.
 
 ### Must test now
-- [ ] **Confirm Beta update picked up automatically.** Neil said users who followed Saturday's Beta-channel instructions should automatically receive Gee-Code 0.68.x + Gee/T 1.39.x. Verify Settings still show **App Updates = Beta** and **Gee-Code Builds = Beta**, then restart if needed.
-- [ ] **Check `gee.edenic.ai` agent-aware docs.** New docs surface + bundled `gee-docs` skill/CLI documentation hints may reduce future setup friction.
-- [ ] **Watch first SendMessage / background delivery after update.** Release hardens gateway proof, sender identity, and duplicate/holdoff acks. Confirm scheduled/heartbeat delivery stays quiet unless actionable.
+- [ ] **Confirm both update channels are Beta.** Open Gee/T Settings and verify the update selector sets both **Gee/T app** and **Gee-Code** to **Beta**. Then fully restart Gee/T and restart daemons. If `/channel` reports anything other than `beta` or Settings still shows `legacy`, flag it to Neil.
+- [ ] **Confirm versions after restart.** Verify Gee-Code shows `0.69.0` and Gee/T shows `1.40.0` before testing the new surfaces.
+- [ ] **Open the new Tasks view.** Check whether queued/background work is visible and understandable in The Terminal navigator.
+- [ ] **Watch first SendMessage / background delivery after update.** Release hardens sender identity, gateway-proof delivery, trigger text replies, Telegram attachments, and ack suppression. Confirm scheduled/heartbeat delivery stays quiet unless actionable.
 
 ### Watch / verify
-- [ ] **Organization substrate.** `/init organization` now discovers → populates → follows organization surfaces/content. Relevant to Edenic/NLYM operating-system work, but don't migrate files yet.
-- [ ] **Action commitments.** Promises Gee makes now become durable follow-up tickets. Watch for duplicate vs. useful commitment capture in mg mode.
-- [ ] **Sandboxed execution + output routing.** Non-code outputs route to contained workspace. Confirm artifacts still land in `$GEE_OUTPUT_DIR` when requested.
-- [ ] **Telegram attachments.** Local-file attachments via `SendMessage` are clarified; useful for reports/screenshots, but quiet-hour gates still apply.
+- [ ] **Multiplex Task sessions.** Test only on bounded, low-risk work first. Use explicit concurrency limits so parallel tasks do not duplicate or race.
+- [ ] **TaskGraph + DynamicHarness.** Try on one non-production planning or QA workflow and inspect the inline Mermaid / fan-in result behavior.
+- [ ] **Commitments → tickets.** Make one low-risk follow-up promise and confirm it creates exactly one clean ticket with a useful success contract.
+- [ ] **Sandboxed execution + output routing.** Confirm non-code artifacts still land where expected, especially `$GEE_OUTPUT_DIR` or project `Output/` folders.
+- [ ] **Pretext canvas polish.** Check zoom/pan Mermaid, slash suggestions, exact clipboard selections, PIP thumbnail sizing, and `.jsonl` preview.
+- [ ] **Cost Analyzer.** Open the in-window Usage page and see whether per-user / bucket / category views are useful enough for later Edenic or client cost tracking.
 
 ### Decision needed
-- [ ] **Decide whether to test `/init organization` on a low-risk surface.** Recommendation: wait until daytime and use a small Edenic/NLYM docs surface, not the whole operating system.
+- [ ] **Decide whether to test `/init organization` on a low-risk surface.** Recommendation: still wait for a daytime session and use a small Edenic/NLYM docs surface, not the full operating system.
+- [ ] **Decide whether Multiplex Tasks belongs in NLYM pilot QA.** Recommendation: not during live pilot support yet; use it for internal checklist verification first.
 
 ### Not relevant / skip for now
-- **Windows-only 1.39.1 fixes:** good for PC lane, not Mariciel's Mac workflow unless helping someone else.
-- **Grok/xAI aliases:** note only; no reason to change mg's default from `chatgpt` right now.
-- **Organizational deployment promotion above procedural memory:** important, but not a heartbeat migration task.
+- **Windows hardening / six Windows Terminal builds:** useful for PC testers, not Mariciel's Mac workflow unless helping someone else.
+- **Expanded Slack OAuth / owner-only Slack defaults:** note for future Slack work, but do not change external-send policy during this release check.
+- **Per-device prime routing:** important infrastructure, but no manual change needed unless routing looks wrong.
 
 ---
 
@@ -36,6 +40,7 @@
 
 | Version | Date | Impact | Theme |
 |---|---|---|---|
+| [Gee-Code 0.69.0 + Gee/T 1.40.0](#v0690) | Jun 3, 2026 (~10:33 PM PT) | 🔴 High | **Prompt/capability doctrine**, **Organization substrate promotion**, multiplex **Task sessions**, TaskGraph + DynamicHarness orchestration, Commitments → tickets, Pretext canvas polish, sandbox/credential hardening, access-policy guardrails, Windows hardening, daemon/delivery proof, per-user prime routing, and in-window Cost Analyzer. |
 | [Gee-Code 0.68.x + Gee/T 1.39.x + Windows 1.39.x](#v068x) | Jun 1, 2026 (~9:34 PM PT) | 🔴 High | **Organization substrate** (`/init organization`, governed source edges, evidence capture, workflow brains, approval-gated promotion), durable **Action commitments**, ticket/delivery integrity, gateway delivery proof, sandboxed execution, OpenClaw/Codex hardening, quieter autonomy, channel-aware release/update, Windows lane fixes, JSONL previews + Pretext polish, agent-aware docs (`gee.edenic.ai`, bundled `gee-docs` skill/CLI hints), Telegram local-file attachments, connector/pipe/org-route hardening. |
 | [Gee-Code 0.67.0 + Gee/T 1.37.0 (Mac) / 1.38.0 (PC)](#v0670) | May 30, 2026 (~4:45 PM PT) | 🔴 High | **Multi-channel deployments** (Dev / Beta / Stable update channels — manual opt-in to Beta required), **Configuration Management** feature, **app renamed back to Gee/T** (the-terminal Dock icons go to '?', re-pin from Applications), dark-blue first-launch screen while intro precaches. Same-day PSAs: Opus 4.8 + Claude Code burns Max weekly limit in ~2.5 days; next release defaults `cc-gee-max` to Opus 4.8 — use `cc-gee-high`/`xhigh` to limit. Detailed HTML release notes pending from Neil. |
 | [Gee-Code 0.66.3+0.66.5 + Gee/T 1.36.3/1.36.4](#v0663) | May 27, 2026 (~6:30 PM PT) | 🔴 High | **Message Adjudication Gate** (pre-send, source-of-truth contract), Synthesis/Delivery hardening (8 interlocking fixes), **Unified Attachment Substrate** (one AttachmentRef across REPL/web/Pretext/daemon/clipboard/pipe), **Ticket Email + Voice activations**, multi-provider compat (OpenRouter, Cursor agent), MCP identity isolation, Windows PATH fix. Gee/T 1.36.3/1.36.4: Inline Mermaid, Remote Pretext MCP bridge, X OAuth wizard, **Self-Healing Updater** (auto-repairs stale MCP entries). v0.66.5 = two PC quick fixes pushed same night. |
@@ -63,6 +68,59 @@
 | [Gee-Code v0.54.2 + Terminal v1.26.2](#v0542) | Apr 23, 2026 | 🟢 Passive | GPT-5.5 aliases, Pretext polish |
 | [Gee-Code v0.54.1](#v0541) | Apr 23, 2026 | 🟢 Passive | Bug fixes, Telegram fix |
 | [Gee-Code v0.54.0](#v0540) | Apr 22, 2026 | 🟡 Medium | Delegation, Skills system, House voice |
+
+---
+
+<a name="v0690"></a>
+## 🚀 Gee-Code 0.69.0 + Gee/T 1.40.0 — Prompt Doctrine, Org Substrate, Multiplex Tasks, TaskGraph/DynamicHarness (Jun 3, 2026 ~10:33 PM PT)
+
+**Requires:** Beta selected for both the Gee/T app and Gee-Code builds. After changing channels, fully restart Gee/T and restart daemons; `/channel` should report `beta`, not `legacy`.
+**Impact level:** 🔴 High
+**Posted:** Neil, Gee Test (Core), Jun 3 ~10:33 PM PT (Gee-Code 0.69.0 + Gee/T 1.40.0). Neil followed up Jun 4 ~8:01 AM PT: make sure both Gee/T app and Gee-Code are set to Beta, then restart Gee/T and daemons.
+
+### Summary
+This is a major platform-hardening and orchestration release. The headline: Gee gets stronger capability-use doctrine, organization substrate promotion, unlimited simultaneous ticket-backed Task sessions, TaskGraph + DynamicHarness orchestration, commitment capture as follow-up tickets, Pretext canvas improvements, sandbox/credential hardening, per-user routing, and more delivery-proof guardrails.
+
+### 🎯 Most Impactful For You
+
+1. **Multiplex Task sessions** ⭐⭐⭐ — This is the practical “software factory” unlock: multiple simultaneous tasks with scheduler control and concurrency limits. Useful for parallel QA/build/research, but should be tried on bounded work first.
+2. **TaskGraph + DynamicHarness** ⭐⭐⭐ — Workflow has been renamed/evolved into a self-planning orchestration layer with fan-in result threading and Mermaid output. Good candidate for multi-step NLYM Pay Voucher QA/build flows once stable.
+3. **Commitments → tickets** ⭐⭐⭐ — Promises and follow-ups are now captured end-to-end as tickets. This directly supports MG’s loop-closing role, but watch for duplicate/stale commitments during the first few days.
+4. **Organization substrate promotion** ⭐⭐ — Native onboarding tools and BYOP-aware org skill make `/init organization` more real. Still test on a narrow docs surface before broad Edenic/NLYM use.
+5. **Sandbox + credential hardening** ⭐⭐ — Terminal fallback for missing keys and sandboxed execution improve safety, but artifact/output paths should be watched after the upgrade.
+6. **Access policy + outbound guardrails** ⭐⭐ — Per-user Slack policy, per-gee inbound policies, and outbound `never_do` scoping are directly relevant to email/Slack guardrail audits.
+
+### What's New
+
+| Feature | What it does | Why it matters |
+|---|---|---|
+| **Prompts Upgrade** | Capability-use doctrine, house-voice authority, harness-first substrate model, bundled-skills for org substrate. | Should improve tool choice and reduce model-jargon drift. |
+| **Organization substrate** | Org driver promoted; native onboarding tools; BYOP-aware org skill; six-step CLI; init-organization route. | Makes org-aware Gee setup more operational, but still needs bounded testing. |
+| **Multiplex Task sessions** | Unlimited simultaneous scheduled tasks with scheduler control plane, concurrency limits, ticket-backed ownership, and Terminal Tasks view. | Enables real parallel execution instead of one sequential work lane. |
+| **TaskGraph + DynamicHarness** | Workflow → TaskGraph; DynamicHarness can self-plan/compose; caller-model inheritance; fan-in result threading; Mermaid output. | Better orchestration for multi-step build/research/QA work. |
+| **Commitments → tickets** | RecordCommitment/RecordPromise, strict-schema extraction, success contracts, continuation preservation. | Promises should resume cleanly instead of being dropped or duplicated. |
+| **Pretext canvas** | Zoomable/pannable Mermaid, slash suggestions, exact clipboard, PIP thumbnail/preview sizing, jsonl preview, faster first tab. | Better visible planning/debugging surface in The Terminal. |
+| **Credentials & sandbox** | Terminal-prompt fallback for missing keys; sandboxed bash policy; non-code outputs routed to sandbox. | Safer runtime; watch artifact locations. |
+| **Access policy & guardrails** | Owner-only Slack default, per-gee inbound policies, AgentsPanel guardrails restructure, outbound `never_do` scoped to outbound tools. | Important for external-send safety and Slack/email scope reviews. |
+| **Windows hardening** | Git/CLI spawn fixes, credential-prompt hang fix, process groups, daemon lifecycle, UTF-8 IO, six Windows Terminal builds. | Mostly Windows-lane, but signals broad runtime hardening. |
+| **Daemon & delivery** | Inbound activations prioritized, trigger text replies, Telegram attachment separation, ack noise suppression, SendMessage identity hardening, gateway-proof ticket delivery. | Better background reliability and fewer false delivery claims. |
+| **Prime + per-user routing** | Deterministic per-user prime via gateway, per-device inbound routing, companion-namespaced registry. | More predictable routing for Mariciel/MG surfaces. |
+| **Cost Analyzer** | In-window Usage page with per-user/bucket/category + infra stacks. | Useful for future Edenic cost visibility. |
+
+### ⚠️ Caution
+- **Do not broad-run new org/task substrates yet.** Start with one bounded, low-risk docs/project surface.
+- **Watch the sandbox behavior.** Bash may now reject expected project cwd operations unless routed correctly; generated artifacts may land differently.
+- **Outbound/email guardrails still need audit.** The release improves policy scoping, but mg@edenic.co and mariciel@gtekpartners.com exclusions remain a known blocker until checked.
+- **Task concurrency needs restraint.** Multiplex Tasks are powerful, but should use explicit concurrency limits to avoid noisy or duplicate work.
+
+### ✅ To Explore
+- [ ] Confirm Settings shows Beta for both Gee/T app and Gee-Code; restart Gee/T + daemons; verify `/channel` reports `beta`.
+- [ ] Confirm Gee-Code 0.69.0 + Gee/T 1.40.0 installed.
+- [ ] Review the new Tasks view in The Terminal.
+- [ ] Try TaskGraph/DynamicHarness on a bounded non-production workflow.
+- [ ] Test commitment capture on one low-risk follow-up and confirm it creates one clean ticket.
+- [ ] Re-check sandbox artifact routing for non-code outputs.
+- [ ] Continue email-on-behalf/account-exclusion guardrail audit before any external-send use.
 
 ---
 
