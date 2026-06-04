@@ -19,6 +19,11 @@
 
 ### Watch / verify
 - [ ] **Multiplex Task sessions.** Test only on bounded, low-risk work first. Use explicit concurrency limits so parallel tasks do not duplicate or race.
+  - **How to invoke:** explicitly ask Gee to “use multiplex task sessions” and set a max concurrency, such as `max concurrency 2`.
+  - **What it can do:** split different tasks into parallel sessions, or run several similar independent tasks in parallel instead of serially.
+  - **Good examples:** read-only NLYM Pay Voucher QA across independent flows; five separate balance sheet reconciliations where each rec has separate support; five chapter voucher checks; five documents or product pages to compare.
+  - **Safe test prompt:** `Use multiplex task sessions with max concurrency 2 to do a read-only review of these 5 balance sheet reconciliations. Treat each reconciliation as a separate task session. Do not post entries, edit source files, or change accounting data. For each rec, compare the GL balance to the support, identify differences, list missing support, and flag follow-up questions. Fan the results back into one consolidated summary.`
+  - **Avoid for now:** live external sends, payments, journal entries, production voucher changes, or multiple workers editing the same workbook/file.
 - [ ] **TaskGraph + DynamicHarness.** Try on one non-production planning or QA workflow and inspect the inline Mermaid / fan-in result behavior.
 - [ ] **Commitments → tickets.** Make one low-risk follow-up promise and confirm it creates exactly one clean ticket with a useful success contract.
 - [ ] **Sandboxed execution + output routing.** Confirm non-code artifacts still land where expected, especially `$GEE_OUTPUT_DIR` or project `Output/` folders.
