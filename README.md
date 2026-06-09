@@ -2,42 +2,25 @@
 
 **Purpose:** Running summary of Gee-Code + The Terminal releases, with workflow-specific guidance on what matters most for Edenic, GTEK, and mg mode.
 **Source:** Gee-Code Test iMessage chat (Neil)
-**Updated:** 2026-06-04 (v0.69.0 current checklist refreshed)
+**Updated:** 2026-06-09 (v0.70.0 current checklist refreshed)
 
 ---
 
 ## Mariciel Test Queue — Current Release
 
-**Current focus:** Gee-Code 0.69.0 + Gee/T 1.40.0 Beta
+**Current focus:** Gee-Code 0.70.0 + Gee/T 1.41.0 Mac / 1.42.0 Windows Beta + iOS App (30)
 **Purpose:** Pull only the release actions that matter to Mariciel into one working checklist.
 
 ### Must test now
-- [ ] **Confirm both update channels are Beta.** Open Gee/T Settings and verify the update selector sets both **Gee/T app** and **Gee-Code** to **Beta**. Then fully restart Gee/T and restart daemons. If `/channel` reports anything other than `beta` or Settings still shows `legacy`, flag it to Neil.
-- [ ] **Confirm versions after restart.** Verify Gee-Code shows `0.69.0` and Gee/T shows `1.40.0` before testing the new surfaces.
-- [ ] **Open the new Tasks view.** Check whether queued/background work is visible and understandable in The Terminal navigator.
-- [ ] **Watch first SendMessage / background delivery after update.** Release hardens sender identity, gateway-proof delivery, trigger text replies, Telegram attachments, and ack suppression. Confirm scheduled/heartbeat delivery stays quiet unless actionable.
+- [ ] **Confirm Beta channel versions.** Verify Gee-Code shows `0.70.0`; Gee/T shows `1.41.0` on Mac or `1.42.0` on Windows; iOS app is build/version `30`.
+- [ ] **Try one Loop in a sandbox.** Use a low-stakes “watch/research until done or blocked” goal to see whether Loops hold success criteria and stop cleanly.
+- [ ] **Run one TaskGraph/Dynamic Harness visibly in Pretext.** Use a small fan-out/synthesis or iterate-until-verified task and confirm the Mermaid/DAG state is understandable.
+- [ ] **Inspect Tasks substrate behavior.** Check that queued/delegated work has clear tickets, evidence, leases, and closure state before relying on it for client work.
+- [ ] **Spot-check install/productization paths.** Note the single DMG/EXE and Windows beta progress as beta-program readiness signals, not production rollout proof yet.
 
-### Watch / verify
-- [ ] **Multiplex Task sessions.** Test only on bounded, low-risk work first. Use explicit concurrency limits so parallel tasks do not duplicate or race.
-  - **How to invoke:** explicitly ask Gee to “use multiplex task sessions” and set a max concurrency, such as `max concurrency 2`.
-  - **What it can do:** split different tasks into parallel sessions, or run several similar independent tasks in parallel instead of serially.
-  - **Good examples:** read-only NLYM Pay Voucher QA across independent flows; five separate balance sheet reconciliations where each rec has separate support; five chapter voucher checks; five documents or product pages to compare.
-  - **Safe test prompt:** `Use multiplex task sessions with max concurrency 2 to do a read-only review of these 5 balance sheet reconciliations. Treat each reconciliation as a separate task session. Do not post entries, edit source files, or change accounting data. For each rec, compare the GL balance to the support, identify differences, list missing support, and flag follow-up questions. Fan the results back into one consolidated summary.`
-  - **Avoid for now:** live external sends, payments, journal entries, production voucher changes, or multiple workers editing the same workbook/file.
-- [ ] **TaskGraph + DynamicHarness.** Try on one non-production planning or QA workflow and inspect the inline Mermaid / fan-in result behavior.
-- [ ] **Commitments → tickets.** Make one low-risk follow-up promise and confirm it creates exactly one clean ticket with a useful success contract.
-- [ ] **Sandboxed execution + output routing.** Confirm non-code artifacts still land where expected, especially `$GEE_OUTPUT_DIR` or project `Output/` folders.
-- [ ] **Pretext canvas polish.** Check zoom/pan Mermaid, slash suggestions, exact clipboard selections, PIP thumbnail sizing, and `.jsonl` preview.
-- [ ] **Cost Analyzer.** Open the in-window Usage page and see whether per-user / bucket / category views are useful enough for later Edenic or client cost tracking.
-
-### Decision needed
-- [ ] **Decide whether to test `/init organization` on a low-risk surface.** Recommendation: still wait for a daytime session and use a small Edenic/NLYM docs surface, not the full operating system.
-- [ ] **Decide whether Multiplex Tasks belongs in NLYM pilot QA.** Recommendation: not during live pilot support yet; use it for internal checklist verification first.
-
-### Not relevant / skip for now
-- **Windows hardening / six Windows Terminal builds:** useful for PC testers, not Mariciel's Mac workflow unless helping someone else.
-- **Expanded Slack OAuth / owner-only Slack defaults:** note for future Slack work, but do not change external-send policy during this release check.
-- **Per-device prime routing:** important infrastructure, but no manual change needed unless routing looks wrong.
+### Keep in mind
+- This is a major autonomy/substrate release: Loops, Tasks, TaskGraph, Dynamic Harnesses, Pretext DAG visibility, and packaging all moved at once.
+- Best first test is still a sandbox workflow. Do not use a real client/NLYM deliverable until task closure, approval gates, and visible state feel predictable.
 
 ---
 
@@ -45,6 +28,7 @@
 
 | Version | Date | Impact | Theme |
 |---|---|---|---|
+| [Gee-Code 0.70.0 + Gee/T 1.41.0 Mac / 1.42.0 Windows + iOS App (30)](#v0700) | Jun 8, 2026 (~11:42 PM PT) | 🔴 High | **Loops Alpha**, **Task Substrate**, TaskGraph + DynamicHarness orchestration, visible Pretext/Mermaid DAGs, single DMG/EXE packaging path, Windows beta end-to-end, iOS App 30, and broad task/delegation/ticket hardening. |
 | [Gee-Code 0.69.0 + Gee/T 1.40.0](#v0690) | Jun 3, 2026 (~10:33 PM PT) | 🔴 High | **Prompt/capability doctrine**, **Organization substrate promotion**, multiplex **Task sessions**, TaskGraph + DynamicHarness orchestration, Commitments → tickets, Pretext canvas polish, sandbox/credential hardening, access-policy guardrails, Windows hardening, daemon/delivery proof, per-user prime routing, and in-window Cost Analyzer. |
 | [Gee-Code 0.68.x + Gee/T 1.39.x + Windows 1.39.x](#v068x) | Jun 1, 2026 (~9:34 PM PT) | 🔴 High | **Organization substrate** (`/init organization`, governed source edges, evidence capture, workflow brains, approval-gated promotion), durable **Action commitments**, ticket/delivery integrity, gateway delivery proof, sandboxed execution, OpenClaw/Codex hardening, quieter autonomy, channel-aware release/update, Windows lane fixes, JSONL previews + Pretext polish, agent-aware docs (`gee.edenic.ai`, bundled `gee-docs` skill/CLI hints), Telegram local-file attachments, connector/pipe/org-route hardening. |
 | [Gee-Code 0.67.0 + Gee/T 1.37.0 (Mac) / 1.38.0 (PC)](#v0670) | May 30, 2026 (~4:45 PM PT) | 🔴 High | **Multi-channel deployments** (Dev / Beta / Stable update channels — manual opt-in to Beta required), **Configuration Management** feature, **app renamed back to Gee/T** (the-terminal Dock icons go to '?', re-pin from Applications), dark-blue first-launch screen while intro precaches. Same-day PSAs: Opus 4.8 + Claude Code burns Max weekly limit in ~2.5 days; next release defaults `cc-gee-max` to Opus 4.8 — use `cc-gee-high`/`xhigh` to limit. Detailed HTML release notes pending from Neil. |
@@ -73,6 +57,58 @@
 | [Gee-Code v0.54.2 + Terminal v1.26.2](#v0542) | Apr 23, 2026 | 🟢 Passive | GPT-5.5 aliases, Pretext polish |
 | [Gee-Code v0.54.1](#v0541) | Apr 23, 2026 | 🟢 Passive | Bug fixes, Telegram fix |
 | [Gee-Code v0.54.0](#v0540) | Apr 22, 2026 | 🟡 Medium | Delegation, Skills system, House voice |
+
+---
+
+<a name="v0700"></a>
+## 🚀 Gee-Code 0.70.0 + Gee/T 1.41.0 Mac / 1.42.0 Windows + iOS App (30) — Loops, Task Substrate, TaskGraph, Dynamic Harnesses, Packaging (Jun 8, 2026 ~11:42 PM PT)
+
+**Requires:** Beta selected for Gee-Code and Gee/T. After changing channels, fully restart Gee/T and restart daemons. Windows beta path is now much more complete, but treat it as beta-quality.
+
+### Summary
+Neil announced a major autonomy and productization release: Gee-Code `0.70.0`, Gee/T `1.41.0` on Mac, Gee/T `1.42.0` on Windows, and iOS App `30`, available on Beta channels. The core shift is from single-session execution toward durable, visible, parallel work: Loops for long-running outcome ownership, a ticket-backed Task Substrate for scalable work units, TaskGraph/Dynamic Harnesses for structured orchestration, and Pretext/Mermaid visibility so workflows are watchable instead of hidden.
+
+### 🎯 Most Impactful
+
+**TaskGraph + Dynamic Harnesses are the immediate Mariciel win.** They make complex work easier to trust: research branches, implementation/verification stages, debates, tournaments, and fan-out synthesis can run as visible DAGs in Pretext instead of buried agent work. This is the best sandbox to test before using Loops or high-volume Tasks for real NLYM/Edenic/GTEK workflows.
+
+### What's New
+
+| Area | What changed | Why Mariciel cares |
+|---|---|---|
+| Loops system (Alpha) | Durable autonomy loops can hold goals, success criteria, evidence, next actions, and continue until done, blocked, or needing human judgment. | Moves Gee closer to owning outcomes like “watch this issue until fixed” or “keep improving this spec nightly.” Start with sandbox loops only. |
+| Task Substrate | Ticket-backed, lease-aware work units can be queued, delegated, resumed, checked, and closed with evidence. | Foundation for parallel worker-style execution and safer long-running operations. Important for scale, but needs closure/approval spot-checking. |
+| TaskGraph | REPL-native DAG workflows with visible dependency maps, branching, parallel work, and fan-in synthesis. Presets include fan-out synthesis, debate, tournament, iterate-until-verified, and sequence. | Best immediate feature to test: visible structure makes multi-step AI work easier to supervise. |
+| Dynamic Harnesses | Gee can choose and compose TaskGraph patterns automatically based on task shape. | Less need to pick an orchestration pattern manually; prompts like “compare approaches” or “iterate until this passes” can map to the right workflow. |
+| Pretext DAG / Mermaid visibility | Inline Mermaid rendering and live DAG substrate support landed in Terminal/Pretext. | Workflow execution becomes inspectable in the UI, which is key for trust and learning. |
+| Single DMG / EXE install path | First real packaging path for macOS and Windows, bundling app/runtime pieces toward a normal install experience. | Big Friends & Family beta signal: less “developer setup required” over time. |
+| Windows beta end-to-end | Windows can install, launch, resolve dependencies, run Gee-Code, and support core Pretext/Terminal/background paths. | Windows is becoming a real supported surface, useful for broader beta users. |
+| iOS App (30) | New mobile version described as more functional and focused. | Worth testing once the desktop beta path is stable. |
+| Hardening | Task-session isolation, delegation/worker hardening, ticket hygiene, curated test gates, PR CI, Windows-safe process/config handling, OpenClaw/ACP/MCP cleanup, prompt/channel-etiquette updates. | Reduces substrate fragility, but this release touches many core systems at once. Test in small loops. |
+
+### New Commands / Surfaces
+
+- `TaskGraph` tool / REPL workflow presets: fan-out synthesis, debate, tournament, iterate-until-verified, sequence.
+- `DynamicHarness` composition layer for auto-selecting and nesting workflow patterns.
+- Tasks workspace and navigation surfaces for ticket-backed task state.
+- Inline Mermaid/DAG visualization in Pretext.
+- Single DMG / EXE packaging path and release-console wiring.
+
+### ⚠️ Caution
+
+- **Loops are alpha.** Use sandbox goals first; confirm they stop cleanly and ask for judgment at the right time.
+- **Substrate-heavy release.** Tasks, tickets, delegation, Pretext, Terminal packaging, Windows, and iOS all moved. Expect rough edges.
+- **Do not start with client deliverables.** First test with non-critical workflows, then graduate to NLYM/Edenic/GTEK once evidence, closure, and approval behavior are clear.
+- **Windows is beta-quality.** Big milestone, not a promise that every user environment is clean yet.
+
+### ✅ To Explore
+
+- [ ] Run one visible TaskGraph fan-out synthesis in Pretext and confirm the DAG is readable.
+- [ ] Try one Dynamic Harness prompt: “compare these approaches and recommend the best one.”
+- [ ] Start one tiny Loop with explicit success criteria and verify it ends as done/blocked/needs-human rather than drifting.
+- [ ] Inspect a Task-backed workflow for ticket evidence, lease/ownership state, and closure notes.
+- [ ] Test the iOS build 30 path after desktop beta is stable.
+- [ ] Track whether single DMG/EXE packaging changes the Friends & Family beta onboarding plan.
 
 ---
 
