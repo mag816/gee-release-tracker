@@ -2,24 +2,32 @@
 
 **Purpose:** Running summary of Gee-Code + The Terminal releases, with workflow-specific guidance on what matters most for Edenic, GTEK, and mg mode.
 **Source:** Gee-Code Test iMessage chat (Neil)
-**Updated:** 2026-06-09 (v0.70.0 current checklist refreshed)
+**Updated:** 2026-06-09 (v0.70.3 + iOS 0.31 checklist refreshed)
 
 ---
 
 ## Mariciel Test Queue — Current Release
 
-**Current focus:** Gee-Code 0.70.0 + Gee/T 1.41.0 Mac / 1.42.0 Windows Beta + iOS App (30)
+**Current focus:** Gee-Code 0.70.3 + Gee/T 1.41.0 Mac / 1.42.0 Windows Beta + iOS App 0.31
 **Purpose:** Pull only the release actions that matter to Mariciel into one working checklist.
 
 ### Must test now
-- [ ] **Confirm Beta channel versions.** Verify Gee-Code shows `0.70.0`; Gee/T shows `1.41.0` on Mac or `1.42.0` on Windows; iOS app is build/version `30`.
+- [x] **Confirm Gee-Code 0.70.0 baseline.** `/version` showed Gee-Code `0.70.0` and “You're up to date” earlier on 2026-06-09.
+- [ ] **Confirm Gee-Code 0.70.3 availability.** Run `/version` again after Neil's same-day follow-ups and confirm the local install sees `0.70.3` or the update path.
+- [ ] **Test Exa agentic web-search.** Run one current-fact research query that should benefit from Exa, compare against the normal search path, and note source quality/latency.
+- [ ] **Check Fable model aliases.** Confirm `fable-zero` / `cc-gee-fable-zero` are available and that old `fable-low` naming is no longer expected.
+- [ ] **Note Fable cost before use.** Treat Fable as a premium model path: Neil said it bills at 2x Opus 4.8, so use only for a small sandbox comparison unless there is a clear reason.
+- [ ] **Check new documentation updates.** Use `/version browse` or the bundled docs path to confirm the new Exa/Fable docs material is discoverable and understandable.
+- [ ] **Confirm Gee/T + iOS Beta versions.** Verify Gee/T shows `1.41.0` on Mac or `1.42.0` on Windows; iOS app is build/version `0.31`.
+- [ ] **Test iOS 0.31 fixes.** On iOS, check iOS 27 compatibility, link rendering, web click-throughs, and keyboard behavior.
 - [ ] **Try one Loop in a sandbox.** Use a low-stakes “watch/research until done or blocked” goal to see whether Loops hold success criteria and stop cleanly.
-- [ ] **Run one TaskGraph/Dynamic Harness visibly in Pretext.** Use a small fan-out/synthesis or iterate-until-verified task and confirm the Mermaid/DAG state is understandable.
+- [x] **Run one TaskGraph/Dynamic Harness visibly in Pretext.** Completed a live Dynamic Harness demo on the NLYM KB review flow; second pass completed cleanly and showed the DAG/orchestration mechanics.
 - [ ] **Inspect Tasks substrate behavior.** Check that queued/delegated work has clear tickets, evidence, leases, and closure state before relying on it for client work.
 - [ ] **Spot-check install/productization paths.** Note the single DMG/EXE and Windows beta progress as beta-program readiness signals, not production rollout proof yet.
 
 ### Keep in mind
-- This is a major autonomy/substrate release: Loops, Tasks, TaskGraph, Dynamic Harnesses, Pretext DAG visibility, and packaging all moved at once.
+- `0.70.1`–`0.70.3` are same-day follow-ups on top of the large `0.70.0` autonomy/substrate release: keep the Loops/Tasks caution, but add Exa search, Fable alias, Fable cost, and docs checks now.
+- iOS `0.31` is specifically about mobile polish: iOS 27 fixes, link rendering, web click-throughs, and keyboard behavior.
 - Best first test is still a sandbox workflow. Do not use a real client/NLYM deliverable until task closure, approval gates, and visible state feel predictable.
 
 ---
@@ -28,6 +36,7 @@
 
 | Version | Date | Impact | Theme |
 |---|---|---|---|
+| [Gee-Code 0.70.1–0.70.3 + iOS App 0.31](#v0701) | Jun 9, 2026 (~10:35 AM PT–3:27 PM PT) | 🟡 Medium | Same-day follow-ups: **Exa agentic web-search**, Fable model aliases + rename to `fable-zero`, documentation updates, and iOS 0.31 polish. |
 | [Gee-Code 0.70.0 + Gee/T 1.41.0 Mac / 1.42.0 Windows + iOS App (30)](#v0700) | Jun 8, 2026 (~11:42 PM PT) | 🔴 High | **Loops Alpha**, **Task Substrate**, TaskGraph + DynamicHarness orchestration, visible Pretext/Mermaid DAGs, single DMG/EXE packaging path, Windows beta end-to-end, iOS App 30, and broad task/delegation/ticket hardening. |
 | [Gee-Code 0.69.0 + Gee/T 1.40.0](#v0690) | Jun 3, 2026 (~10:33 PM PT) | 🔴 High | **Prompt/capability doctrine**, **Organization substrate promotion**, multiplex **Task sessions**, TaskGraph + DynamicHarness orchestration, Commitments → tickets, Pretext canvas polish, sandbox/credential hardening, access-policy guardrails, Windows hardening, daemon/delivery proof, per-user prime routing, and in-window Cost Analyzer. |
 | [Gee-Code 0.68.x + Gee/T 1.39.x + Windows 1.39.x](#v068x) | Jun 1, 2026 (~9:34 PM PT) | 🔴 High | **Organization substrate** (`/init organization`, governed source edges, evidence capture, workflow brains, approval-gated promotion), durable **Action commitments**, ticket/delivery integrity, gateway delivery proof, sandboxed execution, OpenClaw/Codex hardening, quieter autonomy, channel-aware release/update, Windows lane fixes, JSONL previews + Pretext polish, agent-aware docs (`gee.edenic.ai`, bundled `gee-docs` skill/CLI hints), Telegram local-file attachments, connector/pipe/org-route hardening. |
@@ -57,6 +66,44 @@
 | [Gee-Code v0.54.2 + Terminal v1.26.2](#v0542) | Apr 23, 2026 | 🟢 Passive | GPT-5.5 aliases, Pretext polish |
 | [Gee-Code v0.54.1](#v0541) | Apr 23, 2026 | 🟢 Passive | Bug fixes, Telegram fix |
 | [Gee-Code v0.54.0](#v0540) | Apr 22, 2026 | 🟡 Medium | Delegation, Skills system, House voice |
+
+---
+
+<a name="v0701"></a>
+## Gee-Code 0.70.1–0.70.3 + iOS App 0.31 — Exa Search, Fable Aliases, Docs, iOS Polish (Jun 9, 2026 ~10:35 AM–3:27 PM PT)
+
+**Posted:** Neil, Gee Test (Core), Jun 9 ~10:34 AM–3:27 PM PT.
+**Impact level:** 🟡 Medium
+
+### Summary
+Neil posted same-day follow-ups after the `0.70.0` autonomy release: iOS Build `0.31` fixes iOS 27 compatibility, link rendering, web click-throughs, and keyboard behavior; Gee-Code `0.70.1` adds Exa agentic web-search and documentation updates; `0.70.2` adds Fable support with native Anthropic API aliases and Claude Code aliases; `0.70.3` renames `fable-low` / `cc-gee-fable-low` to `fable-zero` / `cc-gee-fable-zero`. Neil also noted Fable is billed at 2x Opus 4.8.
+
+### 🎯 Most Impactful For You
+
+**Exa search is the main desktop learning target.** Test it on a contained current-fact research task and compare the answer quality, source traceability, and speed against the existing search path before relying on it for partner/client research.
+
+**Fable is a small sandbox-only test for now.** The aliases matter because they signal native support, but the 2x Opus 4.8 cost note means do not casually route normal work through it.
+
+**iOS 0.31 is the mobile confidence check.** Since the fixes touch links, click-throughs, and keyboard behavior, test the exact flows you use when reviewing Gee updates from your phone.
+
+### What Changed
+
+| Area | What changed | Why Mariciel cares |
+|---|---|---|
+| Exa agentic web-search | New web-search path in Gee-Code `0.70.1`. | Potentially better research quality for live/company/product lookups; needs source-quality spot check. |
+| Documentation | Docs updated alongside the Exa/Fable releases. | Good chance to practice finding feature docs through `/version browse` or bundled docs rather than relying on Neil's chat. |
+| Fable support | Native Anthropic API aliases and Claude Code aliases added in `0.70.2`; renamed in `0.70.3` from `fable-low` to `fable-zero`. | Useful to know for model-routing tests, but expensive enough to keep sandboxed. |
+| Fable billing | Neil noted Fable is billed at 2x Opus 4.8. | Prevents accidental high-cost testing while Mariciel is still learning model/cost behavior. |
+| iOS App 0.31 | Fixes for iOS 27, link rendering, web click-throughs, and keyboard behavior. | Directly affects mobile Pretext/review workflows and whether phone-side testing feels reliable. |
+
+### ✅ To Explore
+
+- [ ] Run `/version` and confirm whether local Gee-Code sees `0.70.3`.
+- [ ] Try one Exa-backed current-fact search and compare it with the normal search path.
+- [ ] Confirm `fable-zero` / `cc-gee-fable-zero` aliases are present; do not use old `fable-low` naming.
+- [ ] Run at most one tiny Fable sandbox comparison and note whether the quality justifies the 2x Opus 4.8 billing.
+- [ ] Open the updated docs/release notes and confirm where Exa/Fable guidance lives.
+- [ ] On iOS 0.31, test link rendering, web click-through, and keyboard behavior.
 
 ---
 
