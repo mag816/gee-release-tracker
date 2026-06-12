@@ -2,20 +2,20 @@
 
 **Purpose:** Running summary of Gee-Code + The Terminal releases, with workflow-specific guidance on what matters most for Edenic, GTEK, and mg mode.
 **Source:** Gee-Code Test iMessage chat (Neil)
-**Updated:** 2026-06-09 (v0.70.3 + iOS 0.31 checklist refreshed)
+**Updated:** 2026-06-12 (local install now on v0.70.5; version state + test queue refreshed. v0.70 feature content already tracked through 0.70.3 — 0.70.4 and 0.70.5 are silent point releases with no Gee Test (Core) changelog)
 
 ---
 
 ## Mariciel Test Queue — Current Release
 
-**Current focus:** Gee-Code 0.70.3 + Gee/T 1.41.0 Mac / 1.42.0 Windows Beta + iOS App 0.31
+**Current focus:** Gee-Code 0.70.5 (installed, confirmed via `/version` 2026-06-12) + Gee/T 1.41.0 Mac / 1.42.0 Windows Beta + iOS App 0.31
 **Purpose:** Pull only the release actions that matter to Mariciel into one working checklist.
 
 ### Must test now
 - [x] **Confirm Gee-Code 0.70.0 baseline.** `/version` showed Gee-Code `0.70.0` and “You're up to date” earlier on 2026-06-09.
-- [ ] **Confirm Gee-Code 0.70.3 availability.** Run `/version` again after Neil's same-day follow-ups and confirm the local install sees `0.70.3` or the update path.
+- [x] **Confirm current Gee-Code version.** `/version` on 2026-06-12 shows `0.70.5` + “You're up to date.” Past the `0.70.3` announcement. `0.70.4`–`0.70.5` are unannounced point releases (nothing posted in Gee Test (Core)), so no specific new features to test from them — likely minor fixes.
 - [ ] **Test Exa agentic web-search.** Run one current-fact research query that should benefit from Exa, compare against the normal search path, and note source quality/latency.
-- [ ] **Check Fable model aliases.** Confirm `fable-zero` / `cc-gee-fable-zero` are available and that old `fable-low` naming is no longer expected.
+- [ ] **Try Fable on a gee (sandbox only).** Fable support shipped in `0.70.2` and you're on `0.70.5`, so the aliases should resolve. To use: model picker → `custom` → `cc-gee-fable` (effort tiers: `cc-gee-fable-zero` / `-medium` / `-high` / `-xhigh` / `-max`). Old `fable-low` is now `fable-zero`. Direct-API equivalent: `claude-fable-5` (aliases `fable`, `claude-fable`, tiers `fable-zero`…`fable-max`).
 - [ ] **Note Fable cost before use.** Treat Fable as a premium model path: Neil said it bills at 2x Opus 4.8, so use only for a small sandbox comparison unless there is a clear reason.
 - [ ] **Check new documentation updates.** Use `/version browse` or the bundled docs path to confirm the new Exa/Fable docs material is discoverable and understandable.
 - [ ] **Confirm Gee/T + iOS Beta versions.** Verify Gee/T shows `1.41.0` on Mac or `1.42.0` on Windows; iOS app is build/version `0.31`.
