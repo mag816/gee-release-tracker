@@ -2,7 +2,7 @@
 
 **Purpose:** Running summary of Gee-Code + The Terminal releases, with workflow-specific guidance on what matters most for Edenic, GTEK, and mg mode.
 **Source:** Gee-Code Test iMessage chat (Neil)
-**Updated:** 2026-06-12 (local install now on v0.70.5; version state + test queue refreshed. v0.70 feature content already tracked through 0.70.3 — 0.70.4 and 0.70.5 are silent point releases with no Gee Test (Core) changelog)
+**Updated:** 2026-06-12 (local install now on v0.70.5; version state + test queue refreshed. Gee/T 1.42.5 Beta bug-fix build noted from Neil. v0.70 feature content already tracked through 0.70.3 — 0.70.4 and 0.70.5 are silent point releases with no Gee Test (Core) changelog)
 
 ---
 
@@ -36,6 +36,7 @@
 
 | Version | Date | Impact | Theme |
 |---|---|---|---|
+| [Gee/T 1.42.5 Beta](#gt1425) | Jun 12, 2026 (~5:48 PM PT) | 🟡 Medium | Beta bug-fix build from Neil: crash + attachment fixes, including side-tab addition crash and iOS photo-send repair. |
 | [Gee-Code 0.70.1–0.70.3 + iOS App 0.31](#v0701) | Jun 9, 2026 (~10:35 AM PT–3:27 PM PT) | 🟡 Medium | Same-day follow-ups: **Exa agentic web-search**, Fable model aliases + rename to `fable-zero`, documentation updates, and iOS 0.31 polish. |
 | [Gee-Code 0.70.0 + Gee/T 1.41.0 Mac / 1.42.0 Windows + iOS App (30)](#v0700) | Jun 8, 2026 (~11:42 PM PT) | 🔴 High | **Loops Alpha**, **Task Substrate**, TaskGraph + DynamicHarness orchestration, visible Pretext/Mermaid DAGs, single DMG/EXE packaging path, Windows beta end-to-end, iOS App 30, and broad task/delegation/ticket hardening. |
 | [Gee-Code 0.69.0 + Gee/T 1.40.0](#v0690) | Jun 3, 2026 (~10:33 PM PT) | 🔴 High | **Prompt/capability doctrine**, **Organization substrate promotion**, multiplex **Task sessions**, TaskGraph + DynamicHarness orchestration, Commitments → tickets, Pretext canvas polish, sandbox/credential hardening, access-policy guardrails, Windows hardening, daemon/delivery proof, per-user prime routing, and in-window Cost Analyzer. |
@@ -66,6 +67,23 @@
 | [Gee-Code v0.54.2 + Terminal v1.26.2](#v0542) | Apr 23, 2026 | 🟢 Passive | GPT-5.5 aliases, Pretext polish |
 | [Gee-Code v0.54.1](#v0541) | Apr 23, 2026 | 🟢 Passive | Bug fixes, Telegram fix |
 | [Gee-Code v0.54.0](#v0540) | Apr 22, 2026 | 🟡 Medium | Delegation, Skills system, House voice |
+
+---
+
+<a name="gt1425"></a>
+## Gee/T 1.42.5 Beta — crash + attachment fixes (Jun 12, 2026 ~5:48 PM PT)
+
+**Posted:** Neil, Gee Test (Core), Jun 12 ~5:48 PM PT.  
+**Impact:** 🟡 Medium — beta stability + attachment-flow fixes; useful if testing side tabs, iOS image sending, or agent attachment workflows.
+
+**Neil summary:** "new beta 1.42.5. mostly fixing a few bugs that were introduced. Side tab adding was crashing, photo send from iOS was broken, agent attachments were dropping a variable name."
+
+**What changed:**
+- Fixed side-tab adding crash in Gee/T beta.
+- Fixed broken photo send from iOS.
+- Fixed agent attachments dropping a variable name.
+
+**MG take:** Treat this as a targeted Gee/T beta repair build, not a broader Gee-Code release. No mg workflow change needed unless Mariciel hits side-tab, iOS photo-send, or attachment regressions.
 
 ---
 
