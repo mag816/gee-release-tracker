@@ -2,7 +2,38 @@
 
 **Purpose:** Running summary of Gee-Code + The Terminal releases, with workflow-specific guidance on what matters most for Edenic, GTEK, and mg mode.
 **Source:** Gee-Code Test iMessage chat (Neil)
-**Updated:** 2026-06-19 (Reviewed Neil’s “Huge New Release” note in Gee Test/Core. Local Gee-Code is still `0.70.5` and reports “You're up to date”; new Beta release testing is tracked below: outcome loops, org/container substrate, scalable tasks, MS365 connector, Windows support, Operations panel, realtime voice/context upgrades, and single DMG/EXE install path.)
+**Updated:** 2026-06-23 (Captured Neil’s Gee-Code `0.70.15` / Gee/T `1.42.49` Beta release note. Main theme: hardening durable workflows, Outcome Loops, Task/Plan context parenting, tool-result token reduction, GLM/ZAI model support, and reliability fixes.)
+
+---
+
+## 2026-06-23 — Gee-Code 0.70.15 + Gee/T 1.42.49 Beta hardening release
+
+**Source:** Neil Young, Gee Test/Core iMessage, 2026-06-23 06:43 PT.
+
+**Plain-English summary:** This is a reliability release for the parts of Gee that matter most to Mariciel’s work: durable workflows, Outcome Loops, plan/task context, lane isolation, and tool-result management. The practical goal is less drift, lower token use, cleaner long-running work, and better recovery when something breaks.
+
+**What changed:**
+
+- **Activation-lane context got stronger.** `/org`, `/loop`, and plan execution can now carry parent context better, so a task inside a plan can understand the plan it belongs to.
+- **Tool results are lighter.** The Results Envelope/Governor and Tool History Manager can cut model token consumption by up to ~75% by showing compact tool summaries while keeping durable access to raw results. Controls: `/governor on|off` and `/debug history-tool-window 0|1-N`.
+- **GLM/ZAI support expanded.** New native/subscription ZAI support, `/model zai`, `/model ZAI-CODE`, plus zero/max reasoning support.
+- **Gee File Panel behavior improved.** Gees shown in File Panel > Gee’s now honor activation settings across activation lanes.
+- **Core reliability fixes landed.** Neil specifically called out Task System, Outcome Loops, workflows, bug reporting, GTX self-healing, quota exhaustion protection, Pretext pipe protections, native REPL revamp, prompt tagging, updater messaging, Brick stability, Brick server port assignment, Deepseek/ZAI reasoning threads, and MCP launch reliability for the single installer.
+
+**Why it matters for MG:**
+
+- Highest relevance: Outcome Loops, TaskGraph/plan execution, heartbeat/scheduled workflow reliability, Bricks, GTX bug-report submission, and tool-result compaction.
+- This directly affects the current Gee learning/test queue and the Release Tracker sandbox loop idea.
+- Also relevant to the recent GTX outbound-mailbox blocker and MS365 connector feedback because bug reporting and GTX self-healing were named in the fix list.
+
+**Suggested test queue updates:**
+
+- [ ] Run version check and confirm local Gee-Code `0.70.15` + Gee/T `1.42.49` availability.
+- [ ] Test one tiny Outcome Loop using the Gee Release Tracker sandbox and confirm context parenting + clean stop behavior.
+- [ ] Turn the governor on, run a tool-heavy read/check flow, then use raw-result retrieval to confirm compact summaries do not hide needed evidence.
+- [ ] Re-test Bug Report / GTX submission flow after update; see whether self-healing or clearer mailbox guidance appears.
+- [ ] Open NLYM Go-Live Command Center Brick and confirm Brick server/port stability.
+- [ ] Try one small TaskGraph/plan execution and confirm child tasks inherit plan context clearly.
 
 ---
 
