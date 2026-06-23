@@ -2,16 +2,23 @@
 
 **Purpose:** Running summary of Gee-Code + The Terminal releases, with workflow-specific guidance on what matters most for Edenic, GTEK, and mg mode.
 **Source:** Gee-Code Test iMessage chat (Neil)
-**Updated:** 2026-06-12 (local install now on v0.70.5; version state + test queue refreshed. Gee/T 1.42.5 Beta bug-fix build noted from Neil. v0.70 feature content already tracked through 0.70.3 — 0.70.4 and 0.70.5 are silent point releases with no Gee Test (Core) changelog)
+**Updated:** 2026-06-19 (Reviewed Neil’s “Huge New Release” note in Gee Test/Core. Local Gee-Code is still `0.70.5` and reports “You're up to date”; new Beta release testing is tracked below: outcome loops, org/container substrate, scalable tasks, MS365 connector, Windows support, Operations panel, realtime voice/context upgrades, and single DMG/EXE install path.)
 
 ---
 
 ## Mariciel Test Queue — Current Release
 
-**Current focus:** Gee-Code 0.70.5 (installed, confirmed via `/version` 2026-06-12) + Gee/T 1.41.0 Mac / 1.42.0 Windows Beta + iOS App 0.31
+**Current focus:** Neil’s Jun 18/19 “Huge New Release” note: outcome loops, org/container substrate, scalable task queues, MS365 connector, Windows support, Operations panel, realtime voice/context upgrades, and the single DMG/EXE installer path. Local Gee-Code was confirmed via `/version` on 2026-06-19 as `0.70.5` + “You're up to date,” so treat this as a Beta-channel readiness/test-planning item until an updater-visible version appears.
 **Purpose:** Pull only the release actions that matter to Mariciel into one working checklist.
 
 ### Must test now
+- [x] **Confirm current local Gee-Code version.** `/version` on 2026-06-19 shows Gee-Code `0.70.5` + “You're up to date.” Keep watching for the updater-visible Beta build Neil referenced.
+- [ ] **Do not upgrade during a critical work block.** Neil explicitly asked for issue reports because the release moves from component installer to a single DMG/EXE bundle. Test the installer only in a low-risk window.
+- [ ] **Sandbox-test Outcome Loops before real work.** Use a harmless goal with clear success criteria; confirm Gee records evidence, stops cleanly, and escalates instead of drifting.
+- [ ] **Test visible TaskGraph/DynamicHarness progress.** Run one small graph you can watch in Pretext; verify progress, failure state, and final synthesis are understandable.
+- [ ] **Inspect Org/Container task isolation.** Confirm delegated/task-session worktrees do not collide with the active repo before trusting parallel work.
+- [ ] **Open Operations panel.** Confirm event-driver health cards are understandable enough for MG scheduled tasks and heartbeat monitoring.
+- [ ] **Treat MS365 connector as future-client surface.** Useful for Outlook/Microsoft users, but not an immediate NLYM priority unless Workspace strategy changes.
 - [x] **Confirm Gee-Code 0.70.0 baseline.** `/version` showed Gee-Code `0.70.0` and “You're up to date” earlier on 2026-06-09.
 - [x] **Confirm current Gee-Code version.** `/version` on 2026-06-12 shows `0.70.5` + “You're up to date.” Past the `0.70.3` announcement. `0.70.4`–`0.70.5` are unannounced point releases (nothing posted in Gee Test (Core)), so no specific new features to test from them — likely minor fixes.
 - [ ] **Test Exa agentic web-search.** Run one current-fact research query that should benefit from Exa, compare against the normal search path, and note source quality/latency.
@@ -26,9 +33,10 @@
 - [ ] **Spot-check install/productization paths.** Note the single DMG/EXE and Windows beta progress as beta-program readiness signals, not production rollout proof yet.
 
 ### Keep in mind
+- Plain-English takeaway: Gee is moving from “answer this request” toward “own this outcome until done, blocked, or escalated.” That is powerful, but it raises the bar for evidence, stop conditions, and approval gates.
 - `0.70.1`–`0.70.3` are same-day follow-ups on top of the large `0.70.0` autonomy/substrate release: keep the Loops/Tasks caution, but add Exa search, Fable alias, Fable cost, and docs checks now.
 - iOS `0.31` is specifically about mobile polish: iOS 27 fixes, link rendering, web click-throughs, and keyboard behavior.
-- Best first test is still a sandbox workflow. Do not use a real client/NLYM deliverable until task closure, approval gates, and visible state feel predictable.
+- Best first test is still a sandbox workflow. Do not use a real client/NLYM/Edenic/GTEK deliverable until task closure, approval gates, and visible state feel predictable.
 
 ---
 
@@ -36,6 +44,7 @@
 
 | Version | Date | Impact | Theme |
 |---|---|---|---|
+| [Gee Beta — Outcome Loops, Org/Containers, Scalable Tasks, MS365, Windows, Single Installer](#v070x-big-beta) | Jun 18, 2026 (~10:14 PM PT) | 🔴 High | Major substrate/productization release: **outcome loops**, **org/container systems**, **scalable ticket-backed task queue**, **MS365 connector**, **Windows support**, **single DMG/EXE install path**, live TaskGraph progress, Operations panel, Telegram/group routing, realtime voice upgrades, and release-pipeline hardening. |
 | [Gee/T 1.42.5 Beta](#gt1425) | Jun 12, 2026 (~5:48 PM PT) | 🟡 Medium | Beta bug-fix build from Neil: crash + attachment fixes, including side-tab addition crash and iOS photo-send repair. |
 | [Gee-Code 0.70.1–0.70.3 + iOS App 0.31](#v0701) | Jun 9, 2026 (~10:35 AM PT–3:27 PM PT) | 🟡 Medium | Same-day follow-ups: **Exa agentic web-search**, Fable model aliases + rename to `fable-zero`, documentation updates, and iOS 0.31 polish. |
 | [Gee-Code 0.70.0 + Gee/T 1.41.0 Mac / 1.42.0 Windows + iOS App (30)](#v0700) | Jun 8, 2026 (~11:42 PM PT) | 🔴 High | **Loops Alpha**, **Task Substrate**, TaskGraph + DynamicHarness orchestration, visible Pretext/Mermaid DAGs, single DMG/EXE packaging path, Windows beta end-to-end, iOS App 30, and broad task/delegation/ticket hardening. |
@@ -67,6 +76,55 @@
 | [Gee-Code v0.54.2 + Terminal v1.26.2](#v0542) | Apr 23, 2026 | 🟢 Passive | GPT-5.5 aliases, Pretext polish |
 | [Gee-Code v0.54.1](#v0541) | Apr 23, 2026 | 🟢 Passive | Bug fixes, Telegram fix |
 | [Gee-Code v0.54.0](#v0540) | Apr 22, 2026 | 🟡 Medium | Delegation, Skills system, House voice |
+
+---
+
+<a name="v070x-big-beta"></a>
+## Gee Beta — Outcome Loops, Org/Containers, Scalable Tasks, MS365, Windows, Single Installer (Jun 18, 2026 ~10:14 PM PT)
+
+**Posted:** Neil, Gee Test (Core), Jun 18 ~10:14 PM PT. Reviewed again by MG on Jun 19 after Mariciel asked for a plain-English test queue.
+**Impact:** 🔴 High — this is a substrate and packaging shift, not a small feature release.
+
+**Neil summary:** “Huge New Release” with 127 commits. Neil highlighted generalized workflow systems (`/org` and `/container`), outcome loops, a scalable task system on tickets, cross-platform Mac/PC support, and a single installer bundle. He also noted the new version is on the Beta Channel and asked testers to report issues because the move from component installer to single install bundle may have boundary bumps.
+
+### 🎯 Most Impactful For Mariciel
+
+**Outcome Loops are the headline, but they need sandbox testing first.** Gee can now hold an objective, queue work, inspect evidence, verify progress, and continue until done, blocked, or escalated. That is powerful for long-horizon work, but it should be tested on low-risk goals before touching NLYM/Edenic/GTEK deliverables.
+
+**Org + Container systems make parallel work more real.** Task sessions and delegation workers run in isolated git-worktree containers, backed by durable task queues and leases. This should reduce collisions, but the first few real uses should be watched closely.
+
+**Single installer + Windows support are the adoption story.** Gee is moving toward normal install UX: one DMG for Mac, one EXE for Windows. This matters for broader beta users, but installer transitions are high-risk enough to avoid upgrading during critical work.
+
+### What Changed
+
+| Area | What changed | Why Mariciel cares |
+|---|---|---|
+| Outcome Loop system | Durable loops can hold goals, success criteria, evidence, next actions, and continue across turns/restarts until done, blocked, or escalated. `/loop report --act` can let a loop fire follow-up actions with gates. | Closest thing yet to Gee owning a real outcome, but should start with harmless sandbox objectives. |
+| Org substrate + containers | `org_*` tooling, `/org` parity, containerized task-session/delegation worktrees, durable task queue, leases, and scheduler concurrency knobs. | Safer parallel work and more scalable delegation; inspect worktree behavior before trusting it with client repos. |
+| Scalable task system | Ticket-backed task queue can scale horizontally to many agent instances. | Gee becomes compute/token-bound more than time-slice-bound; useful later for large review/build work. |
+| MS365 connector | Server-side Microsoft 365 connector for mail, calendar, and files with OAuth in Terminal. | Microsoft/Outlook users become first-class. Not immediate for NLYM Workspace, but useful for broader client contexts. |
+| Windows support | Windows process lifecycle, daemon survival, UTF-8 config/registry I/O, Windows smoke CI, BYOP credential prompt fix. | Gee is no longer Mac-only in practice; helpful for broader beta and non-Mac stakeholders. |
+| Single DMG / EXE install | Terminal app and gee-code engine bundled into one platform installer with checksums and install scripts. | Major productization win, but also the risk Neil explicitly flagged for testing. |
+| DynamicHarness + TaskGraph | Pattern compiler matured with true loops, harness-in-harness, sequence composition, architect-designed graphs, and live colored DAG progress in Pretext. | Best supervised testing surface because the workflow is visible. |
+| Operations panel | Events rebranded as Operations with health cards and in-app event-driver creation UI. | Makes background automation easier to inspect. |
+| Telegram/channel upgrades | Group routing, collective gee addressing, smarter human/gee/bot routing, and channel-session continuity fix. | Reduces lost context in group/channel workflows. |
+| Realtime voice | Voice activation across Gee/T; screenshots and DOM scene capture feed voice sessions by default. | Improves voice/session context, but needs privacy-aware testing. |
+
+### ⚠️ Caution
+
+- **Do not upgrade mid-critical work.** Installer/package transition is the likely rough edge.
+- **Do not use Outcome Loops on NLYM/Edenic/GTEK deliverables first.** Start with a sandbox goal and inspect evidence/closure behavior.
+- **Watch task isolation.** Containers/worktrees are designed to prevent collisions, but first use should be supervised.
+- **MS365 connector is new surface area.** Treat account permissions and outbound behavior carefully.
+
+### ✅ To Explore
+
+- [ ] Run `/version` and confirm exact local Gee-Code + Gee/T versions and Beta availability.
+- [ ] If upgrading, do it during a low-risk window and note whether the single DMG path replaces the old component installer cleanly.
+- [ ] Run one visible TaskGraph/DynamicHarness task and inspect live DAG progress.
+- [ ] Run one tiny Outcome Loop with harmless success criteria; confirm it stops cleanly.
+- [ ] Inspect a containerized task/delegation worktree and confirm repo isolation.
+- [ ] Open Operations panel and confirm event-driver health cards are understandable.
 
 ---
 
