@@ -2,7 +2,50 @@
 
 **Purpose:** Running summary of Gee-Code + The Terminal releases, with workflow-specific guidance on what matters most for Edenic, GTEK, and mg mode.
 **Source:** Gee-Code Test iMessage chat (Neil)
-**Updated:** 2026-06-23 (Captured Neil’s Gee-Code `0.70.15` / Gee/T `1.42.49` Beta release note. Main theme: hardening durable workflows, Outcome Loops, Task/Plan context parenting, tool-result token reduction, GLM/ZAI model support, and reliability fixes.)
+**Updated:** 2026-06-24 (Captured Neil’s Gee-Code `0.71.1` / Gee/T `1.42.57` Beta release note plus follow-up: context runtime contract, faster Outcome Loops, Event Rules, Brick runtime hardening, MCP/OAuth reliability, Base10 provider, upgraded MCPs, Slack restored, and Reports UI.)
+
+---
+
+## 2026-06-24 — Gee-Code 0.71.1 + Gee/T 1.42.57 Beta release
+
+**Source:** Neil Young, Gee Test/Core iMessage, 2026-06-24 13:57 PT and 14:09 PT.
+
+**Plain-English summary:** This release keeps pushing Gee from “assistant that can run tools” toward a durable operating system for real work. The biggest user-facing changes are safer long sessions, faster outcome loops, inspectable Event Rules, more durable Bricks, more reliable MCP/OAuth startup, a usable Reports window for bug/feature follow-up, Slack restored, upgraded MCPs, and Base10 as a lower-cost high-performance model provider.
+
+**What changed:**
+
+- **Context became a runtime contract.** Prompt sections are tagged, capsules are isolated, parent scopes have journals, Pretext snapshots are scoped, and stale-anchor behavior was hardened.
+- **Long sessions are safer under context pressure.** The result governor is on by default, old tool exchanges compact into recoverable ledger pointers, and recovery hints were hardened.
+- **Outcome Loops got faster.** Fast-follow child completion, cold-start wakeups, parent wakeups on non-terminal completion, and loop-create hang fixes should reduce “sleepy” autonomous work.
+- **Event Rules moved closer to product.** Durable rule management now supports list/get/upsert/remove/preview backed by subscriptions and end-user docs.
+- **Bricks share a stronger runtime foundation.** Central runtime handles port assignment, duplicate process cleanup, registry state, health checks, and logs.
+- **MCP/OAuth/cold-start reliability improved.** Single-flighted OAuth refresh, surfaced reauth, original launch-env isolation, config repair, and keeping the AI stack off the cold-start path should make MCP clients faster and clearer when they fail.
+- **Provider/model surface expanded.** Native Baseten support was added with 32k default context and hidden-reasoning stream support. Neil separately called out Base10/BaseTen GLM5.2 as Opus 4.7–4.8 class at roughly 1/4 the cost.
+- **Bug reporting / GTX got more user-safe.** Provisioning self-heals outbound config, avoids leaking internal CLI advice, maps provision errors to useful reasons, clears awaiting-response on reply, and Gee/T now has Help-menu bug/feature reports plus a Reports window.
+- **Gee identity and task routing got cleaner.** Active Gee identity is clearer, modes should bleed less, and assigned tickets route through task sessions with fewer stalls/duplicates.
+- **Teams became a routed connector.** Microsoft Teams now has a delegated connector path for chats, channels, send, and meetings, flag-gated and consent-bound.
+- **Gee/T stability improved.** Custom Gee-Code path handling, Pretext rendering/context, browser/Brick panel durability, report-message threads, installer-click lockout, and autonomy model status-bar sync were all called out.
+- **Slack is back fully functional for Gees.** Neil explicitly listed Slack restoration in the follow-up.
+- **MCPs have been upgraded.** Neil did not list specifics in the follow-up, so treat as a prompt to smoke-test active MCPs rather than assume all are healthy.
+
+**Why it matters for MG:**
+
+- Highest relevance: Calendar connector escalation via bug reporting/Reports, Granola MCP monitoring, Gee Release Tracker sandbox work, NLYM Pay Voucher support workflows, and any future loop/task demos for Kim Nations.
+- The result-governor compaction behavior is already visible in this session, so release-tracker testing should include raw-result retrieval as a normal evidence step.
+- Event Rules and Outcome Loops map directly to “Gee does follow-through” demos, especially for Kim’s Claude/vibe-coding ceiling.
+- Base10/BaseTen is worth a controlled sandbox test only; do not move user/client work onto it without checking cost, privacy, and provider behavior.
+
+**Suggested test queue updates:**
+
+- [ ] Run version check and confirm local Gee-Code `0.71.1` + Gee/T `1.42.57` availability.
+- [ ] File or open one safe test item from the Gee/T Help-menu Reports flow and confirm it appears in the Reports window.
+- [ ] Smoke-test Granola MCP after the MCP upgrade note; record whether it still lists meetings.
+- [ ] Try one Event Rules list/preview path and note whether it is understandable enough for scheduled-task monitoring.
+- [ ] Run one tiny Outcome Loop and confirm fast child completion / parent wakeup behavior.
+- [ ] Open a Brick after switching spaces and confirm the blank-webview fix holds.
+- [ ] Test Slack read/send capability only in a safe consent-bound context.
+- [ ] Compare Base10/BaseTen GLM5.2 in a sandbox against the usual model path for latency, quality, and cost before any real use.
+- [ ] Use raw-result retrieval once after a compacted tool exchange to confirm evidence recovery remains usable.
 
 ---
 
@@ -75,6 +118,7 @@
 
 | Version | Date | Impact | Theme |
 |---|---|---|---|
+| [Gee-Code 0.71.1 + Gee/T 1.42.57 Beta](#2026-06-24--gee-code-0711--geet-14257-beta-release) | Jun 24, 2026 (~1:57 PM PT + follow-up 2:09 PM PT) | 🔴 High | Context runtime contract, safer long sessions/result-governor defaults, faster Outcome Loops, Event Rules productization, Brick runtime hardening, MCP/OAuth reliability, Teams routed connector, Reports UI, Slack restored, upgraded MCPs, and Base10/BaseTen provider coverage. |
 | [Gee Beta — Outcome Loops, Org/Containers, Scalable Tasks, MS365, Windows, Single Installer](#v070x-big-beta) | Jun 18, 2026 (~10:14 PM PT) | 🔴 High | Major substrate/productization release: **outcome loops**, **org/container systems**, **scalable ticket-backed task queue**, **MS365 connector**, **Windows support**, **single DMG/EXE install path**, live TaskGraph progress, Operations panel, Telegram/group routing, realtime voice upgrades, and release-pipeline hardening. |
 | [Gee/T 1.42.5 Beta](#gt1425) | Jun 12, 2026 (~5:48 PM PT) | 🟡 Medium | Beta bug-fix build from Neil: crash + attachment fixes, including side-tab addition crash and iOS photo-send repair. |
 | [Gee-Code 0.70.1–0.70.3 + iOS App 0.31](#v0701) | Jun 9, 2026 (~10:35 AM PT–3:27 PM PT) | 🟡 Medium | Same-day follow-ups: **Exa agentic web-search**, Fable model aliases + rename to `fable-zero`, documentation updates, and iOS 0.31 polish. |
