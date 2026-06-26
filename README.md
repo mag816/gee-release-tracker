@@ -2,7 +2,49 @@
 
 **Purpose:** Running summary of Gee-Code + The Terminal releases, with workflow-specific guidance on what matters most for Edenic, GTEK, and mg mode.
 **Source:** Gee-Code Test iMessage chat (Neil)
-**Updated:** 2026-06-24 (Captured Neil’s Gee-Code `0.71.1` / Gee/T `1.42.57` Beta release note plus follow-up: context runtime contract, faster Outcome Loops, Event Rules, Brick runtime hardening, MCP/OAuth reliability, Base10 provider, upgraded MCPs, Slack restored, and Reports UI.)
+**Updated:** 2026-06-25 (Captured Neil’s Gee-Code `0.71.2` / Gee-Terminal `1.43.1` Mac + `1.43.2` PC release note: Event Rules routing, task completion reconciliation, OutcomeLoop remediation, Slack/Teams improvements, cache-hit measurement, scheduled delivery hardening, credentials envelopes, Terminal UI updates, report cleanup, and Apple Silicon installer build.)
+
+---
+
+## 2026-06-25 — Gee-Code 0.71.2 + Gee-Terminal 1.43.1 Mac / 1.43.2 PC release
+
+**Source:** Neil Young, Gee Test/Core iMessage, 2026-06-25 19:58 PT and 20:01 PT.
+
+**Plain-English summary:** This release is mostly about making Gee’s autonomous work easier to route, reconcile, and trust. The big user-facing themes are actionable Event Rules, safer task/session completion, capability remediation inside OutcomeLoops, richer Slack context, early Teams trigger infrastructure, better pricing/cost measurement through AI cache-hit tracking, cleaner scheduled deliveries, stronger credential scoping, Terminal UI fixes, and report cleanup.
+
+**What changed:**
+
+- **Event Rules now route action, not just record events.** Rules can preview and route “what should happen next,” which matters for the Release Tracker event-rule concept.
+- **Task completion and provenance got safer.** Late and terminal graph completions now reconcile/adjudicate instead of silently sticking, and operator-relevant sessions surface first.
+- **OutcomeLoops can remediate missing capabilities.** If a loop discovers a missing capability mid-execution, it can trigger remediation instead of failing silently.
+- **Slack got a real context upgrade.** Thread sessions, rolling buffer, reactions, presence, and context injection landed across 20 commits.
+- **Microsoft Teams trigger foundation landed.** TeamsTriggerListener can auto-spawn per Gee, route @mentions through a durable gateway, and relay replies without manual wiring.
+- **Task-session execution context was hardened.** Execution context is isolated, meta-progress is filtered, surface state is suppressed, and concurrent autonomous tasks should bleed context less.
+- **AI cache-hit measurement is now visible.** Shared parser across OpenAI-compatible providers surfaces cached-token savings, making model/provider pricing more data-driven.
+- **Scheduled deliveries and plan delivery artifacts got safer.** The release dedupes double-sends, carries thread context across scheduled activations, and forces completed plans to produce delivery artifacts.
+- **Credentials gained structured envelopes and all-Gees scope.** Credentials can be scoped across all Gees with structured raw-JSON envelopes.
+- **Baseten provider behavior improved.** Content streams directly without the reasoning-split heuristic, cache hit rate is measured, and GLM models are priced.
+- **Gee-Terminal UI/app updates landed.** Mermaid fallback rendering, slash-command history, inline git sync, browser/panel container refresh, and Apple Silicon installer build improvements were called out.
+- **Cross-component fixes landed.** Worker failsafe + GDrive, WebApp nginx + Slack OAuth, BYOP pure-mode baseline tools, and coalescer stream preservation were included.
+- **Docs/configuration refreshed.** Configuration reference, models/providers, and companion-gateway docs were refreshed via PRs #180/#181.
+- **Reports cleanup improved.** Local report records can now be deleted from the product intake surface.
+
+**Why it matters for MG:**
+
+- Highest relevance: Gee Release Tracker Event Rule design, Slack #geetm context/testing, OutcomeLoop durability, scheduled delivery safety, and pricing/cost work using cache-hit measurement.
+- The Teams foundation is worth tracking, but use only in explicit-consent contexts.
+- The scheduled-delivery fixes directly touch MG’s heartbeat/scheduled notification rules, especially avoiding duplicate sends.
+- The cache-hit measurement ties into the current Gee pricing model: actual cached-token savings can pressure-test the cost assumptions behind fixed fee + activation meter.
+
+**Suggested test queue updates:**
+
+- [ ] Run version check and confirm local Gee-Code `0.71.2` + Gee-Terminal `1.43.1`/`1.43.2` availability.
+- [ ] Revisit the Release Tracker Event Rule design and test one safe list/preview route before enabling anything live.
+- [ ] Run one tiny OutcomeLoop that intentionally lacks a capability and observe whether remediation is surfaced clearly.
+- [ ] Test one Slack thread/context read in a consent-bound workspace/channel.
+- [ ] Confirm scheduled delivery dedupe behavior with a harmless dry run or logs-only check.
+- [ ] Inspect cache-hit measurement output on a small provider/model test and compare against the pricing model assumptions.
+- [ ] Confirm local report deletion in the Gee/T Reports window if there are stale duplicate test reports.
 
 ---
 
