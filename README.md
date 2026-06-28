@@ -2,7 +2,73 @@
 
 **Purpose:** Running summary of Gee-Code + The Terminal releases, with workflow-specific guidance on what matters most for Edenic, GTEK, and mg mode.
 **Source:** Gee-Code Test iMessage chat (Neil)
-**Updated:** 2026-06-25 (Captured Neil’s Gee-Code `0.71.2` / Gee-Terminal `1.43.1` Mac + `1.43.2` PC release note: Event Rules routing, task completion reconciliation, OutcomeLoop remediation, Slack/Teams improvements, cache-hit measurement, scheduled delivery hardening, credentials envelopes, Terminal UI updates, report cleanup, and Apple Silicon installer build.)
+**Updated:** 2026-06-27 (Captured Neil’s Gee-Code `0.72.1` follow-up build: restart required; fixes daemon autostart crash; adds system skills for deep knowledge compilation and knowledge recall.)
+
+---
+
+## 2026-06-27 — Gee-Code 0.72.1 follow-up build
+
+**Source:** Neil Young, Gee Test/Core iMessage, 2026-06-27 00:01 PT.
+
+**Plain-English summary:** This is a small follow-up build after `0.72.0`. It needs a daemon restart or Gee/T restart to pick up. The release fixes a daemon autostart crash and adds two system skills: `deep-knowledge-compiler` for turning a repo/site/corpus/subject into a knowledge pack, and `knowledge` for recalling that knowledge.
+
+**What changed:**
+
+- **Daemon autostart crash fix.** This should reduce startup/restart brittleness after updating.
+- **New knowledge-pack skill.** `/skills deep-knowledge-compiler repo/site/corpus/subject` can create a knowledge pack from a repo, site, corpus, or subject.
+- **New knowledge recall skill.** `/skills knowledge` is available as a system skill to recall compiled knowledge.
+
+**Why it matters for MG:**
+
+- Restart behavior matters for scheduled/background reliability, especially after Gee-Code updates.
+- The knowledge-pack skills may be useful for larger source-of-truth projects like NLYM Treasurer docs, Edenic partner materials, and release-tracker learning packs, but should be tested on a small non-sensitive corpus first.
+
+**Suggested test queue updates:**
+
+- [ ] Restart daemon or Gee/T and confirm local Gee-Code `0.72.1` is active.
+- [ ] Confirm `/skills deep-knowledge-compiler` and `/skills knowledge` are listed as system skills.
+- [ ] Run a safe, small knowledge-pack test on a non-sensitive repo or docs folder before using it on NLYM/Edenic material.
+
+---
+
+## 2026-06-26 — Gee-Code 0.72.0 + Gee-Terminal 1.43.3 Mac / 1.43.4 Windows release
+
+**Source:** Neil Young, Gee Test/Core iMessage, 2026-06-26 19:44 PT.
+
+**Plain-English summary:** This release expands Gee from tool-running into more direct environment operation. The main changes are guarded browser/desktop computer use, durable OpenClaw integration inside Gees, better capability-gap handling during work, safer long-running task sessions, faster/cleaner continuity access, more accurate cost reporting, targeted daemon restarts, steadier Claude pipe cache behavior, smoother Terminal UI, better host-surface choices, WebApp reply cleanup, and quieter AgentsPanel logs.
+
+**What changed:**
+
+- **Computer Use Agent landed.** Gee can now operate browsers outside Pretext and desktop apps, with guardrails around risky actions and payments. Neil noted it requires extra packages via `gee-code setup-all`.
+- **OpenClaw can live inside Gee.** Claws can now run durably within a Gee, combining Claw execution with Gee memory, policies, tools, and delivery loops.
+- **Outcome loops and mode policy got more self-correcting.** Gee detects capability gaps while working and can remediate instead of pretending a tool exists or failing flatly.
+- **Task-session reliability improved.** Long-running work should be less prone to breakage, duplicate sends, or premature success claims.
+- **Continuity ledger and session history got faster.** Background continuity should stay available without crowding the active prompt.
+- **Cost Analyzer is more accurate.** Reporting now handles live partial-day usage, pricing scenarios, and login redirects better.
+- **CLI restart targets were added.** Developers can restart specific daemon pieces instead of bouncing the whole system.
+- **Claude pipe cache stability improved.** Temporary environment changes should no longer invalidate cached runs unnecessarily.
+- **Terminal UI got smoother.** Notepad shortcut, live rename, and nested-list rendering improved.
+- **Host-surface preferences improved.** `gee-t open` now chooses the visible Terminal surface when that is the right place to show something.
+- **WebApp ledger cleanup landed.** Replies should no longer include internal ledger text.
+- **AgentsPanel log noise was reduced.** Streamed logs collapse into cleaner lines.
+
+**Why it matters for MG:**
+
+- Highest relevance: guarded Computer Use testing, OpenClaw-in-Gee architecture, safer OutcomeLoop remediation, and task-session reliability for NLYM/Pay Voucher polish work.
+- The continuity-ledger speedups directly support MG’s cross-session operating-partner workflow, especially during heartbeat and project handoff cycles.
+- Cost Analyzer accuracy matters for the Edenic pricing and cost-structure work.
+- Host-surface preferences and Terminal notepad changes matter because Mariciel is actively using Terminal/Pretext as the working environment.
+
+**Suggested test queue updates:**
+
+- [ ] Run version check and confirm local Gee-Code `0.72.0` + Gee/T `1.43.3` or `1.43.4` availability.
+- [ ] Check whether `gee-code setup-all` is needed before testing Computer Use Agent; do not install packages without approval.
+- [ ] Run a safe, read-only Computer Use Agent smoke test once approved, avoiding payments, external sends, or account mutation.
+- [ ] Inspect OpenClaw-in-Gee docs or registry surface and note a safe future test path.
+- [ ] Run one small OutcomeLoop capability-gap test and confirm the remediation is visible and honest.
+- [ ] Confirm task-session completion does not duplicate-send or claim success early on the next delegated worker flow.
+- [ ] Check Cost Analyzer on a live partial-day usage view and compare against prior assumptions for pricing work.
+- [ ] Test Terminal notepad shortcut/live rename/nested-list rendering during a normal work session.
 
 ---
 
@@ -80,6 +146,7 @@
 **Suggested test queue updates:**
 
 - [ ] Run version check and confirm local Gee-Code `0.71.1` + Gee/T `1.42.57` availability.
+- [ ] Open Gee/T Help Menu > Documentation and confirm it lands on the latest Gee Documentation.
 - [ ] File or open one safe test item from the Gee/T Help-menu Reports flow and confirm it appears in the Reports window.
 - [ ] Smoke-test Granola MCP after the MCP upgrade note; record whether it still lists meetings.
 - [ ] Try one Event Rules list/preview path and note whether it is understandable enough for scheduled-task monitoring.
