@@ -2,7 +2,45 @@
 
 **Purpose:** Running summary of Gee-Code + The Terminal releases, with workflow-specific guidance on what matters most for Edenic, GTEK, and mg mode.
 **Source:** Gee-Code Test iMessage chat (Neil)
-**Updated:** 2026-06-27 (Captured Neil’s Gee-Code `0.72.1` follow-up build: restart required; fixes daemon autostart crash; adds system skills for deep knowledge compilation and knowledge recall.)
+**Updated:** 2026-06-30 (Captured Neil’s Gee-Code `0.72.2` + Gee/T `1.43.5` headline build, with full-list Gee/T bump noted to `1.43.6`: task-worker guardrails, unified follow-up rulebook, OutcomeLoop momentum, OpenClaw hardening, model/capability packaging, communication routing, Gee-HQ foundation, and Pretext bridge fixes.)
+
+---
+
+## 2026-06-30 — Gee-Code 0.72.2 + Gee/T 1.43.5/1.43.6 release
+
+**Source:** Neil Young, Gee Test/Core iMessage, 2026-06-30 20:46–20:48 PT. Neil’s headline named Gee/T `1.43.5`; the detailed list also includes a Gee/T version bump from `1.43.2` to `1.43.6`.
+
+**Plain-English summary:** This release is mostly about making Gee’s real-world work safer, less noisy, and more reliable. Task-session workers now have tighter least-privilege guardrails, follow-up tooling has one shared rulebook, OutcomeLoops reuse approval evidence and wake faster, OpenClaw is more first-class and better sandboxed, Sonnet 5/Gemma 4 and typed CLI capabilities are wired in, outbound message/thread/attachment routing is stronger, Gee-HQ now shares Terminal frameworks, and Pretext panel/bridge edge cases were hardened.
+
+**What changed:**
+
+- **Task workers got tighter guardrails.** Least-privilege defaults, SMS ownership checks, stale callback suppression, and progress/final-answer separation should reduce stray prompts, stray texts, and fake-complete worker results.
+- **Follow-up tooling was unified.** Heartbeat, attention, and follow-up flows now share `gee_code.follow_up`, with stricter close rules so vague “reviewed/still pending” rows cannot quietly disappear.
+- **OutcomeLoops have better real-world momentum.** The runner wakes on completion, child tasks reuse parent approvals, purchase approvals can satisfy capability requirements, and org loops can see draft procedures.
+- **OpenClaw was upgraded.** Gee-Claws are now treated more like first-class Gee execution paths, with ACP session sandboxing and clearer provider/runtime error surfacing.
+- **Models and capabilities expanded.** Sonnet 5 effort tiers and Gemma 4 via Cerebras are wired through; the CLI registry moved to a typed capabilities package; knowledge skills are package-level defaults.
+- **Communication and attachment routing improved.** `SendMessage` resolves thread IDs from route metadata, media re-downloads as fresh attachments, and email can fall back to user-scope accounts when appropriate.
+- **Gee-HQ foundations now share Terminal frameworks.** Experimental Gee-HQ uses shared App state, FileTree, Pretext engine, and RealtimeVoice foundations instead of duplicating them.
+- **Pretext panel and bridge hardening landed.** Setup-code paste is idempotent, Ctrl+V writes once, status-bar payloads are validated, file-bridge shapes were updated, and auth/clipboard edge cases should be clearer.
+
+**Why it matters for MG:**
+
+- Highest relevance: safer task-session workers and outbound routing directly support MG’s background heartbeat/delegation discipline, especially “do not leak outbound” and “do not treat progress as final.”
+- The unified follow-up rulebook matters because MG relies on follow-up rows and heartbeat state as operating-system substrate; stale or vague closes have been a recurring risk.
+- OutcomeLoop approval reuse and faster wake behavior are useful for future NLYM Pay Voucher support workflows and Edenic month-end automation tests.
+- OpenClaw + typed capability packaging are worth a sandbox test, but not during critical NLYM/Edenic work.
+- Pretext hardening matters for Mariciel’s live Gee/T workflow: setup code paste, clipboard behavior, file views, and status-bar reliability are all active UX surfaces.
+
+**Suggested test queue updates:**
+
+- [ ] Confirm local Gee-Code `0.72.2` and Gee/T `1.43.5`/`1.43.6` availability after restart/update.
+- [ ] Run a tiny task-session worker test and confirm it cannot send outbound, duplicate stale prompts, or mark progress as final.
+- [ ] Test one follow-up close path and confirm vague closes are rejected with a durable disposition requirement.
+- [ ] Run one harmless OutcomeLoop approval-reuse test and confirm child tasks do not re-ask for already-granted approval.
+- [ ] Do a small OpenClaw/Gee-Claw sandbox run and confirm errors surface instead of vanishing.
+- [ ] Confirm knowledge skills still appear as package-level/system defaults.
+- [ ] Test Pretext setup-code paste / Ctrl+V only in a low-risk panel and confirm there is no duplicate input.
+- [ ] Fold current system follow-ups into release-specific test actions: MCP wizard test, GCP wizard test, event watch test, Pay Voucher connector/credential surface doc for Neil, and Edenic intent-layer note once `g.edenic.ai` has a contribution path.
 
 ---
 
