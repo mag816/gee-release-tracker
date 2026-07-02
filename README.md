@@ -31,16 +31,26 @@
 - OpenClaw + typed capability packaging are worth a sandbox test, but not during critical NLYM/Edenic work.
 - Pretext hardening matters for Mariciel’s live Gee/T workflow: setup code paste, clipboard behavior, file views, and status-bar reliability are all active UX surfaces.
 
-**Suggested test queue updates:**
+**Practical test queue:**
 
-- [ ] Confirm local Gee-Code `0.72.2` and Gee/T `1.43.5`/`1.43.6` availability after restart/update.
-- [ ] Run a tiny task-session worker test and confirm it cannot send outbound, duplicate stale prompts, or mark progress as final.
-- [ ] Test one follow-up close path and confirm vague closes are rejected with a durable disposition requirement.
-- [ ] Run one harmless OutcomeLoop approval-reuse test and confirm child tasks do not re-ask for already-granted approval.
-- [ ] Do a small OpenClaw/Gee-Claw sandbox run and confirm errors surface instead of vanishing.
-- [ ] Confirm knowledge skills still appear as package-level/system defaults.
-- [ ] Test Pretext setup-code paste / Ctrl+V only in a low-risk panel and confirm there is no duplicate input.
-- [ ] Fold current system follow-ups into release-specific test actions: MCP wizard test, GCP wizard test, event watch test, Pay Voucher connector/credential surface doc for Neil, and Edenic intent-layer note once `g.edenic.ai` has a contribution path.
+1. **Version / updater check — current target.** Confirm local Gee-Code `0.72.2` and Gee/T `1.43.5`/`1.43.6` after daemon or Gee/T restart. If the local version lags, record the blocker before deeper feature testing.
+2. **Task-worker guardrails — sandbox test.** Delegate a harmless read-only task, then confirm the worker cannot send outbound, cannot turn progress chatter into a final answer, and cannot close with empty/placeholder work. Good MG example: ask a worker to inspect the Gee Release Tracker test queue and return a summary only.
+3. **Follow-up policy — MG operating-system test.** Try closing a low-risk follow-up with a vague disposition such as “reviewed” or “still pending” and confirm the tool rejects it or requires a durable close reason. Good example: use a non-client/internal follow-up row only.
+4. **OutcomeLoop approval reuse — low-risk sandbox.** Run one tiny loop with a parent approval and child task, then confirm the child reuses parent approval evidence and the runner wakes promptly after completion. Good example: draft-only “prepare a test checklist” loop, no sends or file mutations without approval.
+5. **OpenClaw / Gee-Claw sandbox.** Run a read-only OpenClaw/Gee-Claw task and confirm errors surface clearly instead of vanishing. Good example: inspect a public/non-sensitive repo or release tracker docs, not NLYM finance or client files.
+6. **Model/capability routing — safe compare.** Confirm Sonnet 5 tiers, Gemma 4 via Cerebras, and typed capability inventory show up where expected. Good example: ask for a short comparison of which model should handle code review vs finance review; do not run on confidential data.
+7. **Knowledge skills — non-sensitive corpus.** Confirm `/skills deep-knowledge-compiler` and `/skills knowledge` are listed as package-level skills, then test on a small public/non-sensitive doc set before pointing it at NLYM, Edenic, or GTek material.
+8. **Pretext paste/clipboard/status-bar hardening — visible UI test.** In a low-risk terminal or Pretext panel, test setup-code paste/Ctrl+V once and confirm no duplicate input; copy/cut should route cleanly; hidden/minimized panels should report sensible status.
+9. **Gee-HQ / Terminal surface sharing — visual routing test.** If Gee-HQ is available, switch Gee targets or remotes and confirm actions route to the selected Gee, not a stale/default target. Keep test read-only.
+10. **Outbound thread/attachment routing — draft-only test.** Create a draft or simulated message with an attachment and confirm route metadata/thread identity is correct. Do not send Slack, email, SMS, or Telegram without explicit approval.
+11. **MS365 daily scan integration — real workflow test.** Confirm the 8am `morning-calendar-review` and `morning-inbox-summary` include Microsoft 365 account `mariciel@garaygames.com` alongside Google accounts. Good example: check whether Garay Games calendar/mail items appear in tomorrow’s morning scan.
+12. **Edenic partner workflow test.** Use the next Edenic partner meeting or release-feedback note to test long-context continuity, task-worker summary discipline, and final-answer separation. Keep any Neil-facing Slack/email as draft-only until approved.
+13. **GTek / Garay Games workflow test.** Use Garay Games MS365 mail/calendar as a connector test: summarize recent Garay Games action items from inbox/calendar, flag sensitive client data, and confirm MG recommends switching to `gee-gtek` before client drafting.
+14. **NLYM Treasurer workflow test.** Use the Treasurer Manual or invoice-readiness files as a safe read/write test only after backup: confirm docs/handoff continuity, follow-up disposition rules, and no accidental outbound communications.
+15. **Tax / finance workflow test.** Use a local non-filing tax or month-end planning artifact to test finance reasoning, file-backed continuity, and model selection. Do not make tax/legal claims without uncertainty and do not alter books/QBO.
+16. **Raw-result retrieval / evidence retention.** Run one tool-heavy read/check flow and recover a compacted result to confirm evidence remains available after result-governor compaction.
+17. **Gee/T Reports flow — regression check.** Confirm Help > Reports still works and note whether the prior Microsoft 365 duplicate report issue remains.
+18. **Event Rules list/preview — parked.** Resume only when Mariciel says: “Let’s create an event rule.” Create a safe Release Tracker intake rule first, not an autonomous updater. Recommended Version 1: use the installed `local_jsonl` watcher against a local release-intake JSONL file, draft a tracker update + test punch list, and require Mariciel approval before changing files, sending anything, or starting release testing.
 
 ---
 
