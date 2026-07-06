@@ -2,7 +2,55 @@
 
 **Purpose:** Running summary of Gee-Code + The Terminal releases, with workflow-specific guidance on what matters most for Edenic, GTEK, and mg mode.
 **Source:** Gee-Code Test iMessage chat (Neil)
-**Updated:** 2026-06-30 (Captured Neil’s Gee-Code `0.72.2` + Gee/T `1.43.5` headline build, with full-list Gee/T bump noted to `1.43.6`: task-worker guardrails, unified follow-up rulebook, OutcomeLoop momentum, OpenClaw hardening, model/capability packaging, communication routing, Gee-HQ foundation, and Pretext bridge fixes.)
+**Updated:** 2026-07-05 (Captured Neil’s Gee-Code `0.72.3` + Gee/T `1.43.7` Mac / `1.43.8` Windows + GeeHQ `0.7.1` monster update, plus experimental Gee-HQ `0.8.1` Mac build link: Geenius provider system, Fable/Hermes, token-efficiency work, unified capability graph, workflow package lifecycle, remote spaces, repo indexing/editing, Bricks/Terminal hardening, Outcome Loop leases/approvals, Pretext/HQ task-card flow, and person-keyed comms.)
+
+---
+
+## 2026-07-05 — Gee-Code 0.72.3 + Gee/T 1.43.7/1.43.8 + GeeHQ 0.7.1 release
+
+**Source:** Neil Young, Gee Test/Core iMessage, 2026-07-05 14:32–14:58 PT. Neil also shared an experimental Gee-HQ `0.8.1` macOS-only build link after the main release note.
+
+**Plain-English summary:** This is a major platform release. The headline is **Geenius**, a new intelligent provider system that can route each turn or graph node to the cheapest capable model at runtime, based on live credential entitlements and outcome feedback. It also makes Fable and Hermes first-class, cuts token bloat through result governance and prompt caching, unifies capability discovery, adds early workflow package lifecycle plumbing, improves remote-agent setup, speeds repo exploration and symbol edits, hardens Bricks/Terminal, and gives Outcome Loops stronger leases, approvals, rerouting, and typed action generation.
+
+**What changed:**
+
+- **Geenius provider system shipped.** Gee can now choose providers/models by intent, cost, entitlement, and feedback rather than fixed model IDs.
+- **Per-node harness routing landed.** Dynamic Harness work can decompose into graph nodes where each node gets its own model choice.
+- **Fable and Hermes expanded.** Fable aliases are first-class at multiple effort tiers; Hermes gets OpenClaw-parity ACP behavior and full Gee MCP tool wiring.
+- **Token efficiency improved.** Result governor stabilization, byte-stable prompt caching, block quantizing, and runtime log rotation should reduce cost and history drag.
+- **Capability discovery was unified.** A single capability graph can answer whether Gee can do a task across tools, skills, CLIs, MCP, and connectors.
+- **Workflow package lifecycle started.** New package-state and org cadence watcher pieces aim to prevent half-formed workflow launches.
+- **Remote agent setup got easier.** Remote Spaces Console, redeem-code onboarding, and GeeHQ login target reduce SSH/manual setup friction.
+- **Indexing and editing improved.** Persistent repo index and symbol-level safe edits should make code navigation and changes faster and less error-prone.
+- **Bricks and Terminal were hardened.** Helper leak teardown, ticket memory management, and settings/overview rendering fixes reduce session bloat and stale UI state.
+- **Outcome Loops got stronger gates.** Bounded leases, durable run approvals, mission-bound phone calls, failure rerouting, and `/loop report --act` improve long-running work reliability.
+- **Pretext/HQ task visibility improved.** Dedicated task-card PIPs, wake-on-click delegation results, and HQ hardening make background work more visible and resumable.
+- **Comms identity improved.** Person-keyed comms should reduce unattributed send paths across channels.
+
+**Why it matters for MG:**
+
+- Highest relevance: Geenius and the unified capability graph could reduce cost and routing friction for MG’s background work, but first use should stay sandboxed until behavior is understood.
+- Token-result governance matters immediately because MG’s heartbeat and release-tracker history are large and have already shown compaction pressure.
+- Outcome Loop leases and durable approvals are directly relevant to NLYM Pay Voucher follow-through, especially bounded tasks, approval reuse, and avoiding stuck runs.
+- Persistent repo indexing and symbol edits are useful for Mariciel’s coding-learning workflow in Gee Terminal, but should be tested on non-sensitive repos before NLYM finance or client code.
+- Person-keyed comms and mission-bound phone calls are safety-relevant for MG’s outbound rules; they should be confirmed before any expansion of background communication behavior.
+
+**Practical test queue:**
+
+1. **Version / updater check — current target.** Confirm local Gee-Code `0.72.3`, Gee/T `1.43.7` on Mac, and whether Gee-HQ `0.7.1` or experimental `0.8.1` is installed before feature testing.
+2. **Geenius routing sandbox.** Run a harmless prompt with `/model geenius` or semantic model targeting and confirm it picks a sensible cheap-capable model, respects entitlement detection, and falls back cleanly.
+3. **Per-node Dynamic Harness test.** Run a small read-only Dynamic Harness and confirm node-level routing is visible and bounded. Use a non-sensitive repo or release-tracker docs.
+4. **Fable/Hermes availability check.** Confirm `cc-gee-fable` aliases and Hermes provider sessions are visible, identity-attributed correctly, and wired to the expected Gee tool surface.
+5. **Result governor / prompt cache observation.** On a history-heavy release-tracker or heartbeat-style turn, confirm compacted tool results are retrievable by `result_id` and do not force repeated full reads.
+6. **Capability graph query.** Ask one concrete “can Gee do X?” query and confirm the answer merges tools, skills, CLIs, MCP, and connectors without keyword-adjacent noise.
+7. **Workflow package lifecycle — parked.** Only test after Mariciel approves a low-risk workflow package; use draft-only plans, no sends or mutations.
+8. **Remote Spaces Console — parked.** Test only when there is a real remote-build need; do not create remote agents just for curiosity.
+9. **Repo index + symbol edit test.** Use a non-sensitive repo to compare discovery-call count and try one symbol-level safe edit with lint/test verification.
+10. **Brick helper/memory check.** Open TicketsPanel / Brick settings and confirm helper processes and archive memory no longer balloon.
+11. **Outcome Loop lease/approval sandbox.** Run a tiny draft-only loop and confirm lease renewals, durable approval reuse, and failure rerouting behave as described.
+12. **Task-card PIP / wake-on-click test.** Delegate a read-only task from Pretext and confirm the task card is visible and result delivery wakes only on click when configured.
+13. **Person-keyed comms safety check.** Confirm comms identity mapping before relying on cross-channel continuity for any user-facing sends.
+14. **Gee-HQ experimental build — optional.** If Mariciel wants to test HQ, download only from Neil’s posted S3 link and treat `0.8.1` as experimental Mac-only.
 
 ---
 
