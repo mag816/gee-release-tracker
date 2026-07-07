@@ -2,7 +2,33 @@
 
 **Purpose:** Running summary of Gee-Code + The Terminal releases, with workflow-specific guidance on what matters most for Edenic, GTEK, and mg mode.
 **Source:** Gee-Code Test iMessage chat (Neil)
-**Updated:** 2026-07-05 (Captured Neil’s Gee-Code `0.72.3` + Gee/T `1.43.7` Mac / `1.43.8` Windows + GeeHQ `0.7.1` monster update, plus experimental Gee-HQ `0.8.1` Mac build link: Geenius provider system, Fable/Hermes, token-efficiency work, unified capability graph, workflow package lifecycle, remote spaces, repo indexing/editing, Bricks/Terminal hardening, Outcome Loop leases/approvals, Pretext/HQ task-card flow, and person-keyed comms.)
+**Updated:** 2026-07-07 (Captured Neil’s version-unspecified Gee-Code/Gee-T bug-fix note: Geenius fixes, smaller bug fixes, and GPT-Realtime-2.1 for improved inbound/outbound phone calling and Gee/T voice control.)
+
+---
+
+## 2026-07-07 — Gee-Code + Gee/T bug-fix release (version unspecified)
+
+**Source:** Neil Young, Gee Test/Core iMessage, 2026-07-07 12:06 PT. Neil did not include exact Gee-Code or Gee/T version numbers in the message.
+
+**Plain-English summary:** This appears to be a small follow-up release after the July 5 monster update. The focus is bug fixing around Geenius, plus GPT-Realtime-2.1 support for better inbound/outbound phone calling and voice control in Gee/T.
+
+**What changed:**
+
+- **Geenius fixes landed.** Neil described bug fixes for the new provider/routing system.
+- **Smaller bug fixes shipped.** No individual issues were named.
+- **GPT-Realtime-2.1 was added.** This should improve phone-call quality and voice control behavior in Gee/T.
+
+**Why it matters for MG:**
+
+- Geenius testing should wait until this follow-up build is confirmed locally, because the July 5 routing behavior may already be superseded by fixes.
+- Phone/voice-control changes are relevant to future call-based workflows, but MG should not expand outbound calling behavior without explicit task authorization.
+- Because no version numbers were posted, the first test is simply to confirm the local installed Gee-Code and Gee/T versions before adding detailed test results.
+
+**Practical test queue:**
+
+1. **Version check.** Confirm exact local Gee-Code and Gee/T versions after the next update/restart.
+2. **Geenius smoke test.** Run one harmless non-sensitive routing prompt and confirm the fix changes do not break fallback behavior.
+3. **Voice-control check — parked.** Test only when Mariciel explicitly wants to exercise Gee/T voice or phone workflows.
 
 ---
 
