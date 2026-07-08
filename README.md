@@ -2,7 +2,62 @@
 
 **Purpose:** Running summary of Gee-Code + The Terminal releases, with workflow-specific guidance on what matters most for Edenic, GTEK, and mg mode.
 **Source:** Gee-Code Test iMessage chat (Neil)
-**Updated:** 2026-07-07 (Captured Neil’s version-unspecified Gee-Code/Gee-T bug-fix note: Geenius fixes, smaller bug fixes, and GPT-Realtime-2.1 for improved inbound/outbound phone calling and Gee/T voice control.)
+**Updated:** 2026-07-08 (Captured Neil's 7/7 11:27 PM PT consolidated release note: Gee-Code 0.72.6, Gee/T 1.43.11/1.43.12, GeeHQ 0.8.4 — Geenius governance + cost controls, artifact registry, bounded-work leases, cache-stable prompts; 63 commits since 7/5.)
+
+---
+
+## 2026-07-08 — Gee-Code 0.72.6 + Gee/T 1.43.11/1.43.12 + GeeHQ 0.8.4 release
+
+**Source:** Neil Young, Gee Test/Core iMessage, 2026-07-07 11:27 PM PT. Consolidated versioned release note posted ~11 hours after the July 7 12:06 PT bug-fix note; it supersedes that entry's "version unspecified" placeholder with concrete numbers. 63 commits + 3 merges since the 7/5 2:32 PM release cut.
+
+**Plain-English summary:** This is the release that turns **Geenius** from a raw routing engine into a governed, cost-aware, self-improving system — and several pieces directly touch the three Geenius questions MG staged for Neil the same night. Geenius gains a top "ultra" tier, per-model spend visibility (`/debug geenius usage`), a persistent selection policy (`auto|capable|economical`), platform-key gating so subscription models are used ahead of paid API keys, credential-aware billing that falls through to the next capable model on a rate limit, and adaptive per-decision deliberation backed by a durable outcome ledger. Around Geenius: a durable artifact registry, leased/budgeted bounded work (Supervision Tree), a semantic capability graph, persistent per-repo indexing, cache-stable system prompts, heartbeat no-op cleanup, and calmer Telegram progress. Gee/T adds background update staging (near-instant restarts), activation badges, and per-Gee default channels. GeeHQ unfroze its version and added one-click remote connect.
+
+**What changed — Geenius (highest MG relevance):**
+
+- **`geenius:ultra` + semantic requests.** Pins a Fable planner + ChatGPT-max executor; "use fable to…" routes by natural language through a partner roster.
+- **`/debug geenius usage`.** Per-model token/cost totals with honest attribution, plus a `scope` subcommand showing live entitlements — MG can now *see* exactly what each model cost instead of inferring from trace data.
+- **Selection Policy Override + Persistence.** `auto|capable|economical` ships and persists across sessions — set once, it sticks.
+- **Platform Key Gating.** Platform API keys are gated behind a credits entitlement; subscription models rank first. No accidental spend on a paid API key when a subscription covers the same model.
+- **Credential-Aware Billing + Waterfall.** Billing tracks real per-credential cost; rate-limit hits fall through to the next capable model instead of dead-ending.
+- **Adaptive Deliberation + Outcome Ledger.** Per-decision multi-model deliberation with a durable, self-correcting ledger — routing improves over time.
+- **Adjudicator/per-turn fixes, image-turn routing, prompt-cache warming** reduce misroutes, send screenshots to vision models, and cut cost/latency on repeated turns.
+
+**What changed — platform:**
+
+- **Artifact Registry** — session artifacts (shell captures, digests, email threads) durably tracked and retrievable across activations; artifact tools exposed in BYOP.
+- **Supervision Tree** — delegated tasks now carry work leases and budgets instead of running unbounded.
+- **Capability Graph** — `discover_tools`/`GetCapabilities` became semantic graph views ("can this Gee make a phone call?" returns ranked matches).
+- **Persistent per-repo index** — SearchIndex works cold, self-warms, honors gitignore, budget-enforced.
+- **Cache-stable system prompt** — volatile sections moved below the cache barrier, raw subconscious.md excluded, so cache hits more often (lower cost/latency).
+- **Heartbeat no-op + cleanup** — missing-section rewrites are no-ops; emptied subsections deleted (no more ghost sections).
+- **Outbox truth-check + Telegram flood calming** — FINAL promotion truth-checked; Telegram progress calmed with a 150s floor + dedupe.
+- **Person-keyed transcripts** — cross-channel transcripts keyed to person, not channel; identity required for attachment sends.
+- Plus **Claude auth via Keychain**, **per-user CLI installs** (EC2/shared hosts), **history cap 10k to 6k**, and create-Gee / Windows / MCP-identity fixes.
+
+**Gee/T 1.43.11 (Mac) / 1.43.12 (Win):** background update staging (`autoInstallOnAppQuit`, so restart is near-instant instead of a freeze), activation badges tied to real outcome status, per-Gee default messaging channel.
+
+**GeeHQ 0.8.4:** version unfrozen from 0.7.1 (auto-updater works again), one-click remote connect, domain-aware data plane (local + multiple remotes at once), companion-identity + snapshot fixes. Install: https://gee-desktop.s3.us-west-1.amazonaws.com/gee-hq/build-library/gee-hq-0.8.4-arm64.dmg
+
+**Why it matters for MG:**
+
+- **This release partially answers the three Geenius questions MG staged for Neil** (Slack draft finalized ~11:05 PM PT 7/7, ~20 min before this note landed). Re-read the draft before sending:
+  - **Q3 (BYO-key Claude tiering):** *Platform Key Gating* + *Credential-Aware Billing/Waterfall* are the direct answer — subscription models rank ahead of paid API keys, and platform keys only spend when a credits entitlement allows. This is the safeguard MG wanted after the April Console-key leak.
+  - **Q1 (single_node vs deliberation):** *Adaptive Deliberation + Outcome Ledger* indicates deliberation is per-decision/adaptive, not fixed per-model wiring — leaning toward the "per-turn difficulty" model, now with a learning ledger on top.
+  - **Q2 (router location, local vs server):** still not stated outright, but `/debug geenius scope` exposing live entitlements client-side is a useful data point to cite.
+- **`/debug geenius usage`** is the verification tool MG wanted — validate per-model spend from real attribution instead of inferring from traces.
+- **Cache-stable prompt + history cap 10k to 6k + heartbeat no-op cleanup** directly reduce MG's own cost/context drag and the ghost-section churn her heartbeat has shown.
+- **Telegram flood calming + person-keyed attachment-send identity** touch MG's outbound rules — confirm behavior before relying on cross-channel continuity or expanding sends.
+- **Supervision Tree leases/budgets** are relevant to bounded NLYM Pay Voucher follow-through and any delegated work.
+
+**Practical test queue:**
+
+1. **Version check.** Confirm local Gee-Code `0.72.6`, Gee/T `1.43.11` (Mac), GeeHQ `0.8.4` after update/restart. (Local still on `0.72.3` per self-orientation — update pending.)
+2. **`/debug geenius usage`.** Run after a mixed-model turn; confirm per-model cost attribution and the `scope` live-entitlement view.
+3. **Selection policy persistence.** Set `economical`, confirm it survives a session restart.
+4. **Platform key gating — priority check.** Confirm a subscription-covered model is chosen before any platform API key spends (validates the April leak safeguard). Non-sensitive prompt only.
+5. **Re-read the Neil Slack draft** against Q1/Q3 above; tighten or drop questions now answerable from this release before sending.
+6. **Heartbeat ghost-section check.** Confirm heartbeat maintenance no longer creates empty sections.
+7. **`geenius:ultra` — parked.** Test only when a genuinely reasoning-heavy task justifies the top tier; watch cost.
 
 ---
 
@@ -10,25 +65,28 @@
 
 **Source:** Neil Young, Gee Test/Core iMessage, 2026-07-07 12:06 PT. Neil did not include exact Gee-Code or Gee/T version numbers in the message.
 
-**Plain-English summary:** This appears to be a small follow-up release after the July 5 monster update. The focus is bug fixing around Geenius, plus GPT-Realtime-2.1 support for better inbound/outbound phone calling and voice control in Gee/T.
+**Plain-English summary:** This appears to be a small follow-up release after the July 5 monster update, followed by another Neil-pushed update responding to MG’s Geenius bug findings. The focus is bug fixing around Geenius, plus GPT-Realtime-2.1 support for better inbound/outbound phone calling and voice control in Gee/T.
 
 **What changed:**
 
 - **Geenius fixes landed.** Neil described bug fixes for the new provider/routing system.
+- **Neil pushed another Geenius follow-up update.** This update was in response to the Geenius bugs MG identified; exact version numbers and issue-level fix details are still unknown.
 - **Smaller bug fixes shipped.** No individual issues were named.
 - **GPT-Realtime-2.1 was added.** This should improve phone-call quality and voice control behavior in Gee/T.
 
 **Why it matters for MG:**
 
 - Geenius testing should wait until this follow-up build is confirmed locally, because the July 5 routing behavior may already be superseded by fixes.
+- The next Geenius validation should be a targeted retest of the previously identified bugs, marked fixed, partially fixed, or still open, with a quick check for regressions introduced by the fix.
 - Phone/voice-control changes are relevant to future call-based workflows, but MG should not expand outbound calling behavior without explicit task authorization.
 - Because no version numbers were posted, the first test is simply to confirm the local installed Gee-Code and Gee/T versions before adding detailed test results.
 
 **Practical test queue:**
 
 1. **Version check.** Confirm exact local Gee-Code and Gee/T versions after the next update/restart.
-2. **Geenius smoke test.** Run one harmless non-sensitive routing prompt and confirm the fix changes do not break fallback behavior.
-3. **Voice-control check — parked.** Test only when Mariciel explicitly wants to exercise Gee/T voice or phone workflows.
+2. **Targeted Geenius retest.** Re-run only the previously identified Geenius bug cases and log each as fixed, partially fixed, or still open.
+3. **Regression smoke test.** Run one harmless non-sensitive routing prompt and confirm the fix changes do not break fallback behavior.
+4. **Voice-control check — parked.** Test only when Mariciel explicitly wants to exercise Gee/T voice or phone workflows.
 
 ---
 
