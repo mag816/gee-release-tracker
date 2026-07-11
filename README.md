@@ -2,7 +2,40 @@
 
 **Purpose:** Running summary of Gee-Code + The Terminal releases, with workflow-specific guidance on what matters most for Edenic, GTEK, and mg mode.
 **Source:** Gee-Code Test iMessage chat (Neil)
-**Updated:** 2026-07-08 (Captured Neil's 7/7 11:27 PM PT consolidated release note: Gee-Code 0.72.6, Gee/T 1.43.11/1.43.12, GeeHQ 0.8.4 — Geenius governance + cost controls, artifact registry, bounded-work leases, cache-stable prompts; 63 commits since 7/5.)
+**Updated:** 2026-07-11 (Captured Neil's 7/10 5:08 PM PT consolidated release note: Gee-Code 0.73.2, Gee/T 1.48.4 Mac/1.48.5 Windows, GeeHQ 0.8.6 — new frontier model families, stronger tone control, and a major Geenius upgrade.)
+
+---
+
+## 2026-07-11 — Gee-Code 0.73.2 + Gee/T 1.48.4/1.48.5 + GeeHQ 0.8.6 release
+
+**Source:** Neil Young, Gee Test/Core iMessage, 2026-07-10 5:08 PM PT.
+
+**Plain-English summary:** This release broadens Geenius with GPT-5.6 Sol/Terra/Luna, Meta Muse Spark, and Grok 4.5; makes `tone.md` the final authority for a Gee's voice; and adds clearer usage and execution-path inspection. It also improves contextual messaging acknowledgements, preserves inline PR feedback, adds account-bound DM pairing, and introduces richer Plan Builder/Executor and Pretext artifact editing surfaces.
+
+**What changed:**
+
+- **New frontier model choices.** GPT-5.6 Sol/Terra/Luna, Meta Muse Spark, and Grok 4.5 are first-class routes with updated aliases, entitlements, pricing, and provider handling.
+- **`tone.md` now wins.** Mode tone outranks house voice, recalled style memory, and earlier conversation register.
+- **Geenius observability improved.** `/debug usage --graph` shows model routes, calls, tokens, cache traffic, plan coverage, cost, and the latest execution DAG.
+- **Messaging behavior improved.** Context-specific acknowledgements run in parallel, with stale-response protection and progress deduplication.
+- **Review and safety controls improved.** Inline PR feedback retains author/file/line context, and new DM contacts require owner approval.
+- **Operator surfaces expanded.** Plan Builder/Executor exposes launch, approvals, blockers, recovery, and settings; Pretext supports right-click artifact editing/evolution; a slide-deck skill was added.
+
+**Why it matters for MG:**
+
+- The active MG runtime is already on Gee-Code `0.73.2` with GPT-5.6 Sol, so the first validation should focus on behavior rather than installation.
+- The stronger `tone.md` contract directly supports MG's concise, grounded voice and reduces style drift across tool continuations.
+- `/debug usage --graph` can provide the missing evidence for the open subscription/API review: actual routes, cost, cache use, and plan coverage instead of estimates.
+- DM pairing and acknowledgement dedupe are safety-relevant for Telegram and other outbound channels; validate before changing any communication rules.
+- The Plan Builder/Executor and artifact-evolution UI are useful for reviewable project work, but should be tested on non-sensitive material first.
+
+**Practical test queue:**
+
+1. Run `/debug usage --graph` after one mixed-model Geenius task and save the model-route/cost evidence for the subscription review.
+2. Confirm MG's `tone.md` voice remains consistent across a tool-heavy continuation.
+3. Test one harmless artifact edit/evolve action in Pretext and confirm the original remains recoverable.
+4. Check that an unknown DM contact requires owner approval; do not approve or message anyone during the test.
+5. Use the slide-deck skill only for a real draft deliverable, not a throwaway test.
 
 ---
 
