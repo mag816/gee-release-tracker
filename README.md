@@ -2,7 +2,109 @@
 
 **Purpose:** Running summary of Gee-Code + The Terminal releases, with workflow-specific guidance on what matters most for Edenic, GTEK, and mg mode.
 **Source:** Gee-Code Test iMessage chat (Neil)
-**Updated:** 2026-07-11 (Captured Neil's 7/10 5:08 PM PT consolidated release note: Gee-Code 0.73.2, Gee/T 1.48.4 Mac/1.48.5 Windows, GeeHQ 0.8.6 — new frontier model families, stronger tone control, and a major Geenius upgrade.)
+**Updated:** 2026-07-16 (Captured Neil's 7/16 5:26 PM PT Beta note: Gee-Code 0.73.11 — more Geenius changes, Kimi-K3 via OpenRouter, Agentic Evals and Outcome Loop improvements, and new WIP Workflow Systems.)
+
+---
+
+## 2026-07-16 — Gee-Code 0.73.11 Beta
+
+**Source:** Neil Young, Gee Test/Core iMessage, 2026-07-16 5:26 PM PT.
+
+**Plain-English summary:** This Beta continues Geenius work, adds optional Kimi-K3 routing through OpenRouter, improves Agentic Evals and Outcome Loops, and introduces new work-in-progress Workflow Systems. Neil did not provide issue-level fix details.
+
+**What changed:**
+
+- **More Geenius changes.** The post does not identify which routing, visibility, or naming behaviors changed.
+- **Kimi-K3 added for OpenRouter.** This route requires an OpenRouter API key and should remain optional.
+- **Agentic Evals improved.** No specific evaluation cases or scoring changes were listed.
+- **Outcome Loops improved.** No issue-level details were included.
+- **Workflow Systems entered WIP.** Treat this as an early test surface, not a production dependency.
+- **Many merges landed.** Neil did not enumerate them in the message.
+
+**Why it matters for MG:**
+
+- The Geenius follow-up remains open: this release is a reason to retest, but it does not confirm that per-turn model visibility or the `b10-glm-5.2-max` versus `zai-org/GLM-5.2` naming mismatch is fixed.
+- Agentic Evals and Outcome Loop changes are relevant to current task-session and judged-completion work; tests should use disposable tasks before relying on them for important workflows.
+- Workflow Systems may overlap with existing TaskGraph/DynamicHarness orchestration. Check the capability graph and extension contract before building around the WIP surface.
+- Kimi-K3 should not be enabled solely for testing unless an approved OpenRouter credential and spend boundary are already in place.
+
+**Practical test queue:**
+
+1. Run one controlled Geenius turn and capture per-turn model visibility.
+2. Confirm whether the GLM route name is consistent between the model card, execution trace, and usage/debug output.
+3. Confirm routing behavior matches Neil's stated design intent: GLM routing may be intentional, while visibility and naming must be accurate.
+4. Run one disposable Agentic Eval / Outcome Loop test and inspect completion evidence.
+5. Inspect Workflow Systems only as WIP; compare it with TaskGraph/DynamicHarness before adopting it.
+
+---
+
+## 2026-07-15 — Gee-Code 0.73.10 + Gee/T 1.48.8/1.48.9 + GeeHQ 0.8.9 release
+
+**Source:** Neil Young, Gee Test/Core iMessage, 2026-07-15 8:22–8:25 AM PT.
+
+**Plain-English summary:** This release substantially expands Geenius into an entitlement-aware dynamic harness, adds safer cloud-Gee provisioning, enables Brick import/export, introduces versioned custom ticket classes, deepens Gee's self-knowledge, and hardens computer use, remote panels, activation reliability, outcome loops, realtime voice, and GeeHQ.
+
+**What changed:**
+
+- **Geenius received major routing and completion upgrades.** Live model cards, execution graphs, response contracts, judged completion, adaptive behavior, tool lifecycles, `/favor` provider bias, less eager Terra selection, duplicate-response fixes, and terminal-state hardening were added.
+- **Cloud Gees can be added with a single code.** Public-host invites now include target binding, pinned SSH identity, preserved update channels, and confined remote-file access.
+- **Bricks can be exported, shared, and imported.** `.geebrick` packages move through CLI, Gee/T, and GeeHQ, with concurrent-build protection.
+- **Custom ticket classes now extend the canonical lifecycle.** Versioned custom schemas and GTX transport allow applications to track durable work without replacing core ticket behavior.
+- **Self-knowledge became deeper and actionable.** Capability resolution can identify system ownership, implementation locations, extension points, skills, and full authoritative documentation.
+- **Computer use and panel routing were hardened.** Local app control is governed per Gee; Pretext actions route to the owning panel; remote files stay within approved roots; setup and readiness checks improved.
+- **GeeHQ moved closer to feature parity.** Connector setup, guardrails, complete remote onboarding, in-place voice, navigation, and broader UI improvements landed.
+- **Outcome loops and activations received integrity fixes.** Worker routing, replay, delivery, child pointers, effects, ticket closure, queued triggers, interruption replay, and activation-limit handling were improved.
+
+**Why it matters for MG:**
+
+- The terminal-state fix directly targets the control-text leakage MG encountered today, but the current visible leak shows the fix is incomplete or failing at a surface boundary. Preserve the transcript and file the regression with exact evidence.
+- Custom ticket classes are the correct extension point for release-learning and Pay Voucher workflow records; MG should not build a parallel tracker lifecycle.
+- Brick import/export makes the planned Release Learning Brick portable, but the screen contract and starter data should be finalized before implementation.
+- Deep self-knowledge and full-manual retrieval should reduce speculative capability work and help MG extend the correct substrate.
+- Panel-owned routing matters for concurrent NLYM, Edenic, and system work in Pretext; controlled cross-panel tests should confirm actions stay in the owning panel.
+- Geenius changes warrant a controlled routing test for model visibility, GLM naming, terminal completion, and duplicate-response behavior before wider use.
+
+**Practical test queue:**
+
+1. Reproduce the visible terminal-state/control-text leak on `0.73.10`, capture the full three-nudge transcript, and submit a regression report with `gee_code/ai/termination.py` references.
+2. Run one controlled Geenius task and confirm per-turn model visibility, GLM naming, `/favor` behavior, canonical final text, and no duplicate delivery.
+3. Export and re-import a disposable Brick package; confirm state boundaries and concurrent-build protection.
+4. Define the Release Learning Brick using a custom ticket definition or linked canonical tickets rather than a separate lifecycle store.
+5. Open two Pretext panels and verify browser/file actions remain bound to the correct owner panel.
+6. Inspect one capability through deep resolution and confirm it returns ownership, extension guidance, and full manual text.
+
+---
+
+## 2026-07-12 — Gee-Code 0.73.3 + Gee/T 1.48.6/1.48.7 + GeeHQ 0.8.7 release
+
+**Source:** Neil Young, Gee Test/Core iMessage, 2026-07-12 12:05 PM PT.
+
+**Plain-English summary:** This release adds a durable webhook-to-events bridge for asynchronous external work, with FAL image/video generation as the reference implementation. It also extends cost tracking beyond model usage, fixes several Editable Gee Responses issues, improves Geenius subscription-versus-native-API routing, and adds a configurable Projects Orbital in GeeHQ.
+
+**What changed:**
+
+- **Webhooks now feed the Events system.** External callbacks are recorded against a durable job lifecycle and can wake the responsible Gee with the original conversation and delivery context. Operators can monitor webhooks from the Operations tab under Gee settings in the File Panel (`Cmd+Shift+F`).
+- **FAL generation is the reference implementation.** Background image and video jobs register a secure callback URL; completion or failure emits `external_job.completed` or `external_job.failed`. Polling remains the fallback when callbacks are unavailable or lost.
+- **External API usage tracking expanded.** Farshid's tracking now captures API usage beyond model costs.
+- **Editable Gee Responses were hardened.** Fixes cover previously non-editable artifacts, long-response scrolling, multi-artifact editing, and visual feedback while Gee revises an artifact.
+- **Geenius routing improved.** Subscription-backed versus native API selection was adjusted to favor cost, and routing bugs were fixed.
+- **GeeHQ added a Projects Orbital.** Brick views are configurable; MCP parity work with Gee/T Pretext is in phase 1 of 3.
+
+**Why it matters for MG:**
+
+- The webhook/event bridge is directly relevant to dependable long-running work. MG can receive completion or failure events without wasteful polling while preserving the original user route.
+- FAL generation now demonstrates the full external-job lifecycle, making it the safest reference before wiring other asynchronous services.
+- External API tracking may close part of the open Gee cost-structure evidence gap by adding non-model usage to the cost picture.
+- Geenius routing changes matter immediately because the new Pay Voucher workspace is planned around Geenius under GTek mode. Subscription-first behavior should be confirmed before relying on cost optimization.
+- Editable-response fixes support reviewable draft-first work, but multi-artifact editing should be tested on disposable content before important project documents.
+
+**Practical test queue:**
+
+1. Run one harmless background FAL generation and confirm the job records, callback event, artifact verification, and delivery route all complete correctly.
+2. Inspect the Operations tab webhook monitor and confirm a completed and failed test job are distinguishable.
+3. Run a mixed Geenius task in the Pay Voucher workspace and inspect usage routing to confirm subscription-backed models are preferred where appropriate.
+4. Check whether external API usage now appears alongside model-cost evidence in the relevant usage view.
+5. Test multi-artifact editing on disposable files and confirm scrolling and revision feedback behave correctly.
 
 ---
 
