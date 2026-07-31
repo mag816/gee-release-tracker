@@ -2,7 +2,94 @@
 
 **Purpose:** Running summary of Gee-Code + The Terminal releases, with workflow-specific guidance on what matters most for Edenic, GTEK, and mg mode.
 **Source:** Gee-Code Test iMessage chat (Neil)
-**Updated:** 2026-07-16 (Captured Neil's 7/16 5:26 PM PT Beta note: Gee-Code 0.73.11 — more Geenius changes, Kimi-K3 via OpenRouter, Agentic Evals and Outcome Loop improvements, and new WIP Workflow Systems.)
+**Updated:** 2026-07-30 (Captured Neil's 7/30 Gee-Code 0.75.1 patch note and Buzz connector update guidance.)
+
+---
+
+## 2026-07-30 — Gee-Code 0.75.1 patch
+
+**Source:** Neil Young, Gee Test (Core) iMessage, 2026-07-30 9:56–9:57 AM PT.
+
+**Plain-English summary:** Gee-Code 0.75.1 is a bug-fix patch following the 0.75.0 Workflows release. Neil did not list the individual bugs. He also said a new Buzz connector was pushed; anyone who already configured Buzz should reconfigure it through Connectors, which is also the durable update path.
+
+**What changed:**
+
+- **Gee-Code 0.75.1 released.** Neil described it only as a patch addressing bugs; no issue-level details were provided.
+- **Buzz connector updated.** Existing Buzz users should reconfigure the connector through the Connectors surface to pick up the new version.
+
+**Why it matters for MG:**
+
+- Use 0.75.1 rather than 0.75.0 for Workflow Lab testing so early results are not based on already-patched behavior.
+- Do not assume a specific Workflow, Geenius, or surface bug is fixed until it is tested or documented.
+- No Buzz action is needed unless Mariciel has configured Buzz. Reconfiguration would touch a connected external surface and should wait for explicit approval.
+
+**Practical test queue:**
+
+1. Confirm the installed Gee-Code version before starting Workflow Lab tests.
+2. Run the first Workflow Lab experiment on 0.75.1 and record any remaining Alpha issues.
+3. If Buzz is configured later, reconfigure it through Connectors rather than editing connector state manually.
+
+---
+
+## 2026-07-29 — GeeOS release: Gee-Code 0.75.0 + Gee/T 1.49.0 + Gee-HQ 0.9.0
+
+**Source:** Neil Young, Gee Test (Core) iMessage, 2026-07-29 5:10 PM PT. Follow-up source attachments: `GeeOS July 29th.pdf` and `geeos-work-catalog-2026-07-29.md`.
+
+**Plain-English summary:** This is a large GeeOS release centered on **Workflows**. Neil says Workflows now function end-to-end in an Alpha expression: natural-language prompts create runbooks that compile into operational and governance contracts. The release also expands Geenius into DAG-shaped worker graphs, adds `/goal`, brings Brick import/export and workspace save/restore live, improves phone and meeting surfaces, adds Buzz, and extends model/provider support.
+
+**What changed:**
+
+- **Workflows are now end-to-end Alpha.** Natural-language workflow prompts can create runbooks that compile into operational and governance contracts. The attached Work Catalog describes this as a governed Org Work system and semantic workflow compiler, not just a prompt template or automation macro.
+- **Org Work system added.** The Work Catalog describes a first-principles workflow Brick organized around System, Map, Org, Workspaces, Workflows, Training, and Operations, with durable workflow-package authoring, accountable owners, capture-source binding, living-map reconciliation, evidence-gated promotion, authoritative controls, and historical runs grouped under the workflow that produced them.
+- **Semantic workflow compiler and governed supervisor added.** Workflow authoring now derives compact contracts from semantic plans, supports clarification turns, performs bounded strongest-model authority review, declares guard domains, compiles typed workflow scripts, and carries resources/provenance through supervision, execution, reconciliation, and completion.
+- **Geenius can generate DAG-shaped queries.** The Work Catalog describes a durable `worker_graph` route where a strong architect authors a typed DAG and investigation, critique, action, and synthesis nodes receive scoped tools, models, task envelopes, dependencies, child tickets, durable receipts, and a terminal reducer.
+- **`/goal` added.** Neil describes `/goal` as a synchronous loop for a coding or work goal that iterates until complete and can ask for or accept reference material for specific targets or benchmarking. The PDF distinguishes this from `/outcome`, which is asynchronous and runs bounded steps over time.
+- **24x7 Remote Gees added by invite.** Neil says remote Gees run in the cloud while carrying the same credentials via the Credentials Vault.
+- **Brick import/export is live.** The Work Catalog adds upgrade-safe `.geebrick` import behavior with version gates, staged replacement, compatibility fallback, and preservation of local data and secrets.
+- **Gee/T workspaces can be loaded, saved, and restored.** Neil calls out different workspace configurations for different projects. The Work Catalog adds persistent terminal workspace identity, stable Pretext panel identity, and action-aware context.
+- **Phone/voice improved.** Autonomous outbound phone calls are now mission-based, can access approved credentials from the vault, and can redirect mid-call. Inbound calls improved via Semantic VAD. The Work Catalog also describes stronger call evidence, playback completion, goodbye draining, replay/redial prevention, and idempotent finalization.
+- **Meeting advisor added to GeeHQ.** GeeHQ now has a prototype meeting transcriber/advisor under the Live icon; the Work Catalog describes a Meeting Brick with live audio, transcription, diarization, named-speaker correction, insight generation, and cross-surface updates.
+- **Buzz connector support added.** Neil points users to Block's Buzz and a Gee/T connector install. The Work Catalog describes a Buzz activation lane, signed connector bodies, packaged `gee-acp`, media handling, and volatile-context preservation.
+- **Steering added for Pretext operations.** Neil says typing `/` during Pretext operations can steer the system while work is running, without stopping progress. He notes this is not available in Geenius.
+- **Model/provider support expanded.** Neil lists Opus 5, Kimi-K3 via native API key and Baseten, GLM-5.2-Fast via Baseten, and Thinking Machines Inkling support. The Work Catalog adds details on Kimi routing/pricing metadata, GPT-5.6 entitlement coverage, Fable effort aliases, GLM fast variants, Opus 5 defaults, and provider-native special-capability routing.
+- **Other platform hardening landed.** The Work Catalog also calls out task-session hardening, foreground graph delivery, OutcomeLoop authority tightening, Geenius verification/recovery, routing/usage observability, SQLite-backed communications, task activity timeline, prompt tone portability, setup diagnostics, companion tunnel self-healing, QuickBooks read-only connector completion, Token Flow Brick, artifact-aware indexed retrieval, `/fix-loop`, `textify`, slide-deck packaging, and linked outbound delivery routes.
+
+**Why it matters for MG:**
+
+- This is the first release where Workflows should be treated as a real Alpha product surface rather than a vague WIP idea. It may become the right layer for repeatable MG/OiaB/NLYM operating procedures, but it needs sandbox testing before it touches real obligations.
+- The important workflow shift is governance: the system is supposed to turn natural-language intent into a reviewable contract with owners, guard domains, evidence gates, operational controls, and completion rules.
+- The risk is over-trusting the Alpha. For MG, the first tests should inspect the generated runbook/contract and ask whether it is legible, bounded, reversible, and auditable before running anything with side effects.
+- `/goal` is attractive for coding and bounded work, but it should be tested separately from Workflows: `/goal` is synchronous completion pressure; Workflows are reusable governed operating procedures.
+- DAG-shaped Geenius and worker graphs matter because they may make multi-step work faster and more recoverable, but the test should verify final synthesis quality and visible progress rather than just that a graph launches.
+- Workspace save/restore is immediately relevant to project switching across MG Ops, GTEK/OiaB, NLYM, and Gee release testing.
+- Brick import/export should be tested only with disposable Bricks first. Do not use the release tracker Brick or NLYM/production Bricks as the first import/export test.
+- Remote Gees, phone calls, QuickBooks, outbound routes, Buzz, and credential-backed operations all need explicit approval boundaries before testing because they can touch external systems, credentials, or real people.
+
+**Workflow-focused testing queue:**
+
+1. **Workflow creation from plain English** (`0.75.0`, High, Ready to test). Create a sandbox workflow from a harmless recurring task, such as “weekly personal reading digest from local notes only.” Confirm the generated runbook is understandable before approving anything.
+2. **Contract review and governance gates** (`0.75.0`, High, Ready to test). Inspect whether the workflow declares owner, scope, inputs, outputs, guard domains, approval points, completion evidence, and rollback/stop conditions.
+3. **Clarification behavior** (`0.75.0`, High, Ready to test). Give an intentionally underspecified workflow and confirm it asks for missing constraints instead of inventing them.
+4. **Evidence-gated promotion** (`0.75.0`, High, Ready to test). Confirm the workflow can stay in draft/sandbox and does not become an operational routine until reviewed and promoted.
+5. **Sealed execution with no side effects** (`0.75.0`, High, Ready to test). Run a read-only sandbox workflow and confirm it uses only approved inputs, produces receipts, records completion evidence, and does not send, edit, schedule, or mutate anything.
+6. **Workflow run history** (`0.75.0`, Medium, Ready to test). Confirm completed runs are grouped under the workflow that produced them and are easy to inspect later.
+7. **Workflow versus TaskGraph/OutcomeLoop fit** (`0.75.0`, Medium, Learn). Compare when to use Workflow, `/goal`, `/outcome`, task delegation, or a Brick. Document the practical rule of thumb.
+8. **Workflow + workspace context** (`0.75.0`, Medium, Ready to test). Save a disposable Gee/T workspace, run a sandbox workflow in it, restore the workspace, and confirm panel/workspace identity remains stable.
+9. **Workflow repair path** (`0.75.0`, Medium, Ready to test). Force a harmless failure, such as a missing local input file, and confirm the workflow pauses with a clear blocker instead of fabricating completion.
+10. **Workflow output quality for MG work** (`0.75.0`, Medium, Ready to test). Use a non-sensitive MG Ops routine and assess whether the output is actually useful enough to reduce admin burden.
+
+**Broader practical test queue:**
+
+1. Test `/goal` on a small local coding/doc task with explicit success criteria and no external side effects.
+2. Test Geenius DAG/worker graph on a read-only research or repo-inspection task; confirm progress visibility, terminal reducer quality, and no duplicate final delivery.
+3. Test Gee/T workspace save/restore across two project spaces: MG Ops and GTEK/OiaB.
+4. Test Brick export/import with a disposable Brick only; verify local state and secrets are not leaked into the package.
+5. Open the GeeHQ Live meeting advisor in a non-sensitive test meeting and confirm transcription, diarization, and advisor behavior.
+6. Inspect Buzz connector setup only; do not connect outbound/community channels unless Mariciel approves.
+7. Inspect model availability for Opus 5, Kimi-K3, GLM-5.2-Fast, and Inkling without incurring new provider spend.
+8. Inspect Token Flow / usage observability if available, especially around Geenius graph or `/goal` runs.
+9. Treat QuickBooks read-only connector as off-limits for live Dodi/GTEK financial data until Mariciel explicitly approves the account and scope.
+10. Do not test autonomous outbound phone calls on real contacts. Use only a sanctioned test target after approval.
 
 ---
 
