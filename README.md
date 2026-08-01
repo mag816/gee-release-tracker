@@ -2,7 +2,58 @@
 
 **Purpose:** Running summary of Gee-Code + The Terminal releases, with workflow-specific guidance on what matters most for Edenic, GTEK, and mg mode.
 **Source:** Gee-Code Test iMessage chat (Neil)
-**Updated:** 2026-07-30 (Captured Neil's 7/30 Gee-Code 0.75.1 patch note and Buzz connector update guidance.)
+**Updated:** 2026-07-31 (Captured Gee-Code 0.75.2, Gee/T 1.49.3, Gee-HQ 0.9.3, and Gee-ACP 0.2.10 Beta release.)
+
+---
+
+## 2026-07-31 — Gee-Code 0.75.2 + Gee/T 1.49.3 + Gee-HQ 0.9.3 + Gee-ACP 0.2.10 Beta
+
+**Source:** Neil Young, Gee Test (Core) iMessage, 2026-07-31 3:36 PM PT.
+
+### Summary
+
+This Beta adds live Geenius steering, explicit routing preferences, stronger `/goal` graphs, remote Gee onboarding fixes, reasoning-display controls, GNA avatars in ACP clients, broader model support, more discoverable Bricks, and workflow concurrency fixes. Neil also highlighted QuickBooks integration among the merged PRs.
+
+### 🎯 Most Impactful
+
+**Geenius is becoming easier to direct and inspect while it works.** Live `/` steering plus `/favor` routing directly supports MG's open routing-control test. The QuickBooks mention is also relevant, but it does not prove write support: the installed connector remains read-only until its live action surface exposes separately gated create or update routes.
+
+### What's New
+
+| Area | What changed | Why Mariciel cares |
+|---|---|---|
+| Geenius | Type `/` while Geenius is busy in Pretext to steer active work | Correct or redirect a run without stopping it |
+| Remote Gees | Onboarding and provisioning fixes | More reliable cloud-Gee setup |
+| Goals | `/goal` can use graphs and a specific Geenius activation | Better structure and visibility for bounded goal work |
+| Routing | Choose a Geenius router or preferred provider with `/favor` | Directly test model/provider routing behavior |
+| Reasoning | Show or hide reasoning-model thinking | Easier inspection during controlled tests |
+| GNA / ACP | GNA avatars populate Buzz and other ACP-compatible clients | Consistent Gee identity across clients |
+| Models | DeepSeek reasoning levels, OpenAI fast mode, and Inkling Small | More cost/speed/reasoning choices |
+| Bricks | Listed in Pretext Quick Start and able to advertise capabilities | Easier discovery and less duplicate building |
+| QuickBooks | Integration highlighted among merged PRs | Reason to retest capabilities, not evidence of write access |
+| Workflows | Task-concurrency bug fixes | More reliable parallel workflow execution |
+
+### New Commands
+
+- Type `/` while Geenius is busy in Pretext to steer the active run.
+- `/favor routing [model-alias]` selects a preferred Geenius router.
+- `/favor [provider]` selects a preferred provider within intelligence bands.
+- `/thinking on|off` shows or hides reasoning-model thinking.
+
+### ⚠️ Caution
+
+- This release is on the **Beta channel**. Keep first tests disposable and read-only.
+- Do not infer QuickBooks write support from the release note. Require explicit live create/update actions, approval gates, and idempotency controls before any financial write.
+- Routing preferences and visible thinking should be tested for accuracy before consequential NLYM, Edenic, or GTEK work.
+
+### ✅ To Explore
+
+- [ ] Run one controlled Geenius task and test live `/` steering.
+- [ ] Test `/favor` and confirm the selected route appears accurately in usage/debug output.
+- [ ] Toggle `/thinking on|off` on a reasoning model.
+- [ ] Inspect the live QuickBooks action surface for any new separately gated write routes.
+- [ ] Run a disposable `/goal` graph and harmless concurrent workflow test.
+- [ ] Confirm Bricks appear in Pretext Quick Start with accurate capability descriptions.
 
 ---
 
@@ -629,6 +680,7 @@
 
 | Version | Date | Impact | Theme |
 |---|---|---|---|
+| [Gee-Code 0.75.2 + Gee/T 1.49.3 + Gee-HQ 0.9.3 + Gee-ACP 0.2.10 Beta](#2026-07-31--gee-code-0752--geet-1493--gee-hq-093--gee-acp-0210-beta) | Jul 31, 2026 (~3:36 PM PT) | 🔴 High | Live Geenius steering, `/favor` routing, `/goal` graphs, `/thinking`, remote Gee fixes, ACP avatars, model additions, Brick discovery, QuickBooks integration, and workflow concurrency fixes. |
 | [Gee-Code 0.71.1 + Gee/T 1.42.57 Beta](#2026-06-24--gee-code-0711--geet-14257-beta-release) | Jun 24, 2026 (~1:57 PM PT + follow-up 2:09 PM PT) | 🔴 High | Context runtime contract, safer long sessions/result-governor defaults, faster Outcome Loops, Event Rules productization, Brick runtime hardening, MCP/OAuth reliability, Teams routed connector, Reports UI, Slack restored, upgraded MCPs, and Base10/BaseTen provider coverage. |
 | [Gee Beta — Outcome Loops, Org/Containers, Scalable Tasks, MS365, Windows, Single Installer](#v070x-big-beta) | Jun 18, 2026 (~10:14 PM PT) | 🔴 High | Major substrate/productization release: **outcome loops**, **org/container systems**, **scalable ticket-backed task queue**, **MS365 connector**, **Windows support**, **single DMG/EXE install path**, live TaskGraph progress, Operations panel, Telegram/group routing, realtime voice upgrades, and release-pipeline hardening. |
 | [Gee/T 1.42.5 Beta](#gt1425) | Jun 12, 2026 (~5:48 PM PT) | 🟡 Medium | Beta bug-fix build from Neil: crash + attachment fixes, including side-tab addition crash and iOS photo-send repair. |
