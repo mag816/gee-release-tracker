@@ -2,7 +2,57 @@
 
 **Purpose:** Running summary of Gee-Code + The Terminal releases, with workflow-specific guidance on what matters most for Edenic, GTEK, and mg mode.
 **Source:** Gee-Code Test iMessage chat (Neil)
-**Updated:** 2026-07-31 (Captured Gee-Code 0.75.2, Gee/T 1.49.3, Gee-HQ 0.9.3, and Gee-ACP 0.2.10 Beta release.)
+**Updated:** 2026-08-05 (Captured Gee-Code 0.75.3, Gee/T 1.49.6, and Gee-HQ 0.9.4 release.)
+
+---
+
+## 2026-08-04 — Gee-Code 0.75.3 + Gee/T 1.49.6 + Gee-HQ 0.9.4
+
+**Source:** Neil Young, Gee Test (Core) iMessage, 2026-08-04 9:48 PM PT.
+
+### Summary
+
+This release substantially upgrades Geenius and GRLM routing, adds recursive goal DAGs and a redesigned Workflow UX with model pinning, expands the model/provider pool, adds a QuickBooks Online backend, improves source provenance and evidence recovery, and ships Gee-HQ, Computer Use, email-routing, restart, and Pretext fixes.
+
+### 🎯 Most Impactful
+
+**Geenius is moving from a general router toward a goal-aware orchestration layer.** Goal-type DAGs, Pareto-frontier task selection, optional automatic GRLM activation, and model-pinned Workflows are directly relevant to Mariciel's workflow and routing tests. The QuickBooks backend is important for the QBO Sandbox Co pilot, but the currently exposed Gee action surface remains read-only; this release does not yet expose customer, invoice, journal-entry, or transaction write routes.
+
+### What's New
+
+| Area | What changed | Why Mariciel cares |
+|---|---|---|
+| Geenius | Goal-type DAG architecture, Pareto-frontier task selection, GRLM subclasses, and optional automatic GRLM activation | More deliberate routing and stronger multi-step execution |
+| GRLM | Geenius routing, provenance-aware source records, alias resolution, missing-source blockers, plan validation, and bounded Outcome Loop continuation | Better evidence integrity and safer recovery when work is incomplete |
+| Goals | Recursive DAGs for `/goal` when using Geenius | More structured, inspectable goal execution |
+| Workflows | Redesigned UX plus model pinning | Easier workflow control and repeatable model selection |
+| Models | Qwen-3.8-max, DeepSeek via Baseten and native routes, Celeris native support, and provider fixes | Broader speed, cost, and reasoning choices |
+| QuickBooks | QuickBooks Online backend support added | Enables live QBO reads; write actions still need an exposed, gated route |
+| Computer Use | Click-coordinate fixes | More reliable UI automation |
+| Gee-HQ | Remote install/messaging fixes, live Brick speaker detection, and speaker editing | Better remote support and meeting-intelligence workflows |
+| Reliability | Email-routing fixes, identity/memory ownership hardening, cleaner app/session shutdown and restart | Reduces routing mistakes and stale sessions |
+| Pretext | Ordered-list marker measurement fixed for nested and three-digit lists | More accurate document rendering |
+
+### New Commands
+
+- `/favor geenius:[GRLM-LLMtype]` pins a Geenius subclass for GRLM routing.
+- `/debug grlm auto|on|off` controls automatic GRLM activation; the default is off.
+
+### ⚠️ Caution
+
+- Keep automatic GRLM activation off until one disposable routing test confirms the selected model, source handling, and continuation behavior.
+- Qwen, DeepSeek, and Celeris routes should be tested for availability, output quality, speed, and cost before consequential work.
+- “QuickBooks Online Backend Support” does not mean write access. The live Gee connector currently exposes read/report actions only. Require explicit create/update routes, approval gates, and idempotency controls before any financial write.
+- Model-pinned Workflows can improve repeatability, but the pin should be visible in execution traces before relying on it.
+
+### ✅ To Explore
+
+- [ ] Run one disposable Geenius goal and inspect its recursive DAG and route selection.
+- [ ] Test `/favor geenius:[GRLM-LLMtype]` and confirm the pinned route appears in usage/debug output.
+- [ ] Compare `/debug grlm auto`, `on`, and `off` on a bounded evidence task.
+- [ ] Build a small model-pinned Workflow and confirm the pin persists across runs.
+- [ ] Retest the QuickBooks capability surface for separately gated write actions; keep all accounting writes parked until they exist.
+- [ ] Test one nested or three-digit ordered list in Pretext.
 
 ---
 
@@ -680,6 +730,7 @@ This Beta adds live Geenius steering, explicit routing preferences, stronger `/g
 
 | Version | Date | Impact | Theme |
 |---|---|---|---|
+| [Gee-Code 0.75.3 + Gee/T 1.49.6 + Gee-HQ 0.9.4](#2026-08-04--gee-code-0753--geet-1496--gee-hq-094) | Aug 4, 2026 (~9:48 PM PT) | 🔴 High | Goal-aware Geenius DAGs, stronger GRLM and provenance controls, recursive `/goal`, model-pinned Workflows, new model/provider routes, QuickBooks Online backend, Gee-HQ upgrades, and reliability fixes. |
 | [Gee-Code 0.75.2 + Gee/T 1.49.3 + Gee-HQ 0.9.3 + Gee-ACP 0.2.10 Beta](#2026-07-31--gee-code-0752--geet-1493--gee-hq-093--gee-acp-0210-beta) | Jul 31, 2026 (~3:36 PM PT) | 🔴 High | Live Geenius steering, `/favor` routing, `/goal` graphs, `/thinking`, remote Gee fixes, ACP avatars, model additions, Brick discovery, QuickBooks integration, and workflow concurrency fixes. |
 | [Gee-Code 0.71.1 + Gee/T 1.42.57 Beta](#2026-06-24--gee-code-0711--geet-14257-beta-release) | Jun 24, 2026 (~1:57 PM PT + follow-up 2:09 PM PT) | 🔴 High | Context runtime contract, safer long sessions/result-governor defaults, faster Outcome Loops, Event Rules productization, Brick runtime hardening, MCP/OAuth reliability, Teams routed connector, Reports UI, Slack restored, upgraded MCPs, and Base10/BaseTen provider coverage. |
 | [Gee Beta — Outcome Loops, Org/Containers, Scalable Tasks, MS365, Windows, Single Installer](#v070x-big-beta) | Jun 18, 2026 (~10:14 PM PT) | 🔴 High | Major substrate/productization release: **outcome loops**, **org/container systems**, **scalable ticket-backed task queue**, **MS365 connector**, **Windows support**, **single DMG/EXE install path**, live TaskGraph progress, Operations panel, Telegram/group routing, realtime voice upgrades, and release-pipeline hardening. |
