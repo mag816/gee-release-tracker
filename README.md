@@ -2,7 +2,60 @@
 
 **Purpose:** Running summary of Gee-Code + The Terminal releases, with workflow-specific guidance on what matters most for Edenic, GTEK, and mg mode.
 **Source:** Gee-Code Test iMessage chat (Neil)
-**Updated:** 2026-08-05 (Captured Gee-Code 0.75.3, Gee/T 1.49.6, and Gee-HQ 0.9.4 release.)
+**Updated:** 2026-08-06 (Captured Gee-Code 0.75.5, Gee-ACP 0.2.11, Gee/T 1.49.8, and Gee-HQ 0.9.7 release.)
+
+---
+
+## 2026-08-05 — Gee-Code 0.75.5 + Gee-ACP 0.2.11 + Gee/T 1.49.8 + Gee-HQ 0.9.7
+
+**Source:** Neil Young, Gee Test (Core) iMessage, 2026-08-05 9:56 PM PT.
+
+### Summary
+
+This release strengthens GRLM and governed `/goal` execution, adds bounded recursive sub-agents, makes System Map exploration deeper and type-aware, introduces explicit login-credential authorization, improves Geenius graph lifecycle and model-floor controls, and hardens long-running tasks, Computer Use, connectors, managed System Brick updates, and cross-surface delivery.
+
+### 🎯 Most Impactful
+
+**The strongest change for Mariciel is the combination of recursive GRLM with governed goals.** Complex work can now be decomposed into isolated sub-agents while retaining authority checks, evidence, bounded execution, repair, and delivery controls. This is directly relevant to consequential finance and operations workflows, but should first be tested on disposable, read-only work. The new credential modal is also important because protected login access now requires explicit, turn-scoped authorization and fails closed when canceled.
+
+### What's New
+
+| Area | What changed | Why Mariciel cares |
+|---|---|---|
+| GRLM | Prime-harness-informed execution, persistent private Python state, guarded state access, transaction tracking and rollback, normalized results, bounded recursive sub-agents, and stronger recovery | More capable decomposition with better isolation, receipts, rollback, and budget controls |
+| `/goal` | GRLM support, topology-aware pursuit, in-place DAG repair, durable evidence, authority checks before execution, and clearer foreground versus durable delivery | Safer recovery and less unnecessary restarting during governed work |
+| Geenius | Goal-type-aware DAGs, improved graph lifecycle, adjustable base-model capability floor, clearer timers, and better inactivity detection | More control over capability, cost, and visible worker status |
+| Workflows & System Map | Recursive connector-backed search, preserved pagination, typed nodes and relationships, progressive expansion, better visualization, and more durable roots and bindings | Better discovery across repositories, folders, Gmail, Slack, and other connected resources |
+| Credentials | Structured login credential type, explicit credential-selection modal, turn-scoped grants, fail-closed cancellation, and improved forms | Better protection for username/password workflows and clearer approval boundaries |
+| Runtime | Meaningful-progress inactivity budgets and renewable execution leases | Long-running healthy work is less likely to time out while stalled work remains bounded |
+| System Bricks | Managed System Bricks now auto-update with data preservation, parity checks, restart rollback, and downgrade protection | Less manual upkeep with safer upgrade behavior |
+| Computer Use | Better browser launch, screenshot handling and provenance, plus empty-page and error-interstitial detection | More reliable browser and native pointer automation |
+| Models | Meta Muse Spark 1.2 with `meta-speak`, `spark-zero`, and `spark-max` aliases | Simpler access to concise, standard, and higher-effort Meta modes |
+| Buzz / Gee-ACP | Correct surface attribution and delivery-lane preservation | Buzz replies are less likely to be routed or characterized as another surface |
+| Reliability | Structured tool-call pairing, clearer `/debug` tables, Gmail pagination fixes, connector synchronization, heartbeat companion sync, and broad graph/provider fixes | Fewer cross-surface and long-running execution failures |
+
+### New Commands
+
+- No new slash command was announced in Neil's release note.
+- New model aliases: `meta-speak`, `spark-zero`, and `spark-max`.
+
+### ⚠️ Caution
+
+- Gee-ACP must be reinstalled or updated to `0.2.11` to receive the Buzz attribution fix.
+- Test recursive GRLM and `/goal` on bounded, read-only work before using them for accounting, tax, legal, credentialed, or externally delivered workflows.
+- A credential modal grants access only for the active turn. Cancellation fails closed; do not expect protected work to continue without a fresh authorization.
+- Automatic System Brick updates preserve managed data and include rollback protection, but important Bricks should still be checked after an update for version, restart status, and expected behavior.
+- Raising the Geenius model floor can increase cost. Confirm the selected models and usage before making it the default.
+
+### ✅ To Explore
+
+- [ ] Run one disposable read-only `/goal` with GRLM and inspect sub-agent isolation, receipts, evidence retention, and final synthesis.
+- [ ] Force a harmless recoverable node failure and confirm in-place DAG repair preserves valid completed work.
+- [ ] Test progressive System Map expansion on one repository or folder and confirm pagination and typed relationships remain intact.
+- [ ] Test a non-sensitive login credential and confirm explicit selection, turn-scoped access, fail-closed cancellation, and safe resume behavior.
+- [ ] Compare the default Geenius model floor with one higher and one lower setting, then review model selection, quality, timing, and cost.
+- [ ] Confirm managed System Bricks update cleanly and retain runtime data after restart.
+- [ ] If using Buzz, update Gee-ACP to `0.2.11` and verify inbound attribution and reply routing.
 
 ---
 
@@ -730,6 +783,7 @@ This Beta adds live Geenius steering, explicit routing preferences, stronger `/g
 
 | Version | Date | Impact | Theme |
 |---|---|---|---|
+| [Gee-Code 0.75.5 + Gee-ACP 0.2.11 + Gee/T 1.49.8 + Gee-HQ 0.9.7](#2026-08-05--gee-code-0755--gee-acp-0211--geet-1498--gee-hq-097) | Aug 5, 2026 (~9:56 PM PT) | 🔴 High | Recursive GRLM sub-agents, governed `/goal` repair and evidence, recursive typed System Maps, turn-scoped login credentials, Geenius model-floor controls, safer System Brick updates, and runtime reliability fixes. |
 | [Gee-Code 0.75.3 + Gee/T 1.49.6 + Gee-HQ 0.9.4](#2026-08-04--gee-code-0753--geet-1496--gee-hq-094) | Aug 4, 2026 (~9:48 PM PT) | 🔴 High | Goal-aware Geenius DAGs, stronger GRLM and provenance controls, recursive `/goal`, model-pinned Workflows, new model/provider routes, QuickBooks Online backend, Gee-HQ upgrades, and reliability fixes. |
 | [Gee-Code 0.75.2 + Gee/T 1.49.3 + Gee-HQ 0.9.3 + Gee-ACP 0.2.10 Beta](#2026-07-31--gee-code-0752--geet-1493--gee-hq-093--gee-acp-0210-beta) | Jul 31, 2026 (~3:36 PM PT) | 🔴 High | Live Geenius steering, `/favor` routing, `/goal` graphs, `/thinking`, remote Gee fixes, ACP avatars, model additions, Brick discovery, QuickBooks integration, and workflow concurrency fixes. |
 | [Gee-Code 0.71.1 + Gee/T 1.42.57 Beta](#2026-06-24--gee-code-0711--geet-14257-beta-release) | Jun 24, 2026 (~1:57 PM PT + follow-up 2:09 PM PT) | 🔴 High | Context runtime contract, safer long sessions/result-governor defaults, faster Outcome Loops, Event Rules productization, Brick runtime hardening, MCP/OAuth reliability, Teams routed connector, Reports UI, Slack restored, upgraded MCPs, and Base10/BaseTen provider coverage. |
